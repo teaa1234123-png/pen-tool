@@ -585,7 +585,7 @@ return {x:(clientX-r.left)*sx,y:(clientY-r.top)*sy};
 function hitTest(px,py){
 var map=bboxMapRef.current;
 var els=elRef.current;
-for(var i=els.length-1;i>=0;i–){
+for(var i=els.length-1;i>=0;i-=1){
 var el=els[i];if(!el.text) continue;
 var bb=map[el.id];if(!bb) continue;
 if(px>=bb.x-10&&px<=bb.x+bb.w+10&&py>=bb.y-10&&py<=bb.y+bb.h+10) return el.id;
