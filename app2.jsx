@@ -48,13 +48,13 @@ var PEN_TYPE_EN = {
 “多機能ペン”:“MULTI PEN”
 };
 var COUNTRY_EN = {
-“ドイツ製”:“MADE IN GERMANY”,
-“日本製”:“MADE IN JAPAN”,
-“フランス製”:“MADE IN FRANCE”,
-“スイス製”:“MADE IN SWITZERLAND”,
-“イタリア製”:“MADE IN ITALY”,
-“イギリス製”:“MADE IN UK”,
-“アメリカ製”:“MADE IN USA”
+“ドイツ製”:“GERMANY”,
+“日本製”:“JAPAN”,
+“フランス製”:“FRANCE”,
+“スイス製”:“SWITZERLAND”,
+“イタリア製”:“ITALY”,
+“イギリス製”:“UK”,
+“アメリカ製”:“USA”
 };
 var P2_EN = {
 “高級ボールペン”:“BALLPOINT PEN”,
@@ -85,6 +85,12 @@ var JP_EN = [
 [“高級レジン”,“Precious Resin”],[“高級筆記具”,“Luxury Pen”],[“高級感”,“Premium Feel”],
 [“純銀ボールペン”,“Sterling Silver Ballpoint”],[“純銀万年筆”,“Sterling Silver Fountain Pen”],
 [“純銀ローラーボール”,“Sterling Silver Rollerball”],[“純銀シャープペン”,“Sterling Silver Pencil”],
+
+/* ── カタカナ複合語（優先度高・先に処理） ── */
+[“ダイヤモンドテクスチャー”,“Diamond Texture”],[“ダイヤモンドテクスチャ”,“Diamond Texture”],
+[“プレミアム”,“Premium”],[“マスターピース”,“Masterpiece”],[“スターウォーカー”,“StarWalker”],
+[“テクスチャー”,“Texture”],[“テクスチャ”,“Texture”],[“ダイヤモンド”,“Diamond”],
+[“ブラッシュド”,“Brushed”],[“シグネチャー”,“Signature”],[“シグネチャ”,“Signature”],
 
 /* ── 状態・希少性 ── */
 [“廃盤希少”,“RARE!”],[“希少廃盤”,“RARE!”],[“絶版希少”,“RARE!”],[“希少絶版”,“RARE!”],
@@ -164,6 +170,36 @@ var JP_EN = [
 [“限定モデル”,“Limited Edition”],[“限定品”,“Limited Edition”],[“限定”,“Limited”],
 [“復刻”,“Reissue”],[“現行”,“Current Model”],[“旧型”,“Old Type”],[“旧ロゴ”,“Old Logo”],
 
+/* ── カタカナ単語（分解して英語化するための部品） ── */
+[“ニュー”,“New”],[“オールド”,“Old”],[“グランド”,“Grand”],[“グラン”,“Grand”],
+[“ロイヤル”,“Royal”],[“インペリアル”,“Imperial”],[“クラウン”,“Crown”],[“スーパー”,“Super”],
+[“マスター”,“Master”],[“デラックス”,“Deluxe”],[“スペシャル”,“Special”],[“オリジナル”,“Original”],
+[“スタンダード”,“Standard”],[“モダン”,“Modern”],[“レトロ”,“Retro”],
+[“エレガンス”,“Elegance”],[“エレガント”,“Elegant”],[“プレステージ”,“Prestige”],
+[“ヘリテージ”,“Heritage”],[“トラディション”,“Tradition”],[“エディション”,“Edition”],
+[“コレクション”,“Collection”],[“アニバーサリー”,“Anniversary”],[“メモリアル”,“Memorial”],
+[“ジュビリー”,“Jubilee”],[“エターナル”,“Eternal”],[“フォーエバー”,“Forever”],
+[“ムーン”,“Moon”],[“ビーム”,“Beam”],[“スター”,“Star”],[“スカイ”,“Sky”],
+[“オーシャン”,“Ocean”],[“フォレスト”,“Forest”],[“シャドウ”,“Shadow”],
+[“ライト”,“Light”],[“ダーク”,“Dark”],[“ミッドナイト”,“Midnight”],
+[“ウェーブ”,“Wave”],[“スパイラル”,“Spiral”],[“ツイスト”,“Twist”],
+[“ダブル”,“Double”],[“トリプル”,“Triple”],[“シングル”,“Single”],
+[“ラージ”,“Large”],[“スモール”,“Small”],[“ジャンボ”,“Jumbo”],[“コンパクト”,“Compact”],
+[“ポケット”,“Pocket”],[“トラベル”,“Travel”],[“デスク”,“Desk”],[“オフィス”,“Office”],
+[“ビジネス”,“Business”],[“フォーマル”,“Formal”],[“カジュアル”,“Casual”],
+[“エポック”,“Epoch”],[“プレリュード”,“Prelude”],[“リフレックス”,“Reflex”],
+[“インフィニティ”,“Infinity”],[“セレブリティ”,“Celebrity”],[“ジェネシス”,“Genesis”],
+[“オリンピオ”,“Olympio”],[“ソリテール”,“Solitaire”],[“ボエム”,“Boheme”],
+[“テクノ”,“Techno”],[“ダイアリー”,“Diary”],[“プラチナ”,“Platinum”],
+[“ファセット”,“Faceted”],[“ブラッシュ”,“Brushed”],[“サテン”,“Satin”],[“ミラー”,“Mirror”],
+[“ポリッシュ”,“Polished”],[“フラット”,“Flat”],[“ラウンド”,“Round”],[“スクエア”,“Square”],
+[“オクタゴン”,“Octagon”],[“ヘキサゴン”,“Hexagon”],[“ミニマル”,“Minimal”],
+[“ソフト”,“Soft”],[“ハード”,“Hard”],[“チェック”,“Check”],[“ドット”,“Dot”],
+[“フラワー”,“Flower”],[“リーフ”,“Leaf”],[“スネーク”,“Snake”],[“ドラゴン”,“Dragon”],
+[“クリップ”,“Clip”],[“バレル”,“Barrel”],[“ボディ”,“Body”],[“リング”,“Ring”],[“トリム”,“Trim”],
+[“キャップ”,“Cap”],[“エディター”,“Editor”],[“ノーブル”,“Noble”],[“プリンス”,“Prince”],
+[“プリンセス”,“Princess”],[“クイーン”,“Queen”],[“キング”,“King”],[“エンペラー”,“Emperor”],
+
 /* ── その他一般 ── */
 [“ヴィンテージ”,“Vintage”],[“ビンテージ”,“Vintage”],[“アンティーク”,“Antique”],
 [“レディース”,“Ladies”],[“メンズ”,“Mens”],[“ユニセックス”,“Unisex”],
@@ -195,6 +231,9 @@ return false;
 }
 function tidy(s){
 return s.replace(/[、。・]/g,” “)
+.replace(/[！]/g,”!”)
+.replace(/!{2,}/g,”!”)
+.replace(/([a-z])([A-Z])/g,”$1 $2”)
 .replace(/[ \t]+/g,” “)
 .replace(/ *\n */g,”\n”)
 .replace(/\n{2,}/g,”\n”)
@@ -219,7 +258,7 @@ out = convJP(jp).t;
 }
 out=tidy(out);
 if(keepCase(out)) return out;
-return out.toUpperCase();
+return out.toUpperCase().replace(/(\d{4})S/g,”$1s”);
 }
 
 /* モデル名用（大文字化しない） */
@@ -352,10 +391,10 @@ el.push({id:“brand_jp”, type:“band”, text:bJP, x:66, y:56, fontSize:42, 
 var displayCountryImg=country===“アメリカ製”?“USA製”:country;
 if(displayCountryImg) el.push({id:“country”, type:“text”, text:displayCountryImg, x:311, y:98, fontSize:36, color:”#ee1111”, fontFamily:”‘Hiragino Kaku Gothic ProN’,sans-serif”});
 el.push({id:“brand_en”, type:“text”, text:bEN, x:0, y:150, fontSize:34, color:”#1133cc”, align:“center”, centerOf:“brand_jp”, fontFamily:“Arial,sans-serif”});
-if(p6) el.push({id:“p6”, type:“band”, text:p6, x:66, y:240, fontSize:34, lhOverride:34, bg:”#111111”, color:”#ffffff”, fontFamily:”‘Hiragino Kaku Gothic ProN’,sans-serif”});
-if(p8) el.push({id:“p8”, type:“text”, text:p8, x:0, y:318, fontSize:34, color:”#ee1111”, align:“center”, centerOf:“p6”, fontFamily:”‘Hiragino Kaku Gothic ProN’,sans-serif”});
-if(p9) el.push({id:“p9”, type:“text”, text:p9, x:0, y:315, fontSize:34, color:”#ee1111”, align:“center”, centerOf:“p7”, fontFamily:”‘Hiragino Kaku Gothic ProN’,sans-serif”});
-if(p7) el.push({id:“p7”, type:“band”, text:p7, x:394, y:323, fontSize:34, lhOverride:34, rightEdge:530, bg:”#111111”, color:”#ffffff”, fontFamily:”‘Hiragino Kaku Gothic ProN’,sans-serif”});
+if(p6) el.push({id:“p6”, type:“band”, text:p6, x:66, y:240, fontSize:37, lhOverride:37, bg:”#111111”, color:”#ffffff”, fontFamily:”‘Hiragino Kaku Gothic ProN’,sans-serif”});
+if(p8) el.push({id:“p8”, type:“text”, text:p8, x:0, y:318, fontSize:37, color:”#ee1111”, align:“center”, centerOf:“p6”, fontFamily:”‘Hiragino Kaku Gothic ProN’,sans-serif”});
+if(p9) el.push({id:“p9”, type:“text”, text:p9, x:0, y:315, fontSize:37, color:”#ee1111”, align:“center”, centerOf:“p7”, fontFamily:”‘Hiragino Kaku Gothic ProN’,sans-serif”});
+if(p7) el.push({id:“p7”, type:“band”, text:p7, x:394, y:323, fontSize:37, lhOverride:37, rightEdge:530, bg:”#111111”, color:”#ffffff”, fontFamily:”‘Hiragino Kaku Gothic ProN’,sans-serif”});
 var mLines=model?model.split(”\n”).length:1;
 var mBaseY=465-(mLines-1)*Math.round(38*1.2);
 if(model) el.push({id:“model”, type:“text”, text:model, x:530, y:mBaseY, fontSize:38, color:”#1133cc”, align:“right”, fontFamily:“Arial,sans-serif”});
@@ -381,10 +420,10 @@ el.push({id:“brand_jp”, type:“band”, text:bEN||“BRAND”, x:66, y:56, 
 var cEN=COUNTRY_EN[country]||(country?country.replace(“製”,””):””);
 if(cEN) el.push({id:“country”, type:“text”, text:cEN, x:0, y:150, fontSize:30, color:”#1133cc”, align:“center”, centerOf:“brand_jp”, fontFamily:AR});
 if(era) el.push({id:“brand_en”, type:“text”, text:“VINTAGE “+era.replace(/～/g,”-”).toUpperCase(), x:0, y:190, fontSize:28, color:”#1133cc”, align:“center”, centerOf:“brand_jp”, fontFamily:AR});
-if(t6) el.push({id:“p6”, type:“band”, text:t6, x:66, y:240, fontSize:32, lhOverride:34, bg:”#111111”, color:”#ffffff”, fontFamily:AR});
-if(t8) el.push({id:“p8”, type:“text”, text:t8, x:0, y:330, fontSize:32, color:”#ee1111”, align:“center”, centerOf:“p6”, fontFamily:AR});
-if(t9) el.push({id:“p9”, type:“text”, text:t9, x:0, y:315, fontSize:32, color:”#ee1111”, align:“center”, centerOf:“p7”, fontFamily:AR});
-if(t7) el.push({id:“p7”, type:“band”, text:t7, x:394, y:323, fontSize:32, lhOverride:34, rightEdge:530, bg:”#111111”, color:”#ffffff”, fontFamily:AR});
+if(t6) el.push({id:“p6”, type:“band”, text:t6, x:66, y:240, fontSize:35, lhOverride:37, bg:”#111111”, color:”#ffffff”, fontFamily:AR});
+if(t8) el.push({id:“p8”, type:“text”, text:t8, x:0, y:330, fontSize:35, color:”#ee1111”, align:“center”, centerOf:“p6”, fontFamily:AR});
+if(t9) el.push({id:“p9”, type:“text”, text:t9, x:0, y:315, fontSize:35, color:”#ee1111”, align:“center”, centerOf:“p7”, fontFamily:AR});
+if(t7) el.push({id:“p7”, type:“band”, text:t7, x:394, y:323, fontSize:35, lhOverride:37, rightEdge:530, bg:”#111111”, color:”#ffffff”, fontFamily:AR});
 var mLines=mEN?mEN.split(”\n”).length:1;
 var mBaseY=465-(mLines-1)*Math.round(38*1.2);
 if(mEN) el.push({id:“model”, type:“text”, text:mEN, x:530, y:mBaseY, fontSize:38, color:”#1133cc”, align:“right”, fontFamily:AR});
@@ -966,12 +1005,17 @@ var u8=new Uint8Array(bstr.length);
 for(var i=0;i<bstr.length;i++) u8[i]=bstr.charCodeAt(i);
 var blob=new Blob([u8],{type:mime});
 if(navigator.clipboard && window.ClipboardItem){
-var payload={};payload[mime]=blob;
+var payload={};
+payload[mime]=Promise.resolve(blob);
+try{
 navigator.clipboard.write([new ClipboardItem(payload)])
 .then(function(){showToast(“✓ “+label+” “+tag+“をコピーしました”);})
-.catch(function(){showToast(“⚠ コピー失敗（ブラウザ非対応）”);});
+.catch(function(){showToast(“⚠ コピー不可。画像を長押しして保存してください”);});
+}catch(e){
+showToast(“⚠ コピー不可。画像を長押しして保存してください”);
+}
 } else {
-showToast(“⚠ このブラウザはコピー非対応です”);
+showToast(“⚠ コピー不可。画像を長押しして保存してください”);
 }
 }
 
@@ -990,7 +1034,8 @@ return (
       📋 画像をコピー
     </button>
     <div style={{marginTop:6,padding:"8px 10px",background:"#fff8e1",border:"1px solid #ffe082",borderRadius:4,fontSize:11,color:"#5d4037",lineHeight:1.8}}>
-      コピー後、メモアプリや写真アプリで<strong>ペースト</strong>して保存
+      コピー後、メモアプリや写真アプリで<strong>ペースト</strong>して保存<br/>
+      うまくいかない時は<strong>画像を長押し</strong>→「"写真"に追加」
     </div>
   </div>}
 
@@ -1043,13 +1088,13 @@ var it=items[idx];
 var cv=cvRefs[idx].current;
 if(!cv) return;
 renderFull(cv,it.imgEl,it.elems);
-var imgOut=cv.toDataURL(“image/jpeg”,0.96);
+var imgOut=cv.toDataURL(“image/png”);
 var imgOutEN=””;
 if(it.makeEbayImg){
 var elsEN=(it.elemsEN&&it.elemsEN.length)?it.elemsEN
 :buildElementsEN(it.bEN,it.penType,it.country,it.model,it.p2L,it.era,it,it.turq);
 renderFull(cv,it.imgEl,elsEN);
-imgOutEN=cv.toDataURL(“image/jpeg”,0.96);
+imgOutEN=cv.toDataURL(“image/png”);
 }
 var titleOut=buildTitle(it.bName,it.bEN,it.model,it.penType,it.era,it.country);
 var bodyOut=buildBody(it.bName,it.bEN,it.bJP,it.model,it.modelEN,it.penType,it.material,it.colorVal,it.era,it.country,it.cond,it.accList,it.dParts,it.dNote,it.bpS,it.fpS,it.ink,it.canWrite,it.refill,it.extra,it.mgmt,it.refillAdapter,it.listPrice);
