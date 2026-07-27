@@ -47,9 +47,9 @@
       });
   }
 
-  fetch('app.jsx?v=' + Date.now())
+  fetch('app2.jsx?v=' + Date.now())
     .then(function (r) {
-      if (!r.ok) throw new Error('app.jsx が見つかりません (HTTP ' + r.status + ')');
+      if (!r.ok) throw new Error('app2.jsx が見つかりません (HTTP ' + r.status + ')');
       return r.text();
     })
     .then(function (src) {
@@ -57,9 +57,11 @@
 
       // --- コピペで壊れた記号を元に戻す ---
       code = code.replace(/\uFEFF/g, '');                       // BOM
-      code = code.replace(/[\u201C\u201D\u201E\u201F\u2033]/g, '"');  // “ ” 等 → "
-      code = code.replace(/[\u2018\u2019\u201A\u201B\u2032]/g, "'");  // ‘ ’ 等 → '
-      code = code.replace(/[\u2010-\u2015]/g, '-');             // – — 等 → -
+      code = code.replace(/[\u201C\u201D\u201E\u201F\u2033]/g, '"');  // 丸い二重引用符 → "
+      code = code.replace(/[\u2018\u2019\u201A\u201B\u2032]/g, "'");  // 丸い一重引用符 → '
+      code = code.replace(/\u2212/g, '-');                      // 全角マイナス → -
+      code = code.replace(/\u2014/g, '--');                     // 長い横棒（em dash） → --
+      code = code.replace(/[\u2010-\u2013\u2015]/g, '-');       // その他の横棒 → -
       code = code.replace(/\u00A0/g, ' ');                      // 改行なし空白 → 空白
       code = code.replace(/^[ \t]*```[a-zA-Z]*[ \t]*$/gm, '');  // ``` の行
 
@@ -99,16 +101,16 @@
       try {
         out = Babel.transform(wrapped, { presets: ['react'] }).code;
       } catch (e) {
-        return fail('app.jsx の文法エラーです', e.message);
+        return fail('app2.jsx の文法エラーです', e.message);
       }
 
       var App;
       try {
         App = eval(out);
       } catch (e) {
-        return fail('app.jsx の実行時エラーです', e.message + '\n\n' + (e.stack || ''));
+        return fail('app2.jsx の実行時エラーです', e.message + '\n\n' + (e.stack || ''));
       }
-      if (!App) return fail('起動できません', 'app.jsx の中に export default の関数が見つかりませんでした。');
+      if (!App) return fail('起動できません', 'app2.jsx の中に export default の関数が見つかりませんでした。');
 
       try {
         ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
