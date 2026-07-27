@@ -391,10 +391,10 @@ el.push({id:“brand_jp”, type:“band”, text:bJP, x:66, y:56, fontSize:42, 
 var displayCountryImg=country===“アメリカ製”?“USA製”:country;
 if(displayCountryImg) el.push({id:“country”, type:“text”, text:displayCountryImg, x:311, y:98, fontSize:36, color:”#ee1111”, fontFamily:”‘Hiragino Kaku Gothic ProN’,sans-serif”});
 el.push({id:“brand_en”, type:“text”, text:bEN, x:0, y:150, fontSize:34, color:”#1133cc”, align:“center”, centerOf:“brand_jp”, fontFamily:“Arial,sans-serif”});
-if(p6) el.push({id:“p6”, type:“band”, text:p6, x:66, y:240, fontSize:37, lhOverride:37, bg:”#111111”, color:”#ffffff”, fontFamily:”‘Hiragino Kaku Gothic ProN’,sans-serif”});
-if(p8) el.push({id:“p8”, type:“text”, text:p8, x:0, y:318, fontSize:37, color:”#ee1111”, align:“center”, centerOf:“p6”, fontFamily:”‘Hiragino Kaku Gothic ProN’,sans-serif”});
-if(p9) el.push({id:“p9”, type:“text”, text:p9, x:0, y:315, fontSize:37, color:”#ee1111”, align:“center”, centerOf:“p7”, fontFamily:”‘Hiragino Kaku Gothic ProN’,sans-serif”});
-if(p7) el.push({id:“p7”, type:“band”, text:p7, x:394, y:323, fontSize:37, lhOverride:37, rightEdge:530, bg:”#111111”, color:”#ffffff”, fontFamily:”‘Hiragino Kaku Gothic ProN’,sans-serif”});
+if(p6) el.push({id:“p6”, type:“band”, text:p6, x:66, y:240, fontSize:36, lhOverride:36, bg:”#111111”, color:”#ffffff”, fontFamily:”‘Hiragino Kaku Gothic ProN’,sans-serif”});
+if(p8) el.push({id:“p8”, type:“text”, text:p8, x:0, y:318, fontSize:36, color:”#ee1111”, align:“center”, centerOf:“p6”, fallbackX:160, fontFamily:”‘Hiragino Kaku Gothic ProN’,sans-serif”});
+if(p9) el.push({id:“p9”, type:“text”, text:p9, x:0, y:315, fontSize:36, color:”#ee1111”, align:“center”, centerOf:“p7”, fallbackX:450, fontFamily:”‘Hiragino Kaku Gothic ProN’,sans-serif”});
+if(p7) el.push({id:“p7”, type:“band”, text:p7, x:394, y:323, fontSize:36, lhOverride:36, rightEdge:530, bg:”#111111”, color:”#ffffff”, fontFamily:”‘Hiragino Kaku Gothic ProN’,sans-serif”});
 var mLines=model?model.split(”\n”).length:1;
 var mBaseY=465-(mLines-1)*Math.round(38*1.2);
 if(model) el.push({id:“model”, type:“text”, text:model, x:530, y:mBaseY, fontSize:38, color:”#1133cc”, align:“right”, fontFamily:“Arial,sans-serif”});
@@ -420,10 +420,10 @@ el.push({id:“brand_jp”, type:“band”, text:bEN||“BRAND”, x:66, y:56, 
 var cEN=COUNTRY_EN[country]||(country?country.replace(“製”,””):””);
 if(cEN) el.push({id:“country”, type:“text”, text:cEN, x:0, y:150, fontSize:30, color:”#1133cc”, align:“center”, centerOf:“brand_jp”, fontFamily:AR});
 if(era) el.push({id:“brand_en”, type:“text”, text:“VINTAGE “+era.replace(/～/g,”-”).toUpperCase(), x:0, y:190, fontSize:28, color:”#1133cc”, align:“center”, centerOf:“brand_jp”, fontFamily:AR});
-if(t6) el.push({id:“p6”, type:“band”, text:t6, x:66, y:240, fontSize:35, lhOverride:37, bg:”#111111”, color:”#ffffff”, fontFamily:AR});
-if(t8) el.push({id:“p8”, type:“text”, text:t8, x:0, y:330, fontSize:35, color:”#ee1111”, align:“center”, centerOf:“p6”, fontFamily:AR});
-if(t9) el.push({id:“p9”, type:“text”, text:t9, x:0, y:315, fontSize:35, color:”#ee1111”, align:“center”, centerOf:“p7”, fontFamily:AR});
-if(t7) el.push({id:“p7”, type:“band”, text:t7, x:394, y:323, fontSize:35, lhOverride:37, rightEdge:530, bg:”#111111”, color:”#ffffff”, fontFamily:AR});
+if(t6) el.push({id:“p6”, type:“band”, text:t6, x:66, y:240, fontSize:34, lhOverride:36, bg:”#111111”, color:”#ffffff”, fontFamily:AR});
+if(t8) el.push({id:“p8”, type:“text”, text:t8, x:0, y:330, fontSize:34, color:”#ee1111”, align:“center”, centerOf:“p6”, fallbackX:160, fontFamily:AR});
+if(t9) el.push({id:“p9”, type:“text”, text:t9, x:0, y:315, fontSize:34, color:”#ee1111”, align:“center”, centerOf:“p7”, fallbackX:450, fontFamily:AR});
+if(t7) el.push({id:“p7”, type:“band”, text:t7, x:394, y:323, fontSize:34, lhOverride:36, rightEdge:530, bg:”#111111”, color:”#ffffff”, fontFamily:AR});
 var mLines=mEN?mEN.split(”\n”).length:1;
 var mBaseY=465-(mLines-1)*Math.round(38*1.2);
 if(mEN) el.push({id:“model”, type:“text”, text:mEN, x:530, y:mBaseY, fontSize:38, color:”#1133cc”, align:“right”, fontFamily:AR});
@@ -453,7 +453,7 @@ elems.forEach(function(e){
 if(!e.centerOf) return;
 var ref=bboxMap[e.centerOf];
 if(ref){ drawElem(ctx,Object.assign({},e,{x:ref.x+ref.w/2+e.x})); }
-else { drawElem(ctx,e); }
+else { drawElem(ctx,Object.assign({},e,{x:(e.fallbackX!=null?e.fallbackX:300)+e.x})); }
 });
 }
 
@@ -609,7 +609,7 @@ if(bb&&sids.includes(e2.id)) drawHighlight(bb,sids.length>1);
 for(var j=0;j<props.elems.length;j++){
 var e3=props.elems[j];if(!e3.centerOf) continue;
 var ref3=bboxMap2[e3.centerOf];
-var ee3=ref3?Object.assign({},e3,{x:ref3.x+ref3.w/2+e3.x}):e3;
+var ee3=ref3?Object.assign({},e3,{x:ref3.x+ref3.w/2+e3.x}):Object.assign({},e3,{x:(e3.fallbackX!=null?e3.fallbackX:300)+e3.x});
 var bb3=drawElem(ctx,ee3);if(bb3){bboxMap2[e3.id]=bb3;}
 if(bb3&&sids.includes(e3.id)) drawHighlight(bb3,sids.length>1);
 }
@@ -679,7 +679,7 @@ turq:DEF_TURQ,
 imgB64:null, imgEl:null,
 elems:buildElements(b.jp,b.en,PEN_TYPES[0],COUNTRIES[0],””,””,””,””,””,””,DEF_TURQ),
 selIds:[],
-titleOut:””, bodyOut:””, imgOut:””,
+titleOut:””, bodyOut:””, imgOut:””, imgElems:null, imgElemsEN:null,
 // eBay英語画像
 makeEbayImg:false, e6:””, e7:””, e8:””, e9:””,
 elemsEN:buildElementsEN(b.en,PEN_TYPES[0],COUNTRIES[0],””,””,””,null,DEF_TURQ),
@@ -992,12 +992,18 @@ return (
 }
 
 function ResultCard({item, penIdx, showToast}){
+var pngRef=useRef(null);
 if(!item.titleOut&&!item.bodyOut&&!item.imgOut&&!item.imgOutEN) return null;
 var label=[“①”,“②”,“③”,“④”,“⑤”][penIdx]||””;
 function copyT(t,l){navigator.clipboard.writeText(t);showToast(“✓ “+label+” “+l+“をコピー”);}
 
-function copyImgSrc(src,tag){
-if(!src) return;
+function copyImg(kind,tag){
+var els=kind===“en”?item.imgElemsEN:item.imgElems;
+if(!els){showToast(“⚠ もう一度生成してください”);return;}
+var cv=pngRef.current;
+if(!cv) return;
+renderFull(cv,item.imgEl,els);
+var src=cv.toDataURL(“image/png”);
 var arr=src.split(”,”);
 var mime=arr[0].match(/:(.*?);/)[1];
 var bstr=atob(arr[1]);
@@ -1021,6 +1027,7 @@ showToast(“⚠ コピー不可。画像を長押しして保存してくださ
 
 return (
 <div style={{background:”#fff”,border:“2px solid “+GOLD,borderRadius:8,overflow:“hidden”}}>
+<canvas ref={pngRef} style={{display:“none”}}/>
 <div style={{background:“linear-gradient(135deg,#1a1200,#3a2800)”,padding:“8px 12px”,textAlign:“center”}}>
 <span style={{color:GOLD,fontWeight:“bold”,fontSize:14,letterSpacing:“0.1em”}}>{label} {item.bName||”　“}</span>
 {item.model&&<div style={{color:“rgba(200,168,75,0.7)”,fontSize:11,marginTop:2}}>{item.model.split(”\n”)[0]}</div>}
@@ -1030,7 +1037,7 @@ return (
   {item.imgOut&&<div style={{padding:"8px 8px 0"}}>
     <div style={{fontSize:10,color:"#b8860b",fontFamily:"monospace",marginBottom:4,fontWeight:"bold"}}>── メルカリ・ヤフオク用（日本語）</div>
     <img src={item.imgOut} alt="result" style={{width:"100%",borderRadius:4,border:"1px solid #ddd"}}/>
-    <button onClick={function(){copyImgSrc(item.imgOut,"日本語画像");}} style={{width:"100%",padding:"12px 0",border:"none",borderRadius:4,background:RED,color:"#fff",fontSize:15,cursor:"pointer",marginTop:8,fontWeight:"bold",fontFamily:"inherit",letterSpacing:"0.04em"}}>
+    <button onClick={function(){copyImg("jp","日本語画像");}} style={{width:"100%",padding:"12px 0",border:"none",borderRadius:4,background:RED,color:"#fff",fontSize:15,cursor:"pointer",marginTop:8,fontWeight:"bold",fontFamily:"inherit",letterSpacing:"0.04em"}}>
       📋 画像をコピー
     </button>
     <div style={{marginTop:6,padding:"8px 10px",background:"#fff8e1",border:"1px solid #ffe082",borderRadius:4,fontSize:11,color:"#5d4037",lineHeight:1.8}}>
@@ -1042,7 +1049,7 @@ return (
   {item.imgOutEN&&<div style={{padding:"12px 8px 0"}}>
     <div style={{fontSize:10,color:"#00838f",fontFamily:"monospace",marginBottom:4,fontWeight:"bold"}}>── eBay用（英語）</div>
     <img src={item.imgOutEN} alt="ebay" style={{width:"100%",borderRadius:4,border:"1px solid "+CYAN}}/>
-    <button onClick={function(){copyImgSrc(item.imgOutEN,"eBay画像");}} style={{width:"100%",padding:"12px 0",border:"none",borderRadius:4,background:CYAN,color:"#fff",fontSize:15,cursor:"pointer",marginTop:8,fontWeight:"bold",fontFamily:"inherit",letterSpacing:"0.04em"}}>
+    <button onClick={function(){copyImg("en","eBay画像");}} style={{width:"100%",padding:"12px 0",border:"none",borderRadius:4,background:CYAN,color:"#fff",fontSize:15,cursor:"pointer",marginTop:8,fontWeight:"bold",fontFamily:"inherit",letterSpacing:"0.04em"}}>
       🌐 eBay用画像をコピー
     </button>
   </div>}
@@ -1087,18 +1094,20 @@ function genOne(idx){
 var it=items[idx];
 var cv=cvRefs[idx].current;
 if(!cv) return;
-renderFull(cv,it.imgEl,it.elems);
-var imgOut=cv.toDataURL(“image/png”);
+var elsJP=it.elems;
+renderFull(cv,it.imgEl,elsJP);
+var imgOut=cv.toDataURL(“image/jpeg”,0.92);
 var imgOutEN=””;
+var elsEN=null;
 if(it.makeEbayImg){
-var elsEN=(it.elemsEN&&it.elemsEN.length)?it.elemsEN
+elsEN=(it.elemsEN&&it.elemsEN.length)?it.elemsEN
 :buildElementsEN(it.bEN,it.penType,it.country,it.model,it.p2L,it.era,it,it.turq);
 renderFull(cv,it.imgEl,elsEN);
-imgOutEN=cv.toDataURL(“image/png”);
+imgOutEN=cv.toDataURL(“image/jpeg”,0.92);
 }
 var titleOut=buildTitle(it.bName,it.bEN,it.model,it.penType,it.era,it.country);
 var bodyOut=buildBody(it.bName,it.bEN,it.bJP,it.model,it.modelEN,it.penType,it.material,it.colorVal,it.era,it.country,it.cond,it.accList,it.dParts,it.dNote,it.bpS,it.fpS,it.ink,it.canWrite,it.refill,it.extra,it.mgmt,it.refillAdapter,it.listPrice);
-setItem(idx,function(prev){return Object.assign({},prev,{titleOut:titleOut,bodyOut:bodyOut,imgOut:imgOut,imgOutEN:imgOutEN});});
+setItem(idx,function(prev){return Object.assign({},prev,{titleOut:titleOut,bodyOut:bodyOut,imgOut:imgOut,imgOutEN:imgOutEN,imgElems:elsJP,imgElemsEN:elsEN});});
 }
 
 function handleGen(idx){
