@@ -193,7 +193,7 @@ pointer-events:none;z-index:100;white-space:nowrap;}
 
 <div class="head">
   <div class="mark">✒️✒️✒️</div>
-  <div class="lead">MERCARI / EBAY LISTING TOOL v7</div>
+  <div class="lead">MERCARI / EBAY LISTING TOOL v11</div>
   <h1>5品まとめ出品ツール</h1>
 </div>
 
@@ -228,7 +228,7 @@ pointer-events:none;z-index:100;white-space:nowrap;}
   }
   window.penShowError = show;
   window.onerror = function (msg, src, line, col, e) {
-    show(`エラーが発生しました v7`, msg + `\n\n行: ` + line + ` 文字: ` + col);
+    show(`エラーが発生しました v11`, msg + `\n\n行: ` + line + ` 文字: ` + col);
     return false;
   };
   setTimeout(function () {
@@ -967,16 +967,43 @@ function tidyEN(s) {
           .replace(/\n{2,}/g, `\n`)
           .trim();
 }
+function transLines(jp) {
+  var lines = jp.split(`\n`);
+  var res = lines.map(function (l) { return dicTranslate(l); });
+  var broken = false;
+  for (var i = 0; i < lines.length; i++) {
+    if (lines[i].trim() && (!res[i].en || res[i].leftover)) broken = true;
+  }
+  if (broken && lines.length > 1) {
+    var joined = dicTranslate(lines.join(E));
+    if (joined.en && !joined.leftover) return joined.en;
+  }
+  return res.map(function (r) { return r.en; }).join(`\n`);
+}
 function autoModelEN(jp) {
   if (!jp) return E;
-  var lines = jp.split(`\n`).map(function (l) { return dicTranslate(l).en; });
-  return tidyEN(lines.join(`\n`));
+  return tidyEN(transLines(jp));
+}
+function wrapEN(s) {
+  return s.split(`\n`).map(function (line) {
+    var t = line.trim();
+    if (t.length <= 12 || t.indexOf(` `) < 0) return t;
+    var parts = t.split(` `);
+    var best = null, bestScore = 99999;
+    for (var i = 1; i < parts.length; i++) {
+      var a = parts.slice(0, i).join(` `), b = parts.slice(i).join(` `);
+      var score = Math.max(a.length, b.length);
+      if (score < bestScore) { bestScore = score; best = a + `\n` + b; }
+    }
+    return best || t;
+  }).join(`\n`);
 }
 function autoBandEN(jp) {
   if (!jp) return E;
   var out = autoModelEN(jp);
   if (!out) return E;
-  return out.toUpperCase().replace(/(\d{4})S/g, `$1s`);
+  out = out.split(`\n`).join(` `).replace(/[ ]+/g, ` `).trim();
+  return wrapEN(out.toUpperCase().replace(/(\d{4})S/g, `$1s`));
 }
 
 function hasJapanese(s){ return /[\u3040-\u30ff\u4e00-\u9faf]/.test(s||E); }
@@ -1103,8 +1130,10 @@ function buildElements(bJP,bEN,penType,country,model,p2label,p6,p7,p8,p9,turq){
   if(displayCountryImg) el.push({id:`country`, type:`text`, text:displayCountryImg, x:311, y:98, fontSize:36, color:`#ee1111`, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
   el.push({id:`brand_en`, type:`text`, text:bEN, x:0, y:150, fontSize:34, color:`#1133cc`, align:`center`, centerOf:`brand_jp`, fontFamily:`Arial,sans-serif`});
   if(p6) el.push({id:`p6`, type:`band`, text:p6, x:66, y:240, fontSize:36, lhOverride:36, bg:`#111111`, color:`#ffffff`, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
-  if(p8) el.push({id:`p8`, type:`text`, text:p8, x:0, y:318, fontSize:36, color:`#ee1111`, align:`center`, centerOf:`p6`, fallbackX:160, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
-  if(p9) el.push({id:`p9`, type:`text`, text:p9, x:0, y:315, fontSize:36, color:`#ee1111`, align:`center`, centerOf:`p7`, fallbackX:450, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
+  var p6Lines=p6?p6.split(`\n`).length:1;
+  var p7Lines=p7?p7.split(`\n`).length:1;
+  if(p8) el.push({id:`p8`, type:`text`, text:p8, x:0, y:240+p6Lines*36+10+38, fontSize:36, color:`#ee1111`, align:`center`, centerOf:`p6`, fallbackX:160, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
+  if(p9) el.push({id:`p9`, type:`text`, text:p9, x:0, y:303, fontSize:36, color:`#ee1111`, align:`center`, centerOf:`p7`, fallbackX:450, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
   if(p7) el.push({id:`p7`, type:`band`, text:p7, x:394, y:323, fontSize:36, lhOverride:36, rightEdge:530, bg:`#111111`, color:`#ffffff`, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
   var mLines=model?model.split(`\n`).length:1;
   var mBaseY=465-(mLines-1)*Math.round(38*1.2);
@@ -1132,8 +1161,10 @@ function buildElementsEN(bEN,penType,country,model,p2label,era,src,turq){
   if(cEN) el.push({id:`country`, type:`text`, text:cEN, x:0, y:150, fontSize:30, color:`#1133cc`, align:`center`, centerOf:`brand_jp`, fontFamily:AR});
   if(era) el.push({id:`brand_en`, type:`text`, text:`VINTAGE `+era.replace(/～/g,`-`).toUpperCase().replace(/(\d{4})S/g,`$1s`), x:0, y:190, fontSize:28, color:`#1133cc`, align:`center`, centerOf:`brand_jp`, fontFamily:AR});
   if(t6) el.push({id:`p6`, type:`band`, text:t6, x:66, y:240, fontSize:34, lhOverride:36, bg:`#111111`, color:`#ffffff`, fontFamily:AR});
-  if(t8) el.push({id:`p8`, type:`text`, text:t8, x:0, y:330, fontSize:34, color:`#ee1111`, align:`center`, centerOf:`p6`, fallbackX:160, fontFamily:AR});
-  if(t9) el.push({id:`p9`, type:`text`, text:t9, x:0, y:315, fontSize:34, color:`#ee1111`, align:`center`, centerOf:`p7`, fallbackX:450, fontFamily:AR});
+  var t6Lines=t6?t6.split(`\n`).length:1;
+  var t7Lines=t7?t7.split(`\n`).length:1;
+  if(t8) el.push({id:`p8`, type:`text`, text:t8, x:0, y:240+t6Lines*36+10+40, fontSize:34, color:`#ee1111`, align:`center`, centerOf:`p6`, fallbackX:160, fontFamily:AR});
+  if(t9) el.push({id:`p9`, type:`text`, text:t9, x:0, y:305, fontSize:34, color:`#ee1111`, align:`center`, centerOf:`p7`, fallbackX:450, fontFamily:AR});
   if(t7) el.push({id:`p7`, type:`band`, text:t7, x:394, y:323, fontSize:34, lhOverride:36, rightEdge:530, bg:`#111111`, color:`#ffffff`, fontFamily:AR});
   var mLines=mEN?mEN.split(`\n`).length:1;
   var mBaseY=465-(mLines-1)*Math.round(38*1.2);
@@ -1332,7 +1363,7 @@ h+=`<span class=\u0022ebayTitle\u0022>🌐 eBay用の英語画像も一緒に作
 h+=`<div class=\u0022ebaySub\u0022>日本語画像とは別に、英語表記の画像をもう1枚生成します</div>`;
 h+=`<div id=\u0022`+pre+`_ebayPanel\u0022 style=\u0022display:none\u0022>`;
 h+=`<div class=\u0022mEN\u0022 id=\u0022`+pre+`_mEN\u0022></div>`;
-h+=`<div class=\u0022ebaySub2\u0022>⑥〜⑨は日本語から自動翻訳されます。訳がおかしい時だけ英語を直接入れてください</div>`;
+h+=`<div class=\u0022ebaySub2\u0022>日本語から自動で英訳して下に入れてあります。そのまま直せます（改行もできます）</div>`;
 var EN=[[`⑥`,`左・黒帯`,`e6`],[`⑦`,`右・黒帯`,`e7`],[`⑧`,`左・赤文字`,`e8`],[`⑨`,`右・赤文字`,`e9`]];
 for(var q=0;q<EN.length;q+=1){
 h+=`<div class=\u0022enRow\u0022 id=\u0022`+pre+`_`+EN[q][2]+`Row\u0022 style=\u0022display:none\u0022>`;
@@ -1698,8 +1729,11 @@ $(pre+`_`+ek+`Row`).style.display=(show?`block`:`none`);
 if(show){
 anyEn=true;
 var auto=autoBandEN(jp);
-var base=$(pre+`_`+ek+`Lbl`).textContent.split(`→`)[0];
-$(pre+`_`+ek+`Lbl`).textContent=base+((auto&&!it[ek])?`→ 自動訳:`+auto:E);
+var prevAuto=it[`a_`+ek]||E;
+if(!it[ek]||it[ek]===prevAuto){
+if(it[ek]!==auto){it[ek]=auto;$(pre+`_`+ek).value=auto;}
+}
+it[`a_`+ek]=auto;
 $(pre+`_`+ek).placeholder=auto||`英語を直接入力`;
 }
 }
