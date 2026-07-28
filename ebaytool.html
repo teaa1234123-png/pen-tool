@@ -134,7 +134,7 @@ var DIC_BRANDS = [
   { jp: "アウロラ", en: "AURORA", name: "AURORA（アウロラ）", country: "イタリア製", alt: ["AURORA"] },
   { jp: "ダンヒル", en: "DUNHILL", name: "DUNHILL（ダンヒル）", country: "イギリス製", alt: ["DUNHILL", "dunhill"] },
   { jp: "プラチナ", en: "PLATINUM", name: "PLATINUM（プラチナ万年筆）", country: "日本製", alt: ["PLATINUM", "プラチナ万年筆"] },
-  { jp: "カランダッシュ", en: "Caran d'Ache", name: "Caran d'Ache（カランダッシュ）", country: "スイス製", alt: ["Caran d'Ache"] }
+  { jp: "カランダッシュ", en: "Caran d\u0027Ache", name: "Caran d\u0027Ache（カランダッシュ）", country: "スイス製", alt: ["Caran d\u0027Ache"] }
 ];
 
 var DIC_MODELS = [
@@ -655,7 +655,7 @@ function dicTranslate(jp) {
       }
       if (okParts.length) out.push(okParts.join(" "));
       for (var q0 = 0; q0 < d.romaji.length; q0++) {
-        romanized.push(d.romaji[q0].jp + "\u2192" + d.romaji[q0].en);
+        romanized.push(d.romaji[q0].jp + "→" + d.romaji[q0].en);
       }
       continue;
     }
@@ -663,14 +663,14 @@ function dicTranslate(jp) {
     if (d.parts.length) {
       out.push(d.parts.join(" "));
       for (var q = 0; q < d.romaji.length; q++) {
-        romanized.push(d.romaji[q].jp + "\u2192" + d.romaji[q].en);
+        romanized.push(d.romaji[q].jp + "→" + d.romaji[q].en);
       }
     }
   }
 
   return {
     en: out.join(" ").replace(/\s+/g, " ").trim(),
-    romanized: romanized.join("\u3001"),
+    romanized: romanized.join("、"),
     leftover: leftover.join(" ")
   };
 }
@@ -1199,7 +1199,7 @@ function renderDetected(d) {
     html += "<div>" + esc(rows[i][0]) + "：" + esc(rows[i][1]) + "</div>";
   }
   if (d.romanized) {
-    html += '<div class="romaji">ローマ字化した部分：<strong>' + esc(d.romanized) + "</strong></div>";
+    html += "<div class=\"romaji\">ローマ字化した部分：<strong>" + esc(d.romanized) + "</strong></div>";
   }
   $("det").innerHTML = html;
 }
@@ -1210,9 +1210,9 @@ function renderPairs() {
   for (var i = 0; i < ST.pairs.length; i++) {
     var p = ST.pairs[i];
     var isHead = p.en.indexOf("==") === 0;
-    html += '<div class="pair' + (isHead ? " head" : "") + '">';
-    html += '<div class="en">' + esc(p.en) + "</div>";
-    html += '<div class="jp">' + esc(p.jp || "（定型文）") + "</div>";
+    html += "<div class=\"pair" + (isHead ? " head" : "") + "\">";
+    html += "<div class=\"en\">" + esc(p.en) + "</div>";
+    html += "<div class=\"jp\">" + esc(p.jp || "（定型文）") + "</div>";
     html += "</div>";
   }
   box.innerHTML = html;
