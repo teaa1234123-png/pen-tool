@@ -10,7 +10,7 @@
 <title>5品まとめ出品ツール</title>
 <style>
 html,body{margin:0;padding:0;background:#fff;color:#333;
-  font-family:'Hiragino Kaku Gothic ProN',sans-serif;-webkit-text-size-adjust:100%;}
+  font-family:"Hiragino Kaku Gothic ProN",sans-serif;-webkit-text-size-adjust:100%;}
 *{box-sizing:border-box;}
 button,input,select,textarea{font-family:inherit;}
 
@@ -263,7 +263,7 @@ var DIC_BRANDS = [
   { jp: "アウロラ", en: "AURORA", name: "AURORA（アウロラ）", country: "イタリア製", alt: ["AURORA"] },
   { jp: "ダンヒル", en: "DUNHILL", name: "DUNHILL（ダンヒル）", country: "イギリス製", alt: ["DUNHILL", "dunhill"] },
   { jp: "プラチナ", en: "PLATINUM", name: "PLATINUM（プラチナ万年筆）", country: "日本製", alt: ["PLATINUM", "プラチナ万年筆"] },
-  { jp: "カランダッシュ", en: "Caran d'Ache", name: "Caran d'Ache（カランダッシュ）", country: "スイス製", alt: ["Caran d'Ache"] }
+  { jp: "カランダッシュ", en: "Caran d\u0027Ache", name: "Caran d\u0027Ache（カランダッシュ）", country: "スイス製", alt: ["Caran d\u0027Ache"] }
 ];
 
 var DIC_MODELS = [
@@ -784,7 +784,7 @@ function dicTranslate(jp) {
       }
       if (okParts.length) out.push(okParts.join(" "));
       for (var q0 = 0; q0 < d.romaji.length; q0++) {
-        romanized.push(d.romaji[q0].jp + "\u2192" + d.romaji[q0].en);
+        romanized.push(d.romaji[q0].jp + "→" + d.romaji[q0].en);
       }
       continue;
     }
@@ -792,14 +792,14 @@ function dicTranslate(jp) {
     if (d.parts.length) {
       out.push(d.parts.join(" "));
       for (var q = 0; q < d.romaji.length; q++) {
-        romanized.push(d.romaji[q].jp + "\u2192" + d.romaji[q].en);
+        romanized.push(d.romaji[q].jp + "→" + d.romaji[q].en);
       }
     }
   }
 
   return {
     en: out.join(" ").replace(/\s+/g, " ").trim(),
-    romanized: romanized.join("\u3001"),
+    romanized: romanized.join("、"),
     leftover: leftover.join(" ")
   };
 }
@@ -1054,7 +1054,7 @@ function rrect(ctx,x,y,w,h,r){
 
 function drawElem(ctx,e){
   if(!e.text)return null;
-  var fs=e.fontSize||26, ff=e.fontFamily||"'Hiragino Kaku Gothic ProN',sans-serif";
+  var fs=e.fontSize||26, ff=e.fontFamily||"\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif";
   ctx.font="bold "+fs+"px "+ff;
   var lines=e.text.split("\n"), mw=0;
   for(var i=0;i<lines.length;i++){var tw=ctx.measureText(lines[i]).width;if(tw>mw)mw=tw;}
@@ -1096,18 +1096,18 @@ function buildElements(bJP,bEN,penType,country,model,p2label,p6,p7,p8,p9,turq){
   var p2t=p2label||defaultP2;
   var TC=turq||DEF_TURQ;
   var el=[];
-  el.push({id:"brand_jp", type:"band", text:bJP, x:66, y:56, fontSize:42, lhOverride:50, bg:TC, color:"#000000", fontFamily:"'Hiragino Kaku Gothic ProN',sans-serif"});
+  el.push({id:"brand_jp", type:"band", text:bJP, x:66, y:56, fontSize:42, lhOverride:50, bg:TC, color:"#000000", fontFamily:"\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif"});
   var displayCountryImg=country==="アメリカ製"?"USA製":country;
-  if(displayCountryImg) el.push({id:"country", type:"text", text:displayCountryImg, x:311, y:98, fontSize:36, color:"#ee1111", fontFamily:"'Hiragino Kaku Gothic ProN',sans-serif"});
+  if(displayCountryImg) el.push({id:"country", type:"text", text:displayCountryImg, x:311, y:98, fontSize:36, color:"#ee1111", fontFamily:"\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif"});
   el.push({id:"brand_en", type:"text", text:bEN, x:0, y:150, fontSize:34, color:"#1133cc", align:"center", centerOf:"brand_jp", fontFamily:"Arial,sans-serif"});
-  if(p6) el.push({id:"p6", type:"band", text:p6, x:66, y:240, fontSize:36, lhOverride:36, bg:"#111111", color:"#ffffff", fontFamily:"'Hiragino Kaku Gothic ProN',sans-serif"});
-  if(p8) el.push({id:"p8", type:"text", text:p8, x:0, y:318, fontSize:36, color:"#ee1111", align:"center", centerOf:"p6", fallbackX:160, fontFamily:"'Hiragino Kaku Gothic ProN',sans-serif"});
-  if(p9) el.push({id:"p9", type:"text", text:p9, x:0, y:315, fontSize:36, color:"#ee1111", align:"center", centerOf:"p7", fallbackX:450, fontFamily:"'Hiragino Kaku Gothic ProN',sans-serif"});
-  if(p7) el.push({id:"p7", type:"band", text:p7, x:394, y:323, fontSize:36, lhOverride:36, rightEdge:530, bg:"#111111", color:"#ffffff", fontFamily:"'Hiragino Kaku Gothic ProN',sans-serif"});
+  if(p6) el.push({id:"p6", type:"band", text:p6, x:66, y:240, fontSize:36, lhOverride:36, bg:"#111111", color:"#ffffff", fontFamily:"\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif"});
+  if(p8) el.push({id:"p8", type:"text", text:p8, x:0, y:318, fontSize:36, color:"#ee1111", align:"center", centerOf:"p6", fallbackX:160, fontFamily:"\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif"});
+  if(p9) el.push({id:"p9", type:"text", text:p9, x:0, y:315, fontSize:36, color:"#ee1111", align:"center", centerOf:"p7", fallbackX:450, fontFamily:"\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif"});
+  if(p7) el.push({id:"p7", type:"band", text:p7, x:394, y:323, fontSize:36, lhOverride:36, rightEdge:530, bg:"#111111", color:"#ffffff", fontFamily:"\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif"});
   var mLines=model?model.split("\n").length:1;
   var mBaseY=465-(mLines-1)*Math.round(38*1.2);
   if(model) el.push({id:"model", type:"text", text:model, x:530, y:mBaseY, fontSize:38, color:"#1133cc", align:"right", fontFamily:"Arial,sans-serif"});
-  el.push({id:"p2", type:"band", text:p2t, x:215, y:482, fontSize:43, lhOverride:50, rightEdge:530, bg:TC, color:"#000000", fontFamily:"'Hiragino Kaku Gothic ProN',sans-serif"});
+  el.push({id:"p2", type:"band", text:p2t, x:215, y:482, fontSize:43, lhOverride:50, rightEdge:530, bg:TC, color:"#000000", fontFamily:"\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif"});
   return el;
 }
 
@@ -1176,7 +1176,7 @@ function $(id){return document.getElementById(id);}
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
 function opts(arr,val,txt){
   var h="";
-  for(var i=0;i<arr.length;i+=1){h+='<option value="'+esc(val(arr[i]))+'">'+esc(txt(arr[i]))+'</option>';}
+  for(var i=0;i<arr.length;i+=1){h+="<option value=\""+esc(val(arr[i]))+"\">"+esc(txt(arr[i]))+"</option>";}
   return h;
 }
 
@@ -1216,26 +1216,26 @@ function toast(msg){
 }
 
 function ctrlHTML(pre){
-  var h='<div class="ctrl">';
-  h+='<div class="ctrlTop"><span class="ctrlLbl" id="'+pre+'_lbl">↑ 画像をタップして選択</span>';
-  h+='<button class="del" id="'+pre+'_del">消す</button></div>';
-  h+='<div class="ctrlBody" id="'+pre+'_body">';
-  h+='<div class="mvWrap"><div class="pad">';
-  h+='<i></i><button data-mv="0,-30">↑</button><i></i>';
-  h+='<button data-mv="-30,0">←</button><button data-mv="0,30">↓</button><button data-mv="30,0">→</button>';
-  h+='</div><div class="pad sm">';
-  h+='<i></i><button data-mv="0,-5">↑5</button><i></i>';
-  h+='<button data-mv="-5,0">←5</button><button data-mv="0,5">↓5</button><button data-mv="5,0">→5</button>';
-  h+='</div></div>';
-  h+='<div class="fs"><div class="cap2">文字サイズ</div>';
-  h+='<button data-fs="5">A＋大</button><button data-fs="1">A＋1</button>';
-  h+='<div class="fsNow" id="'+pre+'_fs"></div>';
-  h+='<button data-fs="-1">A－1</button><button data-fs="-5">A－大</button></div>';
-  h+='</div>';
-  h+='<div class="colWrap" id="'+pre+'_cols">';
-  h+='<div class="cap2">文字色</div><div class="swatch" id="'+pre+'_tc"></div>';
-  h+='<div id="'+pre+'_bandWrap"><div class="cap2">帯の色</div><div class="swatch" id="'+pre+'_bc"></div></div>';
-  h+='</div></div>';
+  var h="<div class=\"ctrl\">";
+  h+="<div class=\"ctrlTop\"><span class=\"ctrlLbl\" id=\""+pre+"_lbl\">↑ 画像をタップして選択</span>";
+  h+="<button class=\"del\" id=\""+pre+"_del\">消す</button></div>";
+  h+="<div class=\"ctrlBody\" id=\""+pre+"_body\">";
+  h+="<div class=\"mvWrap\"><div class=\"pad\">";
+  h+="<i></i><button data-mv=\"0,-30\">↑</button><i></i>";
+  h+="<button data-mv=\"-30,0\">←</button><button data-mv=\"0,30\">↓</button><button data-mv=\"30,0\">→</button>";
+  h+="</div><div class=\"pad sm\">";
+  h+="<i></i><button data-mv=\"0,-5\">↑5</button><i></i>";
+  h+="<button data-mv=\"-5,0\">←5</button><button data-mv=\"0,5\">↓5</button><button data-mv=\"5,0\">→5</button>";
+  h+="</div></div>";
+  h+="<div class=\"fs\"><div class=\"cap2\">文字サイズ</div>";
+  h+="<button data-fs=\"5\">A＋大</button><button data-fs=\"1\">A＋1</button>";
+  h+="<div class=\"fsNow\" id=\""+pre+"_fs\"></div>";
+  h+="<button data-fs=\"-1\">A－1</button><button data-fs=\"-5\">A－大</button></div>";
+  h+="</div>";
+  h+="<div class=\"colWrap\" id=\""+pre+"_cols\">";
+  h+="<div class=\"cap2\">文字色</div><div class=\"swatch\" id=\""+pre+"_tc\"></div>";
+  h+="<div id=\""+pre+"_bandWrap\"><div class=\"cap2\">帯の色</div><div class=\"swatch\" id=\""+pre+"_bc\"></div></div>";
+  h+="</div></div>";
   return h;
 }
 
@@ -1244,133 +1244,133 @@ function paneHTML(n){
   var h="";
 
   if(n>0){
-    h+='<div class="copyFrom"><div class="cap3">前の品目からコピー</div><div class="cfBtns">';
-    for(var s=0;s<n;s+=1){h+='<button data-cf="'+s+'">'+NUMS[s]+'からコピー</button>';}
-    h+='</div></div>';
+    h+="<div class=\"copyFrom\"><div class=\"cap3\">前の品目からコピー</div><div class=\"cfBtns\">";
+    for(var s=0;s<n;s+=1){h+="<button data-cf=\""+s+"\">"+NUMS[s]+"からコピー</button>";}
+    h+="</div></div>";
   }
 
-  h+='<div class="card"><div class="cap">── '+NUMS[n]+' ブランド</div>';
-  h+='<label class="f">ブランド選択</label>';
-  h+='<select id="'+pre+'_brand">'+opts(BRAND_PRESETS,function(b,i){return "";},function(b){return b.name;})+'</select>';
-  h+='<div id="'+pre+'_custom" style="display:none">';
-  h+='<label class="f">ブランドJP</label><input type="text" id="'+pre+'_bJP" placeholder="例: モンブラン">';
-  h+='<label class="f">ブランドEN</label><input type="text" id="'+pre+'_bEN" placeholder="例: MONTBLANC">';
-  h+='<label class="f">ブランド表示名</label><input type="text" id="'+pre+'_bName" placeholder="例: MONTBLANC（モンブラン）">';
-  h+='</div>';
-  h+='<div class="hashNote">ハッシュタグ → <b id="'+pre+'_hash"></b></div></div>';
+  h+="<div class=\"card\"><div class=\"cap\">── "+NUMS[n]+" ブランド</div>";
+  h+="<label class=\"f\">ブランド選択</label>";
+  h+="<select id=\""+pre+"_brand\">"+opts(BRAND_PRESETS,function(b,i){return "";},function(b){return b.name;})+"</select>";
+  h+="<div id=\""+pre+"_custom\" style=\"display:none\">";
+  h+="<label class=\"f\">ブランドJP</label><input type=\"text\" id=\""+pre+"_bJP\" placeholder=\"例: モンブラン\">";
+  h+="<label class=\"f\">ブランドEN</label><input type=\"text\" id=\""+pre+"_bEN\" placeholder=\"例: MONTBLANC\">";
+  h+="<label class=\"f\">ブランド表示名</label><input type=\"text\" id=\""+pre+"_bName\" placeholder=\"例: MONTBLANC（モンブラン）\">";
+  h+="</div>";
+  h+="<div class=\"hashNote\">ハッシュタグ → <b id=\""+pre+"_hash\"></b></div></div>";
 
-  h+='<div class="card"><div class="cap">── 商品基本情報</div>';
-  h+='<label class="f">⑤ モデル名（改行で複数行）</label>';
-  h+='<textarea id="'+pre+'_model" placeholder="例: ノブレス ゴールド"></textarea>';
+  h+="<div class=\"card\"><div class=\"cap\">── 商品基本情報</div>";
+  h+="<label class=\"f\">⑤ モデル名（改行で複数行）</label>";
+  h+="<textarea id=\""+pre+"_model\" placeholder=\"例: ノブレス ゴールド\"></textarea>";
 
-h+=’<label class="f">モデル名（英語・任意）</label>’;
-h+=’<textarea id="'+pre+'_modelEN" placeholder="例: Noblesse Gold"></textarea>’;
-h+=’<label class="f">ペンの種類</label>’;
-h+=’<select id="'+pre+'_penType">’+opts(PEN_TYPES,function(p){return p;},function(p){return p;})+’</select>’;
-h+=’<label class="f">製造年代</label>’;
-h+=’<select id="'+pre+'_era"><option value="">不明 / 記載なし</option>’;
-for(var e=1;e<ERAS.length;e+=1){h+=’<option value="'+esc(ERAS[e])+'">’+esc(ERAS[e])+’</option>’;}
-h+=’</select>’;
-h+=’<label class="f">製造国</label>’;
-h+=’<select id="'+pre+'_country">’+opts(COUNTRIES,function(c){return c;},function(c){return c;})+’</select>’;
-h+=’<input type="text" id="'+pre+'_countryFree" placeholder="例: スウェーデン製" style="display:none;margin-top:8px">’;
-h+=’<label class="f">素材</label>’;
-h+=’<select id="'+pre+'_material">’+opts(MATERIALS,function(m){return m;},function(m){return m;})+’</select>’;
-h+=’<label class="f">カラー</label>’;
-h+=’<select id="'+pre+'_color">’+opts(COLORS_LIST,function(c){return c;},function(c){return c;})+’</select>’;
-h+=’</div>’;
+h+=”<label class="f">モデル名（英語・任意）</label>”;
+h+=”<textarea id="”+pre+”_modelEN" placeholder="例: Noblesse Gold"></textarea>”;
+h+=”<label class="f">ペンの種類</label>”;
+h+=”<select id="”+pre+”_penType">”+opts(PEN_TYPES,function(p){return p;},function(p){return p;})+”</select>”;
+h+=”<label class="f">製造年代</label>”;
+h+=”<select id="”+pre+”_era"><option value="">不明 / 記載なし</option>”;
+for(var e=1;e<ERAS.length;e+=1){h+=”<option value="”+esc(ERAS[e])+”">”+esc(ERAS[e])+”</option>”;}
+h+=”</select>”;
+h+=”<label class="f">製造国</label>”;
+h+=”<select id="”+pre+”_country">”+opts(COUNTRIES,function(c){return c;},function(c){return c;})+”</select>”;
+h+=”<input type="text" id="”+pre+”_countryFree" placeholder="例: スウェーデン製" style="display:none;margin-top:8px">”;
+h+=”<label class="f">素材</label>”;
+h+=”<select id="”+pre+”_material">”+opts(MATERIALS,function(m){return m;},function(m){return m;})+”</select>”;
+h+=”<label class="f">カラー</label>”;
+h+=”<select id="”+pre+”_color">”+opts(COLORS_LIST,function(c){return c;},function(c){return c;})+”</select>”;
+h+=”</div>”;
 
-h+=’<div class="card"><div class="cap">── 仕様</div>’;
-h+=’<div id="'+pre+'_bp" style="display:none">’;
-h+=’<label class="f">ボールペン仕様</label><div class="chips" id="'+pre+'_bpS"></div>’;
-h+=’<label class="f">書き込み状態</label><div class="two">’;
-h+=’<div class="tg" data-cw="1">✏️ 書ける</div><div class="tg" data-cw="0">🚫 書けない</div></div>’;
-h+=’<label class="f">リフィルアダプター</label><div class="two">’;
-h+=’<div class="tg" data-ra="0">なし</div><div class="tg" data-ra="1">あり</div></div>’;
-h+=’<label class="f">リフィル補足</label><input type="text" id="'+pre+'_refill" placeholder="例: 新品リフィル付（互換品）">’;
-h+=’</div>’;
-h+=’<div id="'+pre+'_fp" style="display:none">’;
-h+=’<label class="f">万年筆仕様</label><div class="chips" id="'+pre+'_fpS"></div>’;
-h+=’<label class="f">インクの有無</label>’;
-h+=’<select id="'+pre+'_ink"><option>なし</option><option>あり（純正）</option><option>あり（互換品）</option></select>’;
-h+=’</div>’;
-h+=’<p class="none" id="'+pre+'_nospec" style="display:none">仕様選択なし</p>’;
-h+=’</div>’;
+h+=”<div class="card"><div class="cap">── 仕様</div>”;
+h+=”<div id="”+pre+”_bp" style="display:none">”;
+h+=”<label class="f">ボールペン仕様</label><div class="chips" id="”+pre+”_bpS"></div>”;
+h+=”<label class="f">書き込み状態</label><div class="two">”;
+h+=”<div class="tg" data-cw="1">✏️ 書ける</div><div class="tg" data-cw="0">🚫 書けない</div></div>”;
+h+=”<label class="f">リフィルアダプター</label><div class="two">”;
+h+=”<div class="tg" data-ra="0">なし</div><div class="tg" data-ra="1">あり</div></div>”;
+h+=”<label class="f">リフィル補足</label><input type="text" id="”+pre+”_refill" placeholder="例: 新品リフィル付（互換品）">”;
+h+=”</div>”;
+h+=”<div id="”+pre+”_fp" style="display:none">”;
+h+=”<label class="f">万年筆仕様</label><div class="chips" id="”+pre+”_fpS"></div>”;
+h+=”<label class="f">インクの有無</label>”;
+h+=”<select id="”+pre+”_ink"><option>なし</option><option>あり（純正）</option><option>あり（互換品）</option></select>”;
+h+=”</div>”;
+h+=”<p class="none" id="”+pre+”_nospec" style="display:none">仕様選択なし</p>”;
+h+=”</div>”;
 
-h+=’<div class="card"><div class="cap">── 状態・付属品</div>’;
-h+=’<label class="f">状態</label>’;
-h+=’<select id="'+pre+'_cond">’+opts(CONDITIONS,function(c){return c.key;},function(c){return c.label;})+’</select>’;
-h+=’<div class="condTxt" id="'+pre+'_condTxt"></div>’;
-h+=’<label class="f">付属品</label><div class="chips" id="'+pre+'_acc"></div>’;
-h+=’<div id="'+pre+'_dirtyWrap" style="display:none">’;
-h+=’<label class="f">多少の汚れあり</label><div class="chips" id="'+pre+'_dirty"></div>’;
-h+=’<label class="f">汚れ補足</label><input type="text" id="'+pre+'_dNote" placeholder="例: ケース内側にシミあり">’;
-h+=’</div></div>’;
+h+=”<div class="card"><div class="cap">── 状態・付属品</div>”;
+h+=”<label class="f">状態</label>”;
+h+=”<select id="”+pre+”_cond">”+opts(CONDITIONS,function(c){return c.key;},function(c){return c.label;})+”</select>”;
+h+=”<div class="condTxt" id="”+pre+”_condTxt"></div>”;
+h+=”<label class="f">付属品</label><div class="chips" id="”+pre+”_acc"></div>”;
+h+=”<div id="”+pre+”_dirtyWrap" style="display:none">”;
+h+=”<label class="f">多少の汚れあり</label><div class="chips" id="”+pre+”_dirty"></div>”;
+h+=”<label class="f">汚れ補足</label><input type="text" id="”+pre+”_dNote" placeholder="例: ケース内側にシミあり">”;
+h+=”</div></div>”;
 
-h+=’<div class="card"><div class="cap">── 補足・管理番号</div>’;
-h+=’<label class="f">定価（円）</label><input type="text" id="'+pre+'_listPrice" placeholder="例: 15000">’;
-h+=’<label class="f">説明文への追記</label><textarea id="'+pre+'_extra" placeholder="例: スリムなボディが特長です。"></textarea>’;
-h+=’<label class="f">管理番号</label><input type="text" id="'+pre+'_mgmt" placeholder="例: 26022801">’;
-h+=’</div>’;
+h+=”<div class="card"><div class="cap">── 補足・管理番号</div>”;
+h+=”<label class="f">定価（円）</label><input type="text" id="”+pre+”_listPrice" placeholder="例: 15000">”;
+h+=”<label class="f">説明文への追記</label><textarea id="”+pre+”_extra" placeholder="例: スリムなボディが特長です。"></textarea>”;
+h+=”<label class="f">管理番号</label><input type="text" id="”+pre+”_mgmt" placeholder="例: 26022801">”;
+h+=”</div>”;
 
-h+=’<div class="card"><div class="cap">── トップ画像</div>’;
-h+=’<label class="f">商品写真</label>’;
-h+=’<label class="drop" id="'+pre+'_drop"><div id="'+pre+'_dropIn"><div class="camera">📷</div><div class="dropTxt">タップして写真を選択</div></div>’;
-h+=’<input type="file" accept="image/*" id="'+pre+'_file" style="display:none"></label>’;
-h+=’<button class="ghost" id="'+pre+'_imgDel" style="display:none">✕ 写真を削除</button>’;
+h+=”<div class="card"><div class="cap">── トップ画像</div>”;
+h+=”<label class="f">商品写真</label>”;
+h+=”<label class="drop" id="”+pre+”_drop"><div id="”+pre+”_dropIn"><div class="camera">📷</div><div class="dropTxt">タップして写真を選択</div></div>”;
+h+=”<input type="file" accept="image/*" id="”+pre+”_file" style="display:none"></label>”;
+h+=”<button class="ghost" id="”+pre+”_imgDel" style="display:none">✕ 写真を削除</button>”;
 
-h+=’<div class="tipBox"><b>①②③④⑤は自動。⑥〜⑨は任意。</b>プレビューをタップ→調整</div>’;
+h+=”<div class="tipBox"><b>①②③④⑤は自動。⑥〜⑨は任意。</b>プレビューをタップ→調整</div>”;
 
-h+=’<div class="turqRow"><span class="cap3">帯色:</span><input type="color" id="'+pre+'_turq" value="'+DEF_TURQ+'">’;
-h+=’<button class="mini" id="'+pre+'_turqR">リセット</button></div>’;
+h+=”<div class="turqRow"><span class="cap3">帯色:</span><input type="color" id="”+pre+”_turq" value="”+DEF_TURQ+”">”;
+h+=”<button class="mini" id="”+pre+”_turqR">リセット</button></div>”;
 
-h+=’<div class="ebayBox" id="'+pre+'_ebayBox">’;
-h+=’<div class="ebayHead" id="'+pre+'_ebayTog"><span class="cb" id="'+pre+'_ebayCb"></span>’;
-h+=’<span class="ebayTitle">🌐 eBay用の英語画像も一緒に作る</span></div>’;
-h+=’<div class="ebaySub">日本語画像とは別に、英語表記の画像をもう1枚生成します</div>’;
-h+=’<div id="'+pre+'_ebayPanel" style="display:none">’;
-h+=’<div class="mEN" id="'+pre+'_mEN"></div>’;
-h+=’<div class="ebaySub2">⑥〜⑨は日本語から自動翻訳されます。訳がおかしい時だけ英語を直接入れてください</div>’;
+h+=”<div class="ebayBox" id="”+pre+”_ebayBox">”;
+h+=”<div class="ebayHead" id="”+pre+”_ebayTog"><span class="cb" id="”+pre+”*ebayCb"></span>”;
+h+=”<span class="ebayTitle">🌐 eBay用の英語画像も一緒に作る</span></div>”;
+h+=”<div class="ebaySub">日本語画像とは別に、英語表記の画像をもう1枚生成します</div>”;
+h+=”<div id="”+pre+”*ebayPanel" style="display:none">”;
+h+=”<div class="mEN" id="”+pre+”*mEN"></div>”;
+h+=”<div class="ebaySub2">⑥〜⑨は日本語から自動翻訳されます。訳がおかしい時だけ英語を直接入れてください</div>”;
 var EN=[[“⑥”,“左・黒帯”,“e6”],[“⑦”,“右・黒帯”,“e7”],[“⑧”,“左・赤文字”,“e8”],[“⑨”,“右・赤文字”,“e9”]];
 for(var q=0;q<EN.length;q+=1){
-h+=’<div class="enRow" id="'+pre+'_'+EN[q][2]+'Row" style="display:none">’;
-h+=’<div class="enLbl" id="'+pre+'_'+EN[q][2]+'Lbl">’+EN[q][0]+’ ‘+EN[q][1]+’</div>’;
-h+=’<textarea id="'+pre+'_'+EN[q][2]+'" placeholder="英語を直接入力"></textarea></div>’;
+h+=”<div class="enRow" id="”+pre+”*”+EN[q][2]+“Row" style="display:none">”;
+h+=”<div class="enLbl" id="”+pre+”*”+EN[q][2]+“Lbl">”+EN[q][0]+” “+EN[q][1]+”</div>”;
+h+=”<textarea id="”+pre+”*”+EN[q][2]+”" placeholder="英語を直接入力"></textarea></div>”;
 }
-h+=’<div class="ebaySub2" id="'+pre+'_enEmpty">⑥〜⑨に日本語を入れると、ここに英訳欄が出ます</div>’;
-h+=’</div></div>’;
+h+=”<div class="ebaySub2" id="”+pre+”_enEmpty">⑥〜⑨に日本語を入れると、ここに英訳欄が出ます</div>”;
+h+=”</div></div>”;
 
-h+=’<div class="numRow"><span class="nb auto">②</span><span class="cap3">右下の帯</span></div>’;
-h+=’<select id="'+pre+'_p2"></select>’;
-h+=’<input type="text" id="'+pre+'_p2c" placeholder="例: 高級鉛筆" style="display:none;margin-top:8px">’;
+h+=”<div class="numRow"><span class="nb auto">②</span><span class="cap3">右下の帯</span></div>”;
+h+=”<select id="”+pre+”_p2"></select>”;
+h+=”<input type="text" id="”+pre+”_p2c" placeholder="例: 高級鉛筆" style="display:none;margin-top:8px">”;
 
 var JPF=[[“⑥”,“左・黒帯”,“p6”,“例: 初期型”],[“⑦”,“右・黒帯”,“p7”,“例: 20金張り”],[“⑧”,“左・赤文字”,“p8”,“例: レア！”],[“⑨”,“右・赤文字”,“p9”,“例: 美品”]];
 for(var r=0;r<JPF.length;r+=1){
-h+=’<div class="numRow" style="margin-top:12px"><span class="nb">’+JPF[r][0]+’</span><span class="cap3">’+JPF[r][1]+’</span></div>’;
-h+=’<textarea id="'+pre+'_'+JPF[r][2]+'" placeholder="'+JPF[r][3]+'"></textarea>’;
+h+=”<div class="numRow" style="margin-top:12px"><span class="nb">”+JPF[r][0]+”</span><span class="cap3">”+JPF[r][1]+”</span></div>”;
+h+=”<textarea id="”+pre+”_”+JPF[r][2]+”" placeholder="”+JPF[r][3]+”"></textarea>”;
 }
 
-h+=’<div class="pvHead"><span class="cap3">── プレビュー（日本語）</span><button class="mini" id="'+pre+'_rstJP">位置リセット</button></div>’;
-h+=’<canvas id="'+pre+'_cvJP" class="pv"></canvas>’;
+h+=”<div class="pvHead"><span class="cap3">── プレビュー（日本語）</span><button class="mini" id="”+pre+”_rstJP">位置リセット</button></div>”;
+h+=”<canvas id="”+pre+”_cvJP" class="pv"></canvas>”;
 h+=ctrlHTML(pre+”_jp”);
 
-h+=’<div id="'+pre+'_enPv" style="display:none">’;
-h+=’<div class="pvHead en"><span class="cap3">── プレビュー（eBay英語）🌐</span><button class="mini" id="'+pre+'_rstEN">位置リセット</button></div>’;
-h+=’<canvas id="'+pre+'_cvEN" class="pv en"></canvas>’;
+h+=”<div id="”+pre+”_enPv" style="display:none">”;
+h+=”<div class="pvHead en"><span class="cap3">── プレビュー（eBay英語）🌐</span><button class="mini" id="”+pre+”_rstEN">位置リセット</button></div>”;
+h+=”<canvas id="”+pre+”_cvEN" class="pv en"></canvas>”;
 h+=ctrlHTML(pre+”_en”);
-h+=’</div>’;
+h+=”</div>”;
 
-h+=’</div>’;
+h+=”</div>”;
 
-h+=’<button class="go" id="'+pre+'_gen">✦ ‘+NUMS[n]+’ タイトル・説明文・画像を生成</button>’;
-h+=’<canvas id="'+pre+'_hidden" style="display:none"></canvas>’;
+h+=”<button class="go" id="”+pre+”_gen">✦ “+NUMS[n]+” タイトル・説明文・画像を生成</button>”;
+h+=”<canvas id="”+pre+”_hidden" style="display:none"></canvas>”;
 return h;
 }
 
 function chipHTML(list,pre,kind){
 var h=””;
 for(var i=0;i<list.length;i+=1){
-h+=’<div class=“chip” data-’+kind+’=”’+esc(list[i])+’”><span class="box">✓</span>’+esc(list[i])+’</div>’;
+h+=”<div class="chip" data-”+kind+”="”+esc(list[i])+”"><span class="box">✓</span>”+esc(list[i])+”</div>”;
 }
 return h;
 }
@@ -1378,14 +1378,14 @@ return h;
 function boot(){
 var tabs=””,panes=””;
 for(var n=0;n<5;n+=1){
-tabs+=’<button data-tab=”’+n+’”’+(n===0?’ class=“on”’:’’)+’>’+NUMS[n]+’ ‘+(n+1)+‘品目<i class="dot" id="dot'+n+'"></i></button>’;
-panes+=’<div class=“pane’+(n===0?” on”:””)+’” id=“pane’+n+’”>’+paneHTML(n)+’</div>’;
+tabs+=”<button data-tab="”+n+”"”+(n===0?” class="on"”:””)+”>”+NUMS[n]+” “+(n+1)+“品目<i class="dot" id="dot”+n+”"></i></button>”;
+panes+=”<div class="pane”+(n===0?” on”:””)+”" id="pane”+n+”">”+paneHTML(n)+”</div>”;
 }
 $(“tabs”).innerHTML=tabs;
 $(“panes”).innerHTML=panes;
 
 var st=””;
-for(var m=0;m<5;m+=1){st+=’<div class="stItem" id="st'+m+'"></div>’;}
+for(var m=0;m<5;m+=1){st+=”<div class="stItem" id="st”+m+”"></div>”;}
 $(“batchStatus”).innerHTML=st;
 
 for(var k=0;k<5;k+=1){wire(k);}
@@ -1648,24 +1648,24 @@ for(var c=0;c<CONDITIONS.length;c+=1){if(CONDITIONS[c].key===it.cond)co=CONDITIO
 $(pre+”_condTxt”).textContent=(co?co.fn(calcYears(it.era)):””);
 
 if(it.imgB64){
-$(pre+”_dropIn”).innerHTML=’<img src="'+it.imgB64+'" class="thumb">’;
+$(pre+”_dropIn”).innerHTML=”<img src="”+it.imgB64+”" class="thumb">”;
 $(pre+”_drop”).className=“drop has”;
 $(pre+”_imgDel”).style.display=“block”;
 }else{
-$(pre+”_dropIn”).innerHTML=’<div class="camera">📷</div><div class="dropTxt">タップして写真を選択</div>’;
+$(pre+”_dropIn”).innerHTML=”<div class="camera">📷</div><div class="dropTxt">タップして写真を選択</div>”;
 $(pre+”_drop”).className=“drop”;
 $(pre+”_imgDel”).style.display=“none”;
 }
 
 var p2sel=$(pre+”_p2”);
 var autoLbl=“自動（高級”+(it.penType===“シャープペンシル”?“シャープペン”:it.penType)+”）”;
-var ph=’<option value="">’+esc(autoLbl)+’</option>’;
+var ph=”<option value="">”+esc(autoLbl)+”</option>”;
 if(it.penType===“シャープペンシル”){
-ph+=’<option value="高級シャープペン">高級シャープペン</option><option value="純銀シャープペン">純銀シャープペン</option>’;
+ph+=”<option value="高級シャープペン">高級シャープペン</option><option value="純銀シャープペン">純銀シャープペン</option>”;
 }else{
-for(var t=0;t<TYPE2_OPTS.length;t+=1){ph+=’<option value="'+esc(TYPE2_OPTS[t])+'">’+esc(TYPE2_OPTS[t])+’</option>’;}
+for(var t=0;t<TYPE2_OPTS.length;t+=1){ph+=”<option value="”+esc(TYPE2_OPTS[t])+”">”+esc(TYPE2_OPTS[t])+”</option>”;}
 }
-ph+=’<option value="__custom__">任意入力…</option>’;
+ph+=”<option value="**custom**">任意入力…</option>”;
 if(p2sel.innerHTML!==ph)p2sel.innerHTML=ph;
 p2sel.value=(it.p2Custom?”**custom**”:it.p2L);
 $(pre+”_p2c”).style.display=(it.p2Custom?“block”:“none”);
@@ -1680,8 +1680,8 @@ var bad=hasJapanese(mEN);
 if(it.model){
 $(pre+”_mEN”).style.display=“block”;
 $(pre+”_mEN”).className=“mEN”+(bad?” bad”:””);
-$(pre+”_mEN”).innerHTML=’<div class="mENcap">⑤ モデル名（英語画像用）</div><div class="mENval">’+esc(mEN||“未入力”)+’</div>’
-+(bad?’<div class="mENwarn">日本語が残っています。「モデル名（英語・任意）」に英語を入れてください</div>’:’’);
+$(pre+”_mEN”).innerHTML=”<div class="mENcap">⑤ モデル名（英語画像用）</div><div class="mENval">”+esc(mEN||“未入力”)+”</div>”
++(bad?”<div class="mENwarn">日本語が残っています。「モデル名（英語・任意）」に英語を入れてください</div>”:””);
 }else{
 $(pre+”_mEN”).style.display=“none”;
 }
@@ -1724,8 +1724,8 @@ var dot=$(“dot”+n);
 dot.className=“dot”+(it.titleOut?” done”:(it.model?” ready”:””));
 var st=$(“st”+n);
 st.className=“stItem”+(it.model?” on”:””);
-st.innerHTML=NUMS[n]+(it.makeEbayImg?’<span class="glob">🌐</span>’:””)+’<br><span class="stSub">’
-+esc(it.model?(it.model.split(”\n”)[0].slice(0,8)||“入力済”):”-”)+’</span>’;
+st.innerHTML=NUMS[n]+(it.makeEbayImg?”<span class="glob">🌐</span>”:””)+”<br><span class="stSub">”
++esc(it.model?(it.model.split(”\n”)[0].slice(0,8)||“入力済”):”-”)+”</span>”;
 }
 
 function validIds(sel,elems){
@@ -1915,14 +1915,14 @@ refresh(n);
 var tcw=$(pre+”_”+which+”*tc”),bcw=$(pre+”*”+which+”_bc”);
 var pre1=””;
 for(var a=0;a<TXT_COLORS.length;a+=1){
-pre1+=’<button data-tc=”’+TXT_COLORS[a][1]+’” style=“background:’+TXT_COLORS[a][1]
-+’;color:’+(TXT_COLORS[a][0]===“白”||TXT_COLORS[a][0]===“桃”?”#000”:”#fff”)+’”>’+TXT_COLORS[a][0]+’</button>’;
+pre1+=”<button data-tc="”+TXT_COLORS[a][1]+”" style="background:”+TXT_COLORS[a][1]
++”;color:”+(TXT_COLORS[a][0]===“白”||TXT_COLORS[a][0]===“桃”?”#000”:”#fff”)+”">”+TXT_COLORS[a][0]+”</button>”;
 }
 tcw.insertAdjacentHTML(“afterbegin”,pre1);
 var pre2=””;
 for(var b2=0;b2<BAND_COLORS.length;b2+=1){
-pre2+=’<button data-bc=”’+BAND_COLORS[b2][1]+’” style=“background:’+BAND_COLORS[b2][1]
-+’;color:’+(BAND_COLORS[b2][0]===“白”||BAND_COLORS[b2][0]===“ターコイズ”||BAND_COLORS[b2][0]===“桃”?”#000”:”#fff”)+’”>’+BAND_COLORS[b2][0]+’</button>’;
+pre2+=”<button data-bc="”+BAND_COLORS[b2][1]+”" style="background:”+BAND_COLORS[b2][1]
++”;color:”+(BAND_COLORS[b2][0]===“白”||BAND_COLORS[b2][0]===“ターコイズ”||BAND_COLORS[b2][0]===“桃”?”#000”:”#fff”)+”">”+BAND_COLORS[b2][0]+”</button>”;
 }
 bcw.insertAdjacentHTML(“afterbegin”,pre2);
 }
@@ -1978,31 +1978,31 @@ var h=””;
 for(var n=0;n<5;n+=1){
 var it=items[n];
 if(!it.titleOut&&!it.imgOut)continue;
-h+=’<div class="res"><div class="resHead">’+NUMS[n]+’ ‘+esc(it.bName)
-+(it.model?’<div class="resSub">’+esc(it.model.split(”\n”)[0])+’</div>’:’’)+’</div>’;
+h+=”<div class="res"><div class="resHead">”+NUMS[n]+” “+esc(it.bName)
++(it.model?”<div class="resSub">”+esc(it.model.split(”\n”)[0])+”</div>”:””)+”</div>”;
 if(it.imgOut){
-h+=’<div class="resSec"><div class="cap4">── メルカリ・ヤフオク用（日本語）</div>’;
-h+=’<img src="'+it.imgOut+'" class="resImg">’;
-h+=’<button class="copyImg" data-img="'+n+',jp">📋 画像をコピー</button>’;
-h+=’<div class="saveTip">コピー後、メモアプリなどでペーストして保存<br>できない時は<b>画像を長押し</b>→「“写真”に追加」</div></div>’;
+h+=”<div class="resSec"><div class="cap4">── メルカリ・ヤフオク用（日本語）</div>”;
+h+=”<img src="”+it.imgOut+”" class="resImg">”;
+h+=”<button class="copyImg" data-img="”+n+”,jp">📋 画像をコピー</button>”;
+h+=”<div class="saveTip">コピー後、メモアプリなどでペーストして保存<br>できない時は<b>画像を長押し</b>→「"写真"に追加」</div></div>”;
 }
 if(it.imgOutEN){
-h+=’<div class="resSec"><div class="cap4 en">── eBay用（英語）</div>’;
-h+=’<img src="'+it.imgOutEN+'" class="resImg en">’;
-h+=’<button class="copyImg en" data-img="'+n+',en">🌐 eBay用画像をコピー</button></div>’;
+h+=”<div class="resSec"><div class="cap4 en">── eBay用（英語）</div>”;
+h+=”<img src="”+it.imgOutEN+”" class="resImg en">”;
+h+=”<button class="copyImg en" data-img="”+n+”,en">🌐 eBay用画像をコピー</button></div>”;
 }
-h+=’<div class="resSec"><div class="cap4">── タイトル</div>’;
-h+=’<div class="outBox" id="tt'+n+'">’+esc(it.titleOut)+’</div>’;
-h+=’<button class="copyTxt" data-txt="tt'+n+'">📋 タイトルをコピー</button></div>’;
-h+=’<div class="resSec"><div class="cap4">── 説明文</div>’;
-h+=’<div class="outBox tall" id="bd'+n+'">’+esc(it.bodyOut)+’</div>’;
-h+=’<button class="copyTxt" data-txt="bd'+n+'">📋 説明文をコピー</button></div>’;
-h+=’</div>’;
+h+=”<div class="resSec"><div class="cap4">── タイトル</div>”;
+h+=”<div class="outBox" id="tt”+n+”">”+esc(it.titleOut)+”</div>”;
+h+=”<button class="copyTxt" data-txt="tt”+n+”">📋 タイトルをコピー</button></div>”;
+h+=”<div class="resSec"><div class="cap4">── 説明文</div>”;
+h+=”<div class="outBox tall" id="bd”+n+”">”+esc(it.bodyOut)+”</div>”;
+h+=”<button class="copyTxt" data-txt="bd”+n+”">📋 説明文をコピー</button></div>”;
+h+=”</div>”;
 }
 var box=$(“results”);
 if(!h){box.innerHTML=””;box.style.display=“none”;return;}
 box.style.display=“block”;
-box.innerHTML=’<div class="resTitle">── 生成結果 ──</div><div class="resGrid">’+h+’</div>’;
+box.innerHTML=”<div class="resTitle">── 生成結果 ──</div><div class="resGrid">”+h+”</div>”;
 }
 
 function copyImage(n,which){
