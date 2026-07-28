@@ -31,7 +31,10 @@ html, body { margin: 0; padding: 0; background: #fff; }
       return r.text();
     })
     .then(function (code) {
-      var out = Babel.transform(code, {
+      var fixed = code
+        .replace(/[\u201C\u201D\u301D\u301E]/g, '"')
+        .replace(/[\u2018\u2019]/g, "'");
+      var out = Babel.transform(fixed, {
         presets: [["react", { runtime: "classic" }]]
       }).code;
       var s = document.createElement("script");
