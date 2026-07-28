@@ -7,43 +7,97 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="eBay変換">
 <title>eBay英語変換ツール</title>
-<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <style>
 html, body { margin: 0; padding: 0; background: #fff; }
 #root { min-height: 100vh; }
-.boot { padding: 60px 20px; text-align: center; font-family: sans-serif; color: #888; font-size: 13px; line-height: 2; }
+.boot { padding: 60px 20px; text-align: center; font-family: sans-serif; color: #888; font-size: 13px; line-height: 2; word-break: break-all; }
 </style>
 </head>
 <body>
-<div id="root"><div class="boot">🌐<br>LOADING</div></div>
+<div id="root"><div class="boot">🌐<br><span id="bootmsg">LOADING</span></div></div>
 <script>
 (function () {
-  var v = window.location.search ? window.location.search.slice(1) : String(Date.now());
-  function fail(msg) {
-    document.getElementById("root").innerHTML =
-      '<div class="boot">読み込みに失敗しました<br>' + String(msg) + '</div>';
-  }
-  fetch("ebay.jsx?v=" + encodeURIComponent(v))
-    .then(function (r) {
-      if (!r.ok) { throw new Error("ebay.jsx が見つかりません (" + r.status + ")"); }
-      return r.text();
-    })
-    .then(function (code) {
-      var fixed = code
-        .replace(/[\u201C\u201D\u301D\u301E]/g, '"')
-        .replace(/[\u2018\u2019]/g, "'")
-        .replace(/^[ \t]*`{3,}[a-zA-Z]*[ \t]*$/gm, "");
-      var out = Babel.transform(fixed, {
-        presets: [["react", { runtime: "classic" }]]
-      }).code;
-      var s = document.createElement("script");
-      s.textContent = out;
-      document.body.appendChild(s);
-    })
-    .catch(function (e) { fail(e && e.message ? e.message : e); });
+  var done = false;
+
+function msg(s) {
+var el = document.getElementById(“bootmsg”);
+if (el) { el.textContent = s; }
+}
+function fail(m) {
+done = true;
+document.getElementById(“root”).innerHTML =
+‘<div class="boot">読み込みに失敗しました<br>’ + String(m) + ‘</div>’;
+}
+window.addEventListener(“error”, function (ev) {
+if (done) return;
+fail(ev.message ? ev.message : “不明なエラー”);
+});
+
+function loadScript(src) {
+return new Promise(function (res, rej) {
+var s = document.createElement(“script”);
+s.src = src;
+s.onload = function () { res(); };
+s.onerror = function () { rej(new Error(“読み込めません: “ + src)); };
+document.head.appendChild(s);
+});
+}
+
+function ensure(globalName, unpkgUrl, jsdelivrUrl) {
+if (window[globalName]) return Promise.resolve();
+return loadScript(unpkgUrl)
+.catch(function () { return loadScript(jsdelivrUrl); })
+.then(function () {
+if (!window[globalName]) { throw new Error(globalName + “ が読み込めませんでした。通信環境を確認してください”); }
+});
+}
+
+msg(“ライブラリを読み込み中”);
+ensure(“React”,
+“https://unpkg.com/react@18/umd/react.production.min.js”,
+“https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js”)
+.then(function () {
+return ensure(“ReactDOM”,
+“https://unpkg.com/react-dom@18/umd/react-dom.production.min.js”,
+“https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js”);
+})
+.then(function () {
+return ensure(“Babel”,
+“https://unpkg.com/@babel/standalone/babel.min.js”,
+“https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js”);
+})
+.then(function () {
+msg(“ebay.jsx を読み込み中”);
+var v = window.location.search ? window.location.search.slice(1) : String(Date.now());
+return fetch(“ebay.jsx?v=” + encodeURIComponent(v));
+})
+.then(function (r) {
+if (!r.ok) { throw new Error(“ebay.jsx が見つかりません (” + r.status + “)”); }
+return r.text();
+})
+.then(function (code) {
+msg(“変換中”);
+var fixed = code
+.replace(/[\u201C\u201D\u301D\u301E]/g, ‘”’)
+.replace(/[\u2018\u2019]/g, “’”)
+.replace(/^[ \t]*`{3,}[a-zA-Z]*[ \t]*$/gm, “”);
+var out = Babel.transform(fixed, {
+presets: [[“react”, { runtime: “classic” }]]
+}).code;
+var s = document.createElement(“script”);
+s.textContent = out;
+document.body.appendChild(s);
+setTimeout(function () {
+if (!document.querySelector(”#root h1”)) {
+fail(“画面の描画に失敗しました。ebay.jsx の中身を確認してください”);
+} else {
+done = true;
+}
+}, 1500);
+})
+.catch(function (e) { fail(e && e.message ? e.message : e); });
 })();
 </script>
+
 </body>
 </html>
