@@ -56,7 +56,7 @@ button { font-family: inherit; cursor: pointer; }
 <body>
 <div class="hd">
   <div class="icon">🇯🇵 → 🌐</div>
-  <div class="sub">EBAY TEXT CONVERTER v6</div>
+  <div class="sub">EBAY TEXT CONVERTER v7</div>
   <h1>日本語出品 → eBay英語</h1>
 </div>
 
@@ -110,7 +110,8 @@ button { font-family: inherit; cursor: pointer; }
 
 <div id="toast"></div>
 
-<script>
+<script>var E=String.fromCharCode();
+
 var EBAY = `#0064d2`, TX = `#333`, MT = `#888`, CARD = `#f9f9f9`;
 
 /* ==================================================================
@@ -563,11 +564,11 @@ var DIC_KANA = {
   [`ダ`]: `da`, [`ヂ`]: `ji`, [`ヅ`]: `zu`, [`デ`]: `de`, [`ド`]: `do`,
   [`バ`]: `ba`, [`ビ`]: `bi`, [`ブ`]: `bu`, [`ベ`]: `be`, [`ボ`]: `bo`,
   [`パ`]: `pa`, [`ピ`]: `pi`, [`プ`]: `pu`, [`ペ`]: `pe`, [`ポ`]: `po`,
-  [`ャ`]: `ya`, [`ュ`]: `yu`, [`ョ`]: `yo`, [`ッ`]: ``, [`ー`]: ``
+  [`ャ`]: `ya`, [`ュ`]: `yu`, [`ョ`]: `yo`, [`ッ`]: E, [`ー`]: E
 };
 
 function dicRomaji(s) {
-  var out = ``;
+  var out = E;
   var i = 0;
   while (i < s.length) {
     var two = s.substr(i, 2);
@@ -582,7 +583,7 @@ function dicRomaji(s) {
 var DIC_MODELS_SORTED = DIC_MODELS.slice().sort(function (a, b) { return b.jp.length - a.jp.length; });
 
 function dicTranslate(jp) {
-  if (!jp) return { en: ``, romanized: ``, leftover: `` };
+  if (!jp) return { en: E, romanized: E, leftover: E };
 
   jp = jp.replace(/[\uFF21-\uFF3A\uFF41-\uFF5A\uFF10-\uFF19]/g, function (c) {
     return String.fromCharCode(c.charCodeAt(0) - 0xFEE0);
@@ -594,7 +595,7 @@ function dicTranslate(jp) {
   function decompose(w) {
     var parts = [], romaji = [];
     var rest = w;
-    var buf = ``;
+    var buf = E;
     var guard = 0;
 
     function flushBuf() {
@@ -606,7 +607,7 @@ function dicTranslate(jp) {
       } else {
         parts.push(buf);
       }
-      buf = ``;
+      buf = E;
     }
 
     while (rest.length > 0 && guard < 200) {
@@ -698,24 +699,24 @@ var DIC_MATERIALS = [
   { jp: `金張り`, en: `Gold Filled (Rolled Gold)`, short: `Gold Filled`, asset: `gold` },
   { jp: `ゴールドフィルド`, en: `Gold Filled (Rolled Gold)`, short: `Gold Filled`, asset: `gold` },
   { jp: `ロールドゴールド`, en: `Rolled Gold`, asset: `gold` },
-  { jp: `18K金メッキ`, en: `18K Gold Plated`, asset: `` },
-  { jp: `14K金メッキ`, en: `14K Gold Plated`, asset: `` },
-  { jp: `金メッキ`, en: `Gold Plated`, asset: `` },
-  { jp: `ゴールドプレート`, en: `Gold Plated`, asset: `` },
-  { jp: `銀メッキ`, en: `Silver Plated`, asset: `` },
-  { jp: `シルバープレート`, en: `Silver Plated`, asset: `` },
-  { jp: `ロジウムメッキ`, en: `Rhodium Plated`, asset: `` },
-  { jp: `プラチナメッキ`, en: `Platinum Plated`, asset: `` },
+  { jp: `18K金メッキ`, en: `18K Gold Plated`, asset: E },
+  { jp: `14K金メッキ`, en: `14K Gold Plated`, asset: E },
+  { jp: `金メッキ`, en: `Gold Plated`, asset: E },
+  { jp: `ゴールドプレート`, en: `Gold Plated`, asset: E },
+  { jp: `銀メッキ`, en: `Silver Plated`, asset: E },
+  { jp: `シルバープレート`, en: `Silver Plated`, asset: E },
+  { jp: `ロジウムメッキ`, en: `Rhodium Plated`, asset: E },
+  { jp: `プラチナメッキ`, en: `Platinum Plated`, asset: E },
   { jp: `ペン先18K`, en: `18K Gold Nib`, asset: `gold` },
   { jp: `ペン先14K`, en: `14K Gold Nib`, asset: `gold` },
-  { jp: `高級レジン`, en: `Precious Resin`, asset: `` },
-  { jp: `プレシャスレジン`, en: `Precious Resin`, asset: `` },
-  { jp: `ラッカー`, en: `Lacquer Finish`, asset: `` },
-  { jp: `カーボン`, en: `Carbon Fiber`, asset: `` },
-  { jp: `セルロイド`, en: `Celluloid`, asset: `` },
-  { jp: `ステンレス`, en: `Stainless Steel`, asset: `` },
-  { jp: `マット樹脂`, en: `Matte Resin`, asset: `` },
-  { jp: `メタル`, en: `Metal`, asset: `` }
+  { jp: `高級レジン`, en: `Precious Resin`, asset: E },
+  { jp: `プレシャスレジン`, en: `Precious Resin`, asset: E },
+  { jp: `ラッカー`, en: `Lacquer Finish`, asset: E },
+  { jp: `カーボン`, en: `Carbon Fiber`, asset: E },
+  { jp: `セルロイド`, en: `Celluloid`, asset: E },
+  { jp: `ステンレス`, en: `Stainless Steel`, asset: E },
+  { jp: `マット樹脂`, en: `Matte Resin`, asset: E },
+  { jp: `メタル`, en: `Metal`, asset: E }
 ];
 
 var DIC_COLORS = [
@@ -789,11 +790,11 @@ function translateModel(s) { return dicTranslate(s); }
 
 function findOne(t, list) { for (var i = 0; i < list.length; i++) if (t.indexOf(list[i].jp) >= 0) return list[i]; return null; }
 function findAll(t, list) { var o = []; for (var i = 0; i < list.length; i++) if (t.indexOf(list[i].jp) >= 0) o.push(list[i]); return o; }
-function pickField(t, label) { var m = t.match(new RegExp(`【` + label + `】([^\n]*)`)); return m ? m[1].trim() : ``; }
+function pickField(t, label) { var m = t.match(new RegExp(`【` + label + `】([^\n]*)`)); return m ? m[1].trim() : E; }
 function extractEra(t) {
   var m = t.match(/(\d{4})年代/); if (m) return m[1].replace(/(\d{3})\d/, `$1`) + `0s`;
   var m2 = t.match(/(\d{4})s/); if (m2) return m2[1] + `s`;
-  return ``;
+  return E;
 }
 
 function extractProduction(t) {
@@ -835,7 +836,7 @@ function hasRarity(t) {
 }
 
 function buildTitle(hook, parts) {
-  var head = hook ? hook + `◆` : ``;
+  var head = hook ? hook + `◆` : E;
   var p = [];
   for (var i = 0; i < parts.length; i++) {
     if (!parts[i]) continue;
@@ -854,7 +855,7 @@ function buildTitle(hook, parts) {
 function convertListing(jpTitle, jpBody, tested) {
   var all = jpTitle + `\n` + jpBody;
 
-  var bodyForBrand = jpBody.split(`プラチナメッキ`).join(``).split(`プラチナ仕上げ`).join(``).split(`プラチナコーティング`).join(``);
+  var bodyForBrand = jpBody.split(`プラチナメッキ`).join(E).split(`プラチナ仕上げ`).join(E).split(`プラチナコーティング`).join(E);
   var brand = findOne(jpTitle, BRANDS) || findOne(bodyForBrand, BRANDS);
 
   var penType = findOne(jpTitle, PENTYPES);
@@ -874,11 +875,11 @@ function convertListing(jpTitle, jpBody, tested) {
     var fv = pickField(jpBody, label);
     if (!fv) {
       var h2 = findOne(fallbackText, list);
-      return h2 ? { en: h2.en, short: h2.short || h2.en, raw: ``, obj: h2 } : { en: ``, short: ``, raw: ``, obj: null };
+      return h2 ? { en: h2.en, short: h2.short || h2.en, raw: E, obj: h2 } : { en: E, short: E, raw: E, obj: null };
     }
 
-    var outside = fv.replace(/[\uff08(][^\uff09)]*[\uff09)]/g, ``).trim();
-    var inside = (fv.match(/[\uff08(]([^\uff09)]*)[\uff09)]/) || [])[1] || ``;
+    var outside = fv.replace(/[\uff08(][^\uff09)]*[\uff09)]/g, E).trim();
+    var inside = (fv.match(/[\uff08(]([^\uff09)]*)[\uff09)]/) || [])[1] || E;
     var core = outside || fv;
 
     for (var e1 = 0; e1 < list.length; e1++) {
@@ -896,7 +897,7 @@ function convertListing(jpTitle, jpBody, tested) {
     }
     if (hit) return { en: hit.en, short: hit.short || hit.en, raw: fv, obj: hit };
     if (tr.en) return { en: tr.en, raw: fv, obj: null, romanized: tr.romanized, leftover: tr.leftover };
-    return { en: ``, raw: fv, obj: null };
+    return { en: E, raw: fv, obj: null };
   }
 
   var matR = resolveField(`素材`, MATERIALS, all);
@@ -921,7 +922,7 @@ function convertListing(jpTitle, jpBody, tested) {
   var modelJp = pickField(jpBody, `モデル`);
   if (!modelJp) {
     var t = jpTitle;
-    t = t.replace(/\d{4}s?◆?/g, ``);
+    t = t.replace(/\d{4}s?◆?/g, E);
     BRANDS.forEach(function (b) { t = t.split(b.jp).join(` `); });
     PENTYPES.forEach(function (p) { t = t.split(`高級` + p.jp).join(` `).split(p.jp).join(` `); });
     COUNTRIES.forEach(function (c) { t = t.split(c.jp).join(` `); });
@@ -932,9 +933,9 @@ function convertListing(jpTitle, jpBody, tested) {
 
   var priceField = pickField(jpBody, `定価`);
   var mgmtMatch = jpBody.match(/\b(\d{8})\b/);
-  var mgmt = mgmtMatch ? mgmtMatch[1] : ``;
+  var mgmt = mgmtMatch ? mgmtMatch[1] : E;
 
-  var cond = null, condSrc = ``;
+  var cond = null, condSrc = E;
   for (var i = 0; i < CONDITIONS.length && !cond; i++) {
     for (var j = 0; j < CONDITIONS[i].jp.length; j++) {
       if (jpBody.indexOf(CONDITIONS[i].jp[j]) >= 0) {
@@ -954,10 +955,10 @@ function convertListing(jpTitle, jpBody, tested) {
   if (model) parts.push(model);
   var materialShort = matR.short || materialEn;
   if (materialShort && materialShort.indexOf(`Sterling Silver`) === 0) materialShort = `Sterling Silver`;
-  var modelLow = (model || ``).toLowerCase();
+  var modelLow = (model || E).toLowerCase();
   if (materialShort && materialShort !== `Metal` && modelLow.indexOf(materialShort.toLowerCase()) < 0) parts.push(materialShort);
   if (penType) parts.push(penType.en);
-  var matLow = (materialShort || ``).toLowerCase();
+  var matLow = (materialShort || E).toLowerCase();
   if (colorEn && matLow.indexOf(colorEn.toLowerCase()) < 0) parts.push(colorEn);
   if (country) parts.push(country.en);
   if (era) parts.push(era);
@@ -977,76 +978,76 @@ function convertListing(jpTitle, jpBody, tested) {
   if (materialShort && materialShort !== `Metal`) pushHook(materialShort);
   pushHook(`なし`);
 
-  var title = buildTitle(hooks[0] === `なし` ? `` : hooks[0], parts);
+  var title = buildTitle(hooks[0] === `なし` ? E : hooks[0], parts);
 
   var L = [], PAIRS = [];
   function add(en, jp) {
     L.push(en);
-    if (en !== ``) PAIRS.push({ en: en, jp: jp || `` });
+    if (en !== E) PAIRS.push({ en: en, jp: jp || E });
   }
 
-  var bn = brand ? brand.en : ``;
+  var bn = brand ? brand.en : E;
   var pt = penType ? penType.en : `Pen`;
 
   add((bn + ` ` + model).trim() + ` — ` + pt,
-    (brand ? brand.jp : ``) + ` ` + modelJp + `、` + (penType ? penType.jp : ``));
-  add(``);
+    (brand ? brand.jp : E) + ` ` + modelJp + `、` + (penType ? penType.jp : E));
+  add(E);
 
   if (era) {
     add(`Vintage ` + era + ` model. Discontinued and no longer in production.`,
       era + `頃のヴィンテージモデル。現在は生産終了・廃盤。`);
-    add(``);
+    add(E);
   }
   if (prod && rare) {
     add(`This model was produced only for a short period, from ` + prod.from + ` to ` + prod.to + `, which makes it very hard to find today.`,
       prod.from + `〜` + prod.to + `年の短い期間だけ製造された、大変貴重なモデルです。`);
-    add(``);
+    add(E);
   } else if (prod) {
     add(`Produced from ` + prod.from + ` to ` + prod.to + `.`,
       prod.from + `〜` + prod.to + `年に製造されたモデルです。`);
-    add(``);
+    add(E);
   } else if (single && rare) {
     add(`This model was produced only in ` + single + `, which makes it very hard to find today.`,
       single + `年だけ製造された、大変貴重なモデルです。`);
-    add(``);
+    add(E);
   } else if (single) {
     add(`Produced in ` + single + `.`, single + `年に製造されたモデルです。`);
-    add(``);
+    add(E);
   } else if (rare) {
     add(`A rare model that is difficult to find today.`,
       `現在では入手が難しい、希少なモデルです。`);
-    add(``);
+    add(E);
   }
   if (stamped) {
     add(`Based on the engraved markings, this pen is believed to have been produced in ` + stamped + `.`,
       `刻印より、` + stamped + `年に製造されたものだと推察されます。`);
-    add(``);
+    add(E);
   }
   if (material && material.asset === `gold`) {
     add(materialEn + `. With rising gold prices, this piece also holds value as an asset.`,
       materialEn + `。金価格の高騰により、資産としての価値もあります。`);
-    add(``);
+    add(E);
   } else if (material && material.asset === `silver`) {
     add(materialEn + `. With rising silver prices, this piece also holds value as an asset.`,
       materialEn + `。銀価格の高騰により、資産としての価値もあります。`);
-    add(``);
+    add(E);
   }
 
   add(`== SPECIFICATIONS ==`, `【仕様】`);
   if (bn) add(`Brand: ` + bn, `【ブランド】` + brand.jp);
   if (model) add(`Model: ` + model, `【モデル】` + modelJp);
-  if (priceField) add(`Original retail price: JPY ` + priceField.replace(/[^\d,]/g, ``),
+  if (priceField) add(`Original retail price: JPY ` + priceField.replace(/[^\d,]/g, E),
     `【定価】` + priceField + `円`);
-  add(`Type: ` + pt, `【タイプ】` + (penType ? penType.jp : ``));
-  if (materialEn) add(`Material: ` + materialEn, `【素材】` + (matR.raw || (material ? material.jp : ``)));
-  if (colorEn) add(`Color: ` + colorEn, `【カラー】` + (colR.raw || ``));
-  if (country) add(`Made in: ` + country.en + (era ? ` (` + era + `)` : ``),
-    `【製造】` + country.jp + (era ? `（` + era + `）` : ``));
+  add(`Type: ` + pt, `【タイプ】` + (penType ? penType.jp : E));
+  if (materialEn) add(`Material: ` + materialEn, `【素材】` + (matR.raw || (material ? material.jp : E)));
+  if (colorEn) add(`Color: ` + colorEn, `【カラー】` + (colR.raw || E));
+  if (country) add(`Made in: ` + country.en + (era ? ` (` + era + `)` : E),
+    `【製造】` + country.jp + (era ? `（` + era + `）` : E));
   if (specs.length) add(`Mechanism: ` + specs.map(function (s) { return s.en; }).join(` / `),
     `【仕様】` + specs.map(function (s) { return s.jp; }).join(`・`));
   if (accs.length) add(`Included: ` + accs.map(function (a) { return a.en; }).join(`, `),
     `【付属品】` + accs.map(function (a) { return a.jp; }).join(`、`));
-  add(``);
+  add(E);
 
   add(`== CONDITION: ` + cond.grade + ` ==`, `【状態】` + cond.grade);
   add(cond.txt, `日本語原文：` + condSrc);
@@ -1078,13 +1079,13 @@ function convertListing(jpTitle, jpBody, tested) {
     add(`The included accessories show stains or wear from age.`,
       `付属品には多少の汚れ等があります。`);
   }
-  add(``);
+  add(E);
   add(`This is a pre-owned vintage item and is sold as-is. Please review all photos carefully, as they are part of the description. If you have any concerns about the condition, please ask before purchasing.`,
     `中古のヴィンテージ品のため現状渡しです。写真も説明の一部ですのでご確認ください。状態にご不安があればご購入前にお尋ねください。（クレーム対策の定型文）`);
-  add(``);
+  add(E);
   add(`Feel free to ask any questions. Thank you for looking!`,
     `ご質問お気軽にどうぞ。ご覧いただきありがとうございます。`);
-  if (mgmt) { add(``); add(`[ ` + mgmt + ` ]`, `管理番号`); }
+  if (mgmt) { add(E); add(`[ ` + mgmt + ` ]`, `管理番号`); }
 
   return {
     title: title,
@@ -1117,7 +1118,7 @@ function convertListing(jpTitle, jpBody, tested) {
 
 function $(id) { return document.getElementById(id); }
 
-var ST = { tested: false, parts: [], hooks: [], hook: ``, pairs: [], showPairs: false, open: false };
+var ST = { tested: false, parts: [], hooks: [], hook: E, pairs: [], showPairs: false, open: false };
 var toastTimer = null;
 
 function esc(s) {
@@ -1164,15 +1165,15 @@ function updateLen() {
 
 function renderHooks() {
   var box = $(`hooks`);
-  box.innerHTML = ``;
+  box.innerHTML = E;
   for (var i = 0; i < ST.hooks.length; i++) {
     (function (h) {
       var b = document.createElement(`button`);
-      b.className = `chip` + (h === ST.hook ? ` on` : ``);
+      b.className = `chip` + (h === ST.hook ? ` on` : E);
       b.textContent = h === `なし` ? `なし` : h + `◆`;
       b.onclick = function () {
         ST.hook = h;
-        $(`et`).value = buildTitle(h === `なし` ? `` : h, ST.parts);
+        $(`et`).value = buildTitle(h === `なし` ? E : h, ST.parts);
         updateLen();
         renderHooks();
       };
@@ -1186,14 +1187,14 @@ function renderDetected(d) {
     [`Brand`, d.brand],
     [`Model`, d.model],
     [`Type`, d.penType + `（` + d.penTypeSource + `）`],
-    [`Material`, d.material + (d.materialRaw ? `（` + d.materialRaw + `）` : ``)],
-    [`Color`, d.color + (d.colorRaw ? `（` + d.colorRaw + `）` : ``)],
+    [`Material`, d.material + (d.materialRaw ? `（` + d.materialRaw + `）` : E)],
+    [`Color`, d.color + (d.colorRaw ? `（` + d.colorRaw + `）` : E)],
     [`Made in`, d.country],
     [`Era`, d.era],
-    [`製造期間`, d.production + (d.rare ? `（希少と判定）` : ``)],
+    [`製造期間`, d.production + (d.rare ? `（希少と判定）` : E)],
     [`Condition`, d.condition]
   ];
-  var html = ``;
+  var html = E;
   for (var i = 0; i < rows.length; i++) {
     html += `<div>` + esc(rows[i][0]) + `：` + esc(rows[i][1]) + `</div>`;
   }
@@ -1205,11 +1206,11 @@ function renderDetected(d) {
 
 function renderPairs() {
   var box = $(`pairs`);
-  var html = ``;
+  var html = E;
   for (var i = 0; i < ST.pairs.length; i++) {
     var p = ST.pairs[i];
     var isHead = p.en.indexOf(`==`) === 0;
-    html += `<div class=\u0022pair` + (isHead ? ` head` : ``) + `\u0022>`;
+    html += `<div class=\u0022pair` + (isHead ? ` head` : E) + `\u0022>`;
     html += `<div class=\u0022en\u0022>` + esc(p.en) + `</div>`;
     html += `<div class=\u0022jp\u0022>` + esc(p.jp || `（定型文）`) + `</div>`;
     html += `</div>`;
@@ -1232,13 +1233,13 @@ function run() {
 
   ST.parts = r.titleParts || [];
   ST.hooks = r.hooks || [];
-  ST.hook = ST.hooks.length ? ST.hooks[0] : ``;
+  ST.hook = ST.hooks.length ? ST.hooks[0] : E;
   ST.pairs = r.pairs || [];
   ST.showPairs = false;
 
   $(`et`).value = r.title;
   $(`eb`).value = r.body;
-  $(`result`).className = ``;
+  $(`result`).className = E;
   $(`pairs`).className = `pairs hide`;
   $(`pairbtn`).textContent = `対訳表を見る（元の日本語との対応）`;
 
@@ -1247,7 +1248,7 @@ function run() {
   renderPairs();
   updateLen();
 
-  var w = ``;
+  var w = E;
   if (r.detected.penAmbiguous) {
     w += `<div>⚠ ペンの種類が複数見つかりました。<strong>` + esc(r.detected.penType) + `</strong> と判定。違えば直してください。</div>`;
   }
@@ -1261,7 +1262,7 @@ function run() {
 }
 
 function openTranslate() {
-  var txt = ($(`eb`).value || ``).trim();
+  var txt = ($(`eb`).value || E).trim();
   if (!txt) { toast(`⚠ 説明文がありません`); return; }
   var url = `https://translate.google.com/?sl=en&tl=ja&op=translate&text=` + encodeURIComponent(txt);
   if (url.length <= 1900) { window.open(url, `_blank`); return; }
@@ -1274,10 +1275,10 @@ function openTranslate() {
 $(`run`).onclick = run;
 
 $(`clear`).onclick = function () {
-  $(`jt`).value = ``;
-  $(`jb`).value = ``;
-  $(`et`).value = ``;
-  $(`eb`).value = ``;
+  $(`jt`).value = E;
+  $(`jb`).value = E;
+  $(`et`).value = E;
+  $(`eb`).value = E;
   $(`result`).className = `hide`;
   $(`warn`).className = `warn hide`;
 };
@@ -1285,7 +1286,7 @@ $(`clear`).onclick = function () {
 $(`chk`).onclick = function () {
   ST.tested = !ST.tested;
   $(`chk`).className = ST.tested ? `chk on` : `chk`;
-  $(`chkbox`).textContent = ST.tested ? `✓` : ``;
+  $(`chkbox`).textContent = ST.tested ? `✓` : E;
 };
 
 $(`sechd`).onclick = function () {
