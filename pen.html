@@ -178,6 +178,10 @@ line-height:1.6;word-break:break-all;max-height:80px;overflow-y:auto;white-space
 .copyTxt{width:100%;padding:6px 0;border:2px solid #00bcd4;border-radius:4px;background:transparent;
 color:#00bcd4;font-size:12px;cursor:pointer;margin-top:6px;font-weight:bold;margin-bottom:4px;}
 
+#err{display:none;margin:0;padding:18px;background:#2b0f0f;color:#ffb4a2;
+font-family:ui-monospace,monospace;font-size:12px;line-height:1.7;white-space:pre-wrap;
+word-break:break-all;-webkit-user-select:text;user-select:text;}
+#err b{color:#ffd7c2;font-size:14px;display:block;margin-bottom:8px;}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#4a6741;color:#fff;
 padding:10px 22px;border-radius:20px;font-size:13px;opacity:0;transition:opacity .3s;
 pointer-events:none;z-index:100;white-space:nowrap;}
@@ -208,6 +212,34 @@ pointer-events:none;z-index:100;white-space:nowrap;}
 </div>
 
 <div class="toast" id="toast"></div>
+<div id="err"></div>
+
+<script>
+(function () {
+  function show(title, detail) {
+    var box = document.getElementById("err");
+    if (!box || box.style.display === "block") return;
+    box.style.display = "block";
+    box.innerHTML = "<b>" + title + "</b>" +
+      String(detail).replace(/[<>&]/g, function (c) {
+        return { "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c];
+      });
+  }
+  window.penShowError = show;
+  window.onerror = function (msg, src, line, col, e) {
+    show("エラーが発生しました", msg + "\n\n行: " + line + " 文字: " + col);
+    return false;
+  };
+  setTimeout(function () {
+    var t = document.getElementById("tabs");
+    if (t && t.children.length === 0) {
+      show("起動できませんでした",
+        "タブが作られていません。ファイルが途中で切れている可能性が高いです。\n" +
+        "GitHub で pen.html を開き、いちばん下が </html> で終わっているか確認してください。");
+    }
+  }, 1500);
+})();
+</script>
 
 <script>
 /* ==================================================================
@@ -492,8 +524,16 @@ var DIC_MODELS = [
   { jp: "金張り", en: "Gold Filled" },
   { jp: "銀張り", en: "Silver Filled" },
   { jp: "張り", en: "Filled" },
-  { jp: "シルバー925", en: "Sterling Silver 925" },
+  { jp: "スターリングシルバー製", en: "Sterling Silver" },
+  { jp: "シルバー925製", en: "Sterling Silver" },
+  { jp: "シルバー925", en: "Sterling Silver" },
+  { jp: "925シルバー", en: "Sterling Silver" },
+  { jp: "SV925", en: "Sterling Silver" },
+  { jp: "S925", en: "Sterling Silver" },
+  { jp: "SILVER925", en: "Sterling Silver" },
+  { jp: "純銀製", en: "Sterling Silver" },
   { jp: "純銀", en: "Sterling Silver" },
+  { jp: "銀製", en: "Silver" },
   { jp: "ペン先18K", en: "18K Gold Nib" },
   { jp: "ペン先14K", en: "14K Gold Nib" },
   { jp: "プレシャスレジン", en: "Precious Resin" },
@@ -673,6 +713,10 @@ var DIC_MODELS_SORTED = DIC_MODELS.slice().sort(function (a, b) { return b.jp.le
 function dicTranslate(jp) {
   if (!jp) return { en: "", romanized: "", leftover: "" };
 
+  jp = jp.replace(/[\uFF21-\uFF3A\uFF41-\uFF5A\uFF10-\uFF19]/g, function (c) {
+    return String.fromCharCode(c.charCodeAt(0) - 0xFEE0);
+  });
+
   var words = jp.split(/[\u30fb\s\u3000,\u3001]+/).filter(function (x) { return x; });
   var out = [], romanized = [], leftover = [];
 
@@ -718,7 +762,14 @@ function dicTranslate(jp) {
   for (var n = 0; n < words.length; n++) {
     var w = words[n];
 
-    if (/^[A-Za-z0-9#&.()\-]+$/.test(w)) { out.push(w); continue; }
+    if (/^[A-Za-z0-9#&.()\-]+$/.test(w)) {
+      var latin = null;
+      for (var li = 0; li < DIC_MODELS.length; li++) {
+        if (DIC_MODELS[li].jp.toLowerCase() === w.toLowerCase()) { latin = DIC_MODELS[li].en; break; }
+      }
+      out.push(latin || w);
+      continue;
+    }
 
     var d = decompose(w);
     var hasUntranslatable = false;
@@ -1346,7 +1397,15 @@ if(!b)return;
 activeTab=parseInt(b.getAttribute(“data-tab”),10);
 var bs=$(“tabs”).children;
 for(var i=0;i<bs.length;i+=1){bs[i].className=(i===activeTab?“on”:””);}
-for(var p=0;p<5;p+=1){$(“pane”+p).className=“pane”+(p===activeTab?” on”:””);}
+for(var p=0;p<5;p+=1){
+$(“pane”+p).className=“pane”+(p===activeTab?” on”:””);
+if(p!==activeTab){
+var c1=$(“i”+p+”_cvJP”),c2=$(“i”+p+”_cvEN”);
+if(c1){c1.width=1;c1.height=1;}
+if(c2){c2.width=1;c2.height=1;}
+}
+}
+refresh(activeTab);
 window.scrollTo(0,0);
 });
 
@@ -1654,8 +1713,10 @@ it.elemsEN);
 it.selIds=validIds(it.selIds,it.elems);
 it.selIdsEN=validIds(it.selIdsEN,it.elemsEN);
 
+if(n===activeTab){
 drawPreview(n,“jp”);
 if(it.makeEbayImg)drawPreview(n,“en”);
+}
 paintCtrl(n,“jp”);
 paintCtrl(n,“en”);
 
@@ -1699,7 +1760,7 @@ var cv=$(“i”+n+”*cv”+(which===“jp”?“JP”:“EN”));
 if(!cv)return;
 var elems=(which===“jp”?it.elems:it.elemsEN);
 var sel=(which===“jp”?it.selIds:it.selIdsEN);
-var W=600,H=600,dpr=window.devicePixelRatio||1;
+var W=600,H=600,dpr=Math.min(window.devicePixelRatio||1,2);
 cv.width=W*dpr;cv.height=H*dpr;
 var ctx=cv.getContext(“2d”);
 ctx.setTransform(1,0,0,1,0,0);
@@ -1988,8 +2049,14 @@ navigator.clipboard.writeText(el.textContent)
 });
 }
 
+try{
 boot();
 wireResults();
+}catch(e){
+if(window.penShowError){
+window.penShowError(“起動できませんでした”,(e&&e.message?e.message:e)+”\n\n”+(e&&e.stack?e.stack:””));
+}
+}
 
 </script>
 
