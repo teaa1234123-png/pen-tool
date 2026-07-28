@@ -545,6 +545,24 @@ leftover: leftover.join(” “)
 };
 }
 
+// 先頭の売り文句（hook）＋各要素からタイトルを作る。80文字を超えたら後ろから削る。
+function buildTitle(hook, parts) {
+var head = hook ? hook + “◆” : “”;
+var p = [];
+for (var i = 0; i < parts.length; i++) {
+if (!parts[i]) continue;
+if (hook && parts[i].toLowerCase() === hook.toLowerCase()) continue;
+p.push(parts[i]);
+}
+var t = (head + p.join(” “)).replace(/\s+/g, “ “).trim();
+while (t.length > 80 && p.length > 2) {
+p.splice(p.length - 1, 1);
+t = (head + p.join(” “)).replace(/\s+/g, “ “).trim();
+}
+if (t.length > 80) t = t.slice(0, 80).trim();
+return t;
+}
+
 function convertListing(jpTitle, jpBody, tested) {
 var all = jpTitle + “\n” + jpBody;
 
@@ -650,10 +668,10 @@ condSrc = “（状態の記述が見つからず、既定値を使用）”;
 }
 
 var parts = [];
-if (era) parts.push(“Vintage “ + era);
 if (brand) parts.push(brand.en);
 if (model) parts.push(model);
 var materialShort = matR.short || materialEn;
+if (materialShort && materialShort.indexOf(“Sterling Silver”) === 0) materialShort = “Sterling Silver”;
 var modelLow = (model || “”).toLowerCase();
 if (materialShort && materialShort !== “Metal” && modelLow.indexOf(materialShort.toLowerCase()) < 0) parts.push(materialShort);
 if (penType) parts.push(penType.en);
@@ -661,9 +679,25 @@ if (penType) parts.push(penType.en);
 var matLow = (materialShort || “”).toLowerCase();
 if (colorEn && matLow.indexOf(colorEn.toLowerCase()) < 0) parts.push(colorEn);
 if (country) parts.push(country.en);
-var title = parts.join(” “).replace(/\s+/g, “ “).trim();
-while (title.length > 80 && parts.length > 3) { parts.splice(parts.length - 1, 1); title = parts.join(” “).replace(/\s+/g, “ “).trim(); }
-if (title.length > 80) title = title.slice(0, 80).trim();
+if (era) parts.push(era);
+
+// 先頭に置く売り文句の候補（左が最優先）
+var hooks = [];
+function pushHook(h) {
+if (!h) return;
+for (var hi = 0; hi < hooks.length; hi++) if (hooks[hi].toLowerCase() === h.toLowerCase()) return;
+hooks.push(h);
+}
+if (cond.grade === “New Old Stock”) pushHook(“UNUSED”);
+if (rare || prod) pushHook(“RARE”);
+if (material && (material.asset === “gold” || material.asset === “silver”)) pushHook(materialShort);
+if (era) pushHook(era);
+if (cond.grade === “Excellent”) pushHook(“MINT”);
+if (era) pushHook(“VINTAGE”);
+if (materialShort && materialShort !== “Metal”) pushHook(materialShort);
+pushHook(“なし”);
+
+var title = buildTitle(hooks[0] === “なし” ? “” : hooks[0], parts);
 
 var L = [], PAIRS = [];
 function add(en, jp) {
@@ -774,6 +808,8 @@ if (mgmt) { add(””); add(”[ “ + mgmt + “ ]”, “管理番号”); }
 
 return {
 title: title,
+titleParts: parts,
+hooks: hooks,
 body: L.join(”\n”).replace(/\n{3,}/g, “\n\n”).trim(),
 pairs: PAIRS,
 detected: {
@@ -825,6 +861,9 @@ var s5 = useState(null), detected = s5[0], setDetected = s5[1];
 var s6 = useState([]), pairs = s6[0], setPairs = s6[1];
 var s7 = useState(false), showPairs = s7[0], setShowPairs = s7[1];
 var s8 = useState(false), tested = s8[0], setTested = s8[1];
+var sA = useState([]), titleParts = sA[0], setTitleParts = sA[1];
+var sB = useState([]), hooks = sB[0], setHooks = sB[1];
+var sC = useState(””), hook = sC[0], setHook = sC[1];
 var s9 = useState(””), toast = s9[0], setToast = s9[1];
 var s10 = useState(false), toastOn = s10[0], setToastOn = s10[1];
 
@@ -834,6 +873,7 @@ function run() {
 if (!jpTitle && !jpBody) { showToast(“⚠ タイトルか本文を入力してください”); return; }
 var r = convertListing(jpTitle, jpBody, tested);
 setEnTitle(r.title); setEnBody(r.body); setDetected(r.detected); setPairs(r.pairs || []); setShowPairs(false);
+setTitleParts(r.titleParts || []); setHooks(r.hooks || []); setHook(r.hooks && r.hooks.length ? r.hooks[0] : “”);
 showToast(“✓ 変換しました”);
 }
 
@@ -929,6 +969,18 @@ return (
           <span style={{ fontSize: 11, opacity: 0.9, background: over ? "#c62828" : "rgba(255,255,255,0.2)", padding: "2px 8px", borderRadius: 10 }}>{titleLen} / 80</span>
         </div>
         <div style={{ padding: 14 }}>
+          {hooks.length > 1 && <div style={{ marginBottom: 10 }}>
+            <div style={{ fontSize: 11, color: MT, marginBottom: 6, fontWeight: "bold" }}>先頭の売り文句</div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+              {hooks.map(function (h, i) {
+                var on = h === hook;
+                return <button key={i} onClick={function () {
+                  setHook(h);
+                  setEnTitle(buildTitle(h === "なし" ? "" : h, titleParts));
+                }} style={{ padding: "7px 11px", border: "1px solid " + (on ? EBAY : "#ccc"), borderRadius: 16, background: on ? EBAY : "#fff", color: on ? "#fff" : "#555", fontSize: 12, fontFamily: "inherit", cursor: "pointer", fontWeight: on ? "bold" : "normal" }}>{h === "なし" ? "なし" : h + "◆"}</button>;
+              })}
+            </div>
+          </div>}
           <TA value={enTitle} onChange={function (e) { setEnTitle(e.target.value); }} minH={70} />
           {over && <div style={{ fontSize: 11, color: "#c62828", marginTop: 6, fontWeight: "bold" }}>⚠ 80文字を超えています</div>}
           <button onClick={function () { copyTxt(enTitle, "タイトル"); }} style={{ width: "100%", padding: 15, border: "none", borderRadius: 8, background: EBAY, color: "#fff", fontSize: 15, cursor: "pointer", marginTop: 10, fontWeight: "bold", fontFamily: "inherit" }}>📋 タイトルをコピー</button>
