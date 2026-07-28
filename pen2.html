@@ -10,7 +10,7 @@
 <title>5品まとめ出品ツール</title>
 <style>
 html,body{margin:0;padding:0;background:#fff;color:#333;
-  font-family:"Hiragino Kaku Gothic ProN",sans-serif;-webkit-text-size-adjust:100%;}
+  font-family:'Hiragino Kaku Gothic ProN',sans-serif;-webkit-text-size-adjust:100%;}
 *{box-sizing:border-box;}
 button,input,select,textarea{font-family:inherit;}
 
@@ -193,7 +193,7 @@ pointer-events:none;z-index:100;white-space:nowrap;}
 
 <div class="head">
   <div class="mark">✒️✒️✒️</div>
-  <div class="lead">MERCARI / EBAY LISTING TOOL v5</div>
+  <div class="lead">MERCARI / EBAY LISTING TOOL v6</div>
   <h1>5品まとめ出品ツール</h1>
 </div>
 
@@ -214,36 +214,34 @@ pointer-events:none;z-index:100;white-space:nowrap;}
 <div class="toast" id="toast"></div>
 <div id="err"></div>
 
-<script>var E=String.fromCharCode();
-
+<script>
 (function () {
   function show(title, detail) {
-    var box = document.getElementById("err");
-    if (!box || box.style.display === "block") return;
-    box.style.display = "block";
-    box.innerHTML = "<b>" + title + "</b>" +
+    var box = document.getElementById(`err`);
+    if (!box || box.style.display === `block`) return;
+    box.style.display = `block`;
+    box.innerHTML = `<b>` + title + `</b>` +
       String(detail).replace(/[<>&]/g, function (c) {
-        return { "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c];
+        return { [`<`]: `&lt;`, [`>`]: `&gt;`, [`&`]: `&amp;` }[c];
       });
   }
   window.penShowError = show;
   window.onerror = function (msg, src, line, col, e) {
-    show("エラーが発生しました", msg + "\n\n行: " + line + " 文字: " + col);
+    show(`エラーが発生しました v6`, msg + `\n\n行: ` + line + ` 文字: ` + col);
     return false;
   };
   setTimeout(function () {
-    var t = document.getElementById("tabs");
+    var t = document.getElementById(`tabs`);
     if (t && t.children.length === 0) {
-      show("起動できませんでした",
-        "タブが作られていません。ファイルが途中で切れている可能性が高いです。\n" +
-        "GitHub で pen.html を開き、いちばん下が </html> で終わっているか確認してください。");
+      show(`起動できませんでした`,
+        `タブが作られていません。ファイルが途中で切れている可能性が高いです。\n` +
+        `GitHub で pen.html を開き、いちばん下が </html> で終わっているか確認してください。`);
     }
   }, 1500);
 })();
 </script>
 
-<script>var E=String.fromCharCode();
-
+<script>
 /* ==================================================================
    SHARED DICTIONARY v1
    このブロックは pen.html と ebaytool.html に完全に同じ内容で入っています。
@@ -252,453 +250,453 @@ pointer-events:none;z-index:100;white-space:nowrap;}
    ================================================================== */
 
 var DIC_BRANDS = [
-  { jp: "モンブラン", en: "MONTBLANC", name: "MONTBLANC（モンブラン）", country: "ドイツ製", alt: ["MONTBLANC"] },
-  { jp: "ペリカン", en: "Pelikan", name: "Pelikan（ペリカン）", country: "ドイツ製", alt: ["Pelikan", "PELIKAN"] },
-  { jp: "パーカー", en: "PARKER", name: "PARKER（パーカー）", country: "イギリス製", alt: ["PARKER", "Parker"] },
-  { jp: "ティファニー", en: "TIFFANY & Co.", name: "TIFFANY & Co.（ティファニー）", country: "アメリカ製", alt: ["TIFFANY", "Tiffany"] },
-  { jp: "クロス", en: "CROSS", name: "CROSS（クロス）", country: "アメリカ製", alt: ["CROSS"] },
-  { jp: "ラミー", en: "LAMY", name: "LAMY（ラミー）", country: "ドイツ製", alt: ["LAMY"] },
-  { jp: "パイロット", en: "PILOT", name: "PILOT（パイロット）", country: "日本製", alt: ["PILOT"] },
-  { jp: "セーラー", en: "SAILOR", name: "SAILOR（セーラー）", country: "日本製", alt: ["SAILOR"] },
-  { jp: "ウォーターマン", en: "Waterman", name: "Waterman（ウォーターマン）", country: "フランス製", alt: ["Waterman", "WATERMAN"] },
-  { jp: "ビスコンティ", en: "Visconti", name: "Visconti（ビスコンティ）", country: "イタリア製", alt: ["Visconti"] },
-  { jp: "アウロラ", en: "AURORA", name: "AURORA（アウロラ）", country: "イタリア製", alt: ["AURORA"] },
-  { jp: "ダンヒル", en: "DUNHILL", name: "DUNHILL（ダンヒル）", country: "イギリス製", alt: ["DUNHILL", "dunhill"] },
-  { jp: "プラチナ", en: "PLATINUM", name: "PLATINUM（プラチナ万年筆）", country: "日本製", alt: ["PLATINUM", "プラチナ万年筆"] },
-  { jp: "カランダッシュ", en: "Caran d\u0027Ache", name: "Caran d\u0027Ache（カランダッシュ）", country: "スイス製", alt: ["Caran d\u0027Ache"] }
+  { jp: `モンブラン`, en: `MONTBLANC`, name: `MONTBLANC（モンブラン）`, country: `ドイツ製`, alt: [`MONTBLANC`] },
+  { jp: `ペリカン`, en: `Pelikan`, name: `Pelikan（ペリカン）`, country: `ドイツ製`, alt: [`Pelikan`, `PELIKAN`] },
+  { jp: `パーカー`, en: `PARKER`, name: `PARKER（パーカー）`, country: `イギリス製`, alt: [`PARKER`, `Parker`] },
+  { jp: `ティファニー`, en: `TIFFANY & Co.`, name: `TIFFANY & Co.（ティファニー）`, country: `アメリカ製`, alt: [`TIFFANY`, `Tiffany`] },
+  { jp: `クロス`, en: `CROSS`, name: `CROSS（クロス）`, country: `アメリカ製`, alt: [`CROSS`] },
+  { jp: `ラミー`, en: `LAMY`, name: `LAMY（ラミー）`, country: `ドイツ製`, alt: [`LAMY`] },
+  { jp: `パイロット`, en: `PILOT`, name: `PILOT（パイロット）`, country: `日本製`, alt: [`PILOT`] },
+  { jp: `セーラー`, en: `SAILOR`, name: `SAILOR（セーラー）`, country: `日本製`, alt: [`SAILOR`] },
+  { jp: `ウォーターマン`, en: `Waterman`, name: `Waterman（ウォーターマン）`, country: `フランス製`, alt: [`Waterman`, `WATERMAN`] },
+  { jp: `ビスコンティ`, en: `Visconti`, name: `Visconti（ビスコンティ）`, country: `イタリア製`, alt: [`Visconti`] },
+  { jp: `アウロラ`, en: `AURORA`, name: `AURORA（アウロラ）`, country: `イタリア製`, alt: [`AURORA`] },
+  { jp: `ダンヒル`, en: `DUNHILL`, name: `DUNHILL（ダンヒル）`, country: `イギリス製`, alt: [`DUNHILL`, `dunhill`] },
+  { jp: `プラチナ`, en: `PLATINUM`, name: `PLATINUM（プラチナ万年筆）`, country: `日本製`, alt: [`PLATINUM`, `プラチナ万年筆`] },
+  { jp: `カランダッシュ`, en: `Caran d\u0027Ache`, name: `Caran d\u0027Ache（カランダッシュ）`, country: `スイス製`, alt: [`Caran d\u0027Ache`] }
 ];
 
 var DIC_MODELS = [
-  { jp: "ノブレス・オブリージュ", en: "Noblesse Oblige" },
-  { jp: "ノブレスオブリージュ", en: "Noblesse Oblige" },
-  { jp: "オブリージュ", en: "Oblige" },
-  { jp: "ノブレス", en: "Noblesse" },
-  { jp: "マイスターシュテュック", en: "Meisterstuck" },
-  { jp: "マイスターシュティック", en: "Meisterstuck" },
-  { jp: "マイスターシュック", en: "Meisterstuck" },
-  { jp: "ジェネレーション", en: "Generation" },
-  { jp: "スターウォーカー", en: "StarWalker" },
-  { jp: "ボエム", en: "Boheme" },
-  { jp: "カレラ", en: "Carrera" },
-  { jp: "モナコ", en: "Monaco" },
-  { jp: "スーベレーン", en: "Souveran" },
-  { jp: "ペリカーノ", en: "Pelikano" },
-  { jp: "トレドー", en: "Toledo" },
-  { jp: "セレブリティ", en: "Celebry" },
-  { jp: "ソネット", en: "Sonnet" },
-  { jp: "デュオフォールド", en: "Duofold" },
-  { jp: "ヴェクター", en: "Vector" },
-  { jp: "ベクター", en: "Vector" },
-  { jp: "ジョッター", en: "Jotter" },
-  { jp: "フロンティア", en: "Frontier" },
-  { jp: "インフレクション", en: "Inflection" },
-  { jp: "インシグニア", en: "Insignia" },
-  { jp: "センチュリー", en: "Century" },
-  { jp: "タウンゼント", en: "Townsend" },
-  { jp: "アポジー", en: "Apogee" },
-  { jp: "エグゼクティブ", en: "Executive" },
-  { jp: "ニュークラシック", en: "New Classic" },
-  { jp: "クラシック", en: "Classic" },
-  { jp: "ニュー", en: "New" },
-  { jp: "オールド", en: "Old" },
-  { jp: "サファリ", en: "Safari" },
-  { jp: "アルスター", en: "AL-star" },
-  { jp: "スクリブル", en: "Scribble" },
-  { jp: "ステュディオ", en: "Studio" },
-  { jp: "スタジオ", en: "Studio" },
-  { jp: "キャップレス", en: "Capless" },
-  { jp: "カスタム", en: "Custom" },
-  { jp: "エラボー", en: "Elabo" },
-  { jp: "プロフィット", en: "Profit" },
-  { jp: "レアリス", en: "Realis" },
-  { jp: "エキスパート", en: "Expert" },
-  { jp: "ヘミスフィア", en: "Hemisphere" },
-  { jp: "カレン", en: "Carene" },
-  { jp: "アトランティス", en: "Atlantis" },
-  { jp: "オプティマ", en: "Optima" },
-  { jp: "イプシロン", en: "Ipsilon" },
-  { jp: "ミケランジェロ", en: "Michelangelo" },
-  { jp: "エリート", en: "Elite" },
-  { jp: "エターナル", en: "Eternal" },
-  { jp: "ソリテール", en: "Solitaire" },
-  { jp: "ドゥエ", en: "Doue" },
-  { jp: "ディプロマット", en: "Diplomat" },
-  { jp: "レオナルド", en: "Leonardo" },
-  { jp: "ピアニッシモ", en: "Pianissimo" },
-  { jp: "スリムライン", en: "Slimline" },
-  { jp: "クレオパトラ", en: "Cleopatra" },
-  { jp: "エレガンス", en: "Elegance" },
-  { jp: "プレジデント", en: "President" },
-  { jp: "アンバサダー", en: "Ambassador" },
-  { jp: "クロノグラフ", en: "Chronograph" },
-  { jp: "アトラス", en: "Atlas" },
-  { jp: "エルサ", en: "Elsa Peretti" },
-  { jp: "Tクリップ", en: "T-Clip" },
-  { jp: "エポック", en: "Epoch" },
-  { jp: "プレリュード", en: "Prelude" },
-  { jp: "リフレックス", en: "Reflex" },
-  { jp: "インフィニティ", en: "Infinity" },
-  { jp: "ジェネシス", en: "Genesis" },
-  { jp: "オリンピオ", en: "Olympio" },
-  { jp: "マスターピース", en: "Masterpiece" },
-  { jp: "ムーンビーム", en: "Moon Beam" },
-  { jp: "ムーン", en: "Moon" },
-  { jp: "ビーム", en: "Beam" },
-  { jp: "ミッドナイト", en: "Midnight" },
-  { jp: "スカイ", en: "Sky" },
-  { jp: "オーシャン", en: "Ocean" },
-  { jp: "フォレスト", en: "Forest" },
-  { jp: "シャドウ", en: "Shadow" },
-  { jp: "ノーブル", en: "Noble" },
-  { jp: "プリンセス", en: "Princess" },
-  { jp: "プリンス", en: "Prince" },
-  { jp: "クイーン", en: "Queen" },
-  { jp: "キング", en: "King" },
-  { jp: "エンペラー", en: "Emperor" },
-  { jp: "インペリアル", en: "Imperial" },
-  { jp: "ロイヤル", en: "Royal" },
-  { jp: "グランド", en: "Grand" },
-  { jp: "スーパー", en: "Super" },
-  { jp: "マスター", en: "Master" },
-  { jp: "デラックス", en: "Deluxe" },
-  { jp: "ヘリテージ", en: "Heritage" },
-  { jp: "トラディション", en: "Tradition" },
-  { jp: "ジュビリー", en: "Jubilee" },
-  { jp: "メモリアル", en: "Memorial" },
-  { jp: "フォーエバー", en: "Forever" },
-  { jp: "テクノ", en: "Techno" },
-  { jp: "ダイアリー", en: "Diary" },
+  { jp: `ノブレス・オブリージュ`, en: `Noblesse Oblige` },
+  { jp: `ノブレスオブリージュ`, en: `Noblesse Oblige` },
+  { jp: `オブリージュ`, en: `Oblige` },
+  { jp: `ノブレス`, en: `Noblesse` },
+  { jp: `マイスターシュテュック`, en: `Meisterstuck` },
+  { jp: `マイスターシュティック`, en: `Meisterstuck` },
+  { jp: `マイスターシュック`, en: `Meisterstuck` },
+  { jp: `ジェネレーション`, en: `Generation` },
+  { jp: `スターウォーカー`, en: `StarWalker` },
+  { jp: `ボエム`, en: `Boheme` },
+  { jp: `カレラ`, en: `Carrera` },
+  { jp: `モナコ`, en: `Monaco` },
+  { jp: `スーベレーン`, en: `Souveran` },
+  { jp: `ペリカーノ`, en: `Pelikano` },
+  { jp: `トレドー`, en: `Toledo` },
+  { jp: `セレブリティ`, en: `Celebry` },
+  { jp: `ソネット`, en: `Sonnet` },
+  { jp: `デュオフォールド`, en: `Duofold` },
+  { jp: `ヴェクター`, en: `Vector` },
+  { jp: `ベクター`, en: `Vector` },
+  { jp: `ジョッター`, en: `Jotter` },
+  { jp: `フロンティア`, en: `Frontier` },
+  { jp: `インフレクション`, en: `Inflection` },
+  { jp: `インシグニア`, en: `Insignia` },
+  { jp: `センチュリー`, en: `Century` },
+  { jp: `タウンゼント`, en: `Townsend` },
+  { jp: `アポジー`, en: `Apogee` },
+  { jp: `エグゼクティブ`, en: `Executive` },
+  { jp: `ニュークラシック`, en: `New Classic` },
+  { jp: `クラシック`, en: `Classic` },
+  { jp: `ニュー`, en: `New` },
+  { jp: `オールド`, en: `Old` },
+  { jp: `サファリ`, en: `Safari` },
+  { jp: `アルスター`, en: `AL-star` },
+  { jp: `スクリブル`, en: `Scribble` },
+  { jp: `ステュディオ`, en: `Studio` },
+  { jp: `スタジオ`, en: `Studio` },
+  { jp: `キャップレス`, en: `Capless` },
+  { jp: `カスタム`, en: `Custom` },
+  { jp: `エラボー`, en: `Elabo` },
+  { jp: `プロフィット`, en: `Profit` },
+  { jp: `レアリス`, en: `Realis` },
+  { jp: `エキスパート`, en: `Expert` },
+  { jp: `ヘミスフィア`, en: `Hemisphere` },
+  { jp: `カレン`, en: `Carene` },
+  { jp: `アトランティス`, en: `Atlantis` },
+  { jp: `オプティマ`, en: `Optima` },
+  { jp: `イプシロン`, en: `Ipsilon` },
+  { jp: `ミケランジェロ`, en: `Michelangelo` },
+  { jp: `エリート`, en: `Elite` },
+  { jp: `エターナル`, en: `Eternal` },
+  { jp: `ソリテール`, en: `Solitaire` },
+  { jp: `ドゥエ`, en: `Doue` },
+  { jp: `ディプロマット`, en: `Diplomat` },
+  { jp: `レオナルド`, en: `Leonardo` },
+  { jp: `ピアニッシモ`, en: `Pianissimo` },
+  { jp: `スリムライン`, en: `Slimline` },
+  { jp: `クレオパトラ`, en: `Cleopatra` },
+  { jp: `エレガンス`, en: `Elegance` },
+  { jp: `プレジデント`, en: `President` },
+  { jp: `アンバサダー`, en: `Ambassador` },
+  { jp: `クロノグラフ`, en: `Chronograph` },
+  { jp: `アトラス`, en: `Atlas` },
+  { jp: `エルサ`, en: `Elsa Peretti` },
+  { jp: `Tクリップ`, en: `T-Clip` },
+  { jp: `エポック`, en: `Epoch` },
+  { jp: `プレリュード`, en: `Prelude` },
+  { jp: `リフレックス`, en: `Reflex` },
+  { jp: `インフィニティ`, en: `Infinity` },
+  { jp: `ジェネシス`, en: `Genesis` },
+  { jp: `オリンピオ`, en: `Olympio` },
+  { jp: `マスターピース`, en: `Masterpiece` },
+  { jp: `ムーンビーム`, en: `Moon Beam` },
+  { jp: `ムーン`, en: `Moon` },
+  { jp: `ビーム`, en: `Beam` },
+  { jp: `ミッドナイト`, en: `Midnight` },
+  { jp: `スカイ`, en: `Sky` },
+  { jp: `オーシャン`, en: `Ocean` },
+  { jp: `フォレスト`, en: `Forest` },
+  { jp: `シャドウ`, en: `Shadow` },
+  { jp: `ノーブル`, en: `Noble` },
+  { jp: `プリンセス`, en: `Princess` },
+  { jp: `プリンス`, en: `Prince` },
+  { jp: `クイーン`, en: `Queen` },
+  { jp: `キング`, en: `King` },
+  { jp: `エンペラー`, en: `Emperor` },
+  { jp: `インペリアル`, en: `Imperial` },
+  { jp: `ロイヤル`, en: `Royal` },
+  { jp: `グランド`, en: `Grand` },
+  { jp: `スーパー`, en: `Super` },
+  { jp: `マスター`, en: `Master` },
+  { jp: `デラックス`, en: `Deluxe` },
+  { jp: `ヘリテージ`, en: `Heritage` },
+  { jp: `トラディション`, en: `Tradition` },
+  { jp: `ジュビリー`, en: `Jubilee` },
+  { jp: `メモリアル`, en: `Memorial` },
+  { jp: `フォーエバー`, en: `Forever` },
+  { jp: `テクノ`, en: `Techno` },
+  { jp: `ダイアリー`, en: `Diary` },
 
-  { jp: "ダイヤモンドテクスチャー", en: "Diamond Texture" },
-  { jp: "ダイヤモンドカット", en: "Diamond Cut" },
-  { jp: "ダイヤカット", en: "Diamond Cut" },
-  { jp: "テクスチャー", en: "Texture" },
-  { jp: "テクスチャ", en: "Texture" },
-  { jp: "ギョーシェ", en: "Guilloche" },
-  { jp: "ギヨシェ", en: "Guilloche" },
-  { jp: "シズレ", en: "Cisele" },
-  { jp: "シゼレ", en: "Cisele" },
-  { jp: "ゴドロン", en: "Godron" },
-  { jp: "フリューテッド", en: "Fluted" },
-  { jp: "鹿の子", en: "Barley" },
-  { jp: "市松", en: "Checkered" },
-  { jp: "麻の葉", en: "Hemp Leaf" },
-  { jp: "バーレイ", en: "Barley" },
-  { jp: "ピンストライプ", en: "Pinstripe" },
-  { jp: "ストライプ", en: "Striped" },
-  { jp: "ヘアライン仕上げ", en: "Hairline Finish" },
-  { jp: "ヘアライン", en: "Hairline" },
-  { jp: "メッシュ", en: "Mesh" },
-  { jp: "チェック", en: "Check" },
-  { jp: "ヘリンボーン", en: "Herringbone" },
-  { jp: "エンボス", en: "Embossed" },
-  { jp: "彫金", en: "Engraved" },
-  { jp: "彫刻", en: "Engraved" },
-  { jp: "刻印", en: "Engraved" },
-  { jp: "無地", en: "Plain" },
-  { jp: "ツイスト", en: "Twist" },
-  { jp: "スパイラル", en: "Spiral" },
-  { jp: "ウェーブ", en: "Wave" },
-  { jp: "リブ", en: "Ribbed" },
-  { jp: "マット", en: "Matte" },
-  { jp: "光沢", en: "Polished" },
-  { jp: "ファセット", en: "Faceted" },
-  { jp: "ブラッシュド", en: "Brushed" },
-  { jp: "ミラー", en: "Mirror" },
-  { jp: "シグネチャー", en: "Signature" },
-  { jp: "ヴィンテージ", en: "Vintage" },
-  { jp: "ビンテージ", en: "Vintage" },
-  { jp: "スターリングシルバー", en: "Sterling Silver" },
-  { jp: "スターリング", en: "Sterling" },
-  { jp: "パース", en: "Purse" },
-  { jp: "ポケット", en: "Pocket" },
-  { jp: "スリム", en: "Slim" },
-  { jp: "ミニ", en: "Mini" },
-  { jp: "コンパクト", en: "Compact" },
-  { jp: "ジャンボ", en: "Jumbo" },
-  { jp: "レディース", en: "Ladies" },
-  { jp: "メンズ", en: "Mens" },
-  { jp: "初期型", en: "Early Model" },
-  { jp: "前期型", en: "Early Model" },
-  { jp: "後期型", en: "Late Model" },
-  { jp: "限定", en: "Limited Edition" },
-  { jp: "記念", en: "Commemorative" },
-  { jp: "復刻", en: "Reissue" },
-  { jp: "旧ロゴ", en: "Old Logo" },
+  { jp: `ダイヤモンドテクスチャー`, en: `Diamond Texture` },
+  { jp: `ダイヤモンドカット`, en: `Diamond Cut` },
+  { jp: `ダイヤカット`, en: `Diamond Cut` },
+  { jp: `テクスチャー`, en: `Texture` },
+  { jp: `テクスチャ`, en: `Texture` },
+  { jp: `ギョーシェ`, en: `Guilloche` },
+  { jp: `ギヨシェ`, en: `Guilloche` },
+  { jp: `シズレ`, en: `Cisele` },
+  { jp: `シゼレ`, en: `Cisele` },
+  { jp: `ゴドロン`, en: `Godron` },
+  { jp: `フリューテッド`, en: `Fluted` },
+  { jp: `鹿の子`, en: `Barley` },
+  { jp: `市松`, en: `Checkered` },
+  { jp: `麻の葉`, en: `Hemp Leaf` },
+  { jp: `バーレイ`, en: `Barley` },
+  { jp: `ピンストライプ`, en: `Pinstripe` },
+  { jp: `ストライプ`, en: `Striped` },
+  { jp: `ヘアライン仕上げ`, en: `Hairline Finish` },
+  { jp: `ヘアライン`, en: `Hairline` },
+  { jp: `メッシュ`, en: `Mesh` },
+  { jp: `チェック`, en: `Check` },
+  { jp: `ヘリンボーン`, en: `Herringbone` },
+  { jp: `エンボス`, en: `Embossed` },
+  { jp: `彫金`, en: `Engraved` },
+  { jp: `彫刻`, en: `Engraved` },
+  { jp: `刻印`, en: `Engraved` },
+  { jp: `無地`, en: `Plain` },
+  { jp: `ツイスト`, en: `Twist` },
+  { jp: `スパイラル`, en: `Spiral` },
+  { jp: `ウェーブ`, en: `Wave` },
+  { jp: `リブ`, en: `Ribbed` },
+  { jp: `マット`, en: `Matte` },
+  { jp: `光沢`, en: `Polished` },
+  { jp: `ファセット`, en: `Faceted` },
+  { jp: `ブラッシュド`, en: `Brushed` },
+  { jp: `ミラー`, en: `Mirror` },
+  { jp: `シグネチャー`, en: `Signature` },
+  { jp: `ヴィンテージ`, en: `Vintage` },
+  { jp: `ビンテージ`, en: `Vintage` },
+  { jp: `スターリングシルバー`, en: `Sterling Silver` },
+  { jp: `スターリング`, en: `Sterling` },
+  { jp: `パース`, en: `Purse` },
+  { jp: `ポケット`, en: `Pocket` },
+  { jp: `スリム`, en: `Slim` },
+  { jp: `ミニ`, en: `Mini` },
+  { jp: `コンパクト`, en: `Compact` },
+  { jp: `ジャンボ`, en: `Jumbo` },
+  { jp: `レディース`, en: `Ladies` },
+  { jp: `メンズ`, en: `Mens` },
+  { jp: `初期型`, en: `Early Model` },
+  { jp: `前期型`, en: `Early Model` },
+  { jp: `後期型`, en: `Late Model` },
+  { jp: `限定`, en: `Limited Edition` },
+  { jp: `記念`, en: `Commemorative` },
+  { jp: `復刻`, en: `Reissue` },
+  { jp: `旧ロゴ`, en: `Old Logo` },
 
-  { jp: "天冠", en: "Cap Top" },
-  { jp: "首軸", en: "Section" },
-  { jp: "尾栓", en: "Blind Cap" },
-  { jp: "胴軸", en: "Barrel" },
-  { jp: "口金", en: "Grip" },
-  { jp: "極細", en: "Extra Fine (EF)" },
-  { jp: "細字", en: "Fine (F)" },
-  { jp: "中字", en: "Medium (M)" },
-  { jp: "太字", en: "Broad (B)" },
-  { jp: "極太", en: "Extra Broad (BB)" },
+  { jp: `天冠`, en: `Cap Top` },
+  { jp: `首軸`, en: `Section` },
+  { jp: `尾栓`, en: `Blind Cap` },
+  { jp: `胴軸`, en: `Barrel` },
+  { jp: `口金`, en: `Grip` },
+  { jp: `極細`, en: `Extra Fine (EF)` },
+  { jp: `細字`, en: `Fine (F)` },
+  { jp: `中字`, en: `Medium (M)` },
+  { jp: `太字`, en: `Broad (B)` },
+  { jp: `極太`, en: `Extra Broad (BB)` },
 
-  { jp: "未使用に近い", en: "Near Mint" },
-  { jp: "ほぼ未使用", en: "Near Mint" },
-  { jp: "デッドストック", en: "NOS Deadstock" },
-  { jp: "未使用品", en: "Unused" },
-  { jp: "未使用", en: "Unused" },
-  { jp: "新品同様", en: "Like New" },
-  { jp: "極美品", en: "Mint" },
-  { jp: "美品", en: "Excellent" },
-  { jp: "良品", en: "Good" },
-  { jp: "並品", en: "Fair" },
-  { jp: "訳あり", en: "As Is" },
-  { jp: "ジャンク", en: "As Is" },
-  { jp: "中古", en: "Used" },
-  { jp: "動作確認済", en: "Tested" },
-  { jp: "整備済", en: "Serviced" },
-  { jp: "清掃済", en: "Cleaned" },
-  { jp: "研磨済", en: "Polished" },
-  { jp: "未研磨", en: "Unpolished" },
-  { jp: "超希少", en: "Very Rare" },
-  { jp: "激レア", en: "Very Rare" },
-  { jp: "入手困難", en: "Hard to Find" },
-  { jp: "生産終了", en: "Discontinued" },
-  { jp: "廃盤", en: "Rare" },
-  { jp: "絶版", en: "Rare" },
-  { jp: "希少", en: "Rare" },
+  { jp: `未使用に近い`, en: `Near Mint` },
+  { jp: `ほぼ未使用`, en: `Near Mint` },
+  { jp: `デッドストック`, en: `NOS Deadstock` },
+  { jp: `未使用品`, en: `Unused` },
+  { jp: `未使用`, en: `Unused` },
+  { jp: `新品同様`, en: `Like New` },
+  { jp: `極美品`, en: `Mint` },
+  { jp: `美品`, en: `Excellent` },
+  { jp: `良品`, en: `Good` },
+  { jp: `並品`, en: `Fair` },
+  { jp: `訳あり`, en: `As Is` },
+  { jp: `ジャンク`, en: `As Is` },
+  { jp: `中古`, en: `Used` },
+  { jp: `動作確認済`, en: `Tested` },
+  { jp: `整備済`, en: `Serviced` },
+  { jp: `清掃済`, en: `Cleaned` },
+  { jp: `研磨済`, en: `Polished` },
+  { jp: `未研磨`, en: `Unpolished` },
+  { jp: `超希少`, en: `Very Rare` },
+  { jp: `激レア`, en: `Very Rare` },
+  { jp: `入手困難`, en: `Hard to Find` },
+  { jp: `生産終了`, en: `Discontinued` },
+  { jp: `廃盤`, en: `Rare` },
+  { jp: `絶版`, en: `Rare` },
+  { jp: `希少`, en: `Rare` },
 
-  { jp: "ティファニーブルー", en: "Tiffany Blue" },
-  { jp: "シャンパンゴールド", en: "Champagne Gold" },
-  { jp: "ローズゴールド", en: "Rose Gold" },
-  { jp: "パールホワイト", en: "Pearl White" },
-  { jp: "スカイブルー", en: "Sky Blue" },
-  { jp: "ステンレスシルバー", en: "Stainless Silver" },
-  { jp: "マットブラック", en: "Matte Black" },
-  { jp: "シルバー", en: "Silver" },
-  { jp: "ゴールド", en: "Gold" },
-  { jp: "ブラック", en: "Black" },
-  { jp: "ホワイト", en: "White" },
-  { jp: "ブルー", en: "Blue" },
-  { jp: "レッド", en: "Red" },
-  { jp: "グリーン", en: "Green" },
-  { jp: "ネイビー", en: "Navy" },
-  { jp: "ボルドー", en: "Bordeaux" },
-  { jp: "バーガンディ", en: "Burgundy" },
-  { jp: "ブラウン", en: "Brown" },
-  { jp: "グレー", en: "Grey" },
-  { jp: "ターコイズ", en: "Turquoise" },
-  { jp: "アクア", en: "Aqua" },
-  { jp: "ミント", en: "Mint" },
-  { jp: "エメラルド", en: "Emerald" },
-  { jp: "ローズ", en: "Rose" },
-  { jp: "ピンク", en: "Pink" },
-  { jp: "パープル", en: "Purple" },
-  { jp: "バイオレット", en: "Violet" },
-  { jp: "オレンジ", en: "Orange" },
-  { jp: "イエロー", en: "Yellow" },
-  { jp: "ベージュ", en: "Beige" },
-  { jp: "アイボリー", en: "Ivory" },
-  { jp: "シャンパン", en: "Champagne" },
-  { jp: "ブロンズ", en: "Bronze" },
-  { jp: "ガンメタル", en: "Gunmetal" },
-  { jp: "ツートン", en: "Two-Tone" },
-  { jp: "バイカラー", en: "Two-Tone" },
-  { jp: "グラデーション", en: "Gradation" },
-  { jp: "メタリック", en: "Metallic" },
-  { jp: "サテン", en: "Satin" },
-  { jp: "鏡面仕上げ", en: "Mirror Finish" },
-  { jp: "つや消し", en: "Matte Finish" },
-  { jp: "仕上げ", en: "Finish" },
-  { jp: "ライン", en: "Line" },
+  { jp: `ティファニーブルー`, en: `Tiffany Blue` },
+  { jp: `シャンパンゴールド`, en: `Champagne Gold` },
+  { jp: `ローズゴールド`, en: `Rose Gold` },
+  { jp: `パールホワイト`, en: `Pearl White` },
+  { jp: `スカイブルー`, en: `Sky Blue` },
+  { jp: `ステンレスシルバー`, en: `Stainless Silver` },
+  { jp: `マットブラック`, en: `Matte Black` },
+  { jp: `シルバー`, en: `Silver` },
+  { jp: `ゴールド`, en: `Gold` },
+  { jp: `ブラック`, en: `Black` },
+  { jp: `ホワイト`, en: `White` },
+  { jp: `ブルー`, en: `Blue` },
+  { jp: `レッド`, en: `Red` },
+  { jp: `グリーン`, en: `Green` },
+  { jp: `ネイビー`, en: `Navy` },
+  { jp: `ボルドー`, en: `Bordeaux` },
+  { jp: `バーガンディ`, en: `Burgundy` },
+  { jp: `ブラウン`, en: `Brown` },
+  { jp: `グレー`, en: `Grey` },
+  { jp: `ターコイズ`, en: `Turquoise` },
+  { jp: `アクア`, en: `Aqua` },
+  { jp: `ミント`, en: `Mint` },
+  { jp: `エメラルド`, en: `Emerald` },
+  { jp: `ローズ`, en: `Rose` },
+  { jp: `ピンク`, en: `Pink` },
+  { jp: `パープル`, en: `Purple` },
+  { jp: `バイオレット`, en: `Violet` },
+  { jp: `オレンジ`, en: `Orange` },
+  { jp: `イエロー`, en: `Yellow` },
+  { jp: `ベージュ`, en: `Beige` },
+  { jp: `アイボリー`, en: `Ivory` },
+  { jp: `シャンパン`, en: `Champagne` },
+  { jp: `ブロンズ`, en: `Bronze` },
+  { jp: `ガンメタル`, en: `Gunmetal` },
+  { jp: `ツートン`, en: `Two-Tone` },
+  { jp: `バイカラー`, en: `Two-Tone` },
+  { jp: `グラデーション`, en: `Gradation` },
+  { jp: `メタリック`, en: `Metallic` },
+  { jp: `サテン`, en: `Satin` },
+  { jp: `鏡面仕上げ`, en: `Mirror Finish` },
+  { jp: `つや消し`, en: `Matte Finish` },
+  { jp: `仕上げ`, en: `Finish` },
+  { jp: `ライン`, en: `Line` },
 
-  { jp: "ダイヤモンド", en: "Diamond" },
-  { jp: "ダイヤ", en: "Diamond" },
-  { jp: "パターン", en: "Pattern" },
-  { jp: "デザイン", en: "Design" },
-  { jp: "フィニッシュ", en: "Finish" },
-  { jp: "コーティング", en: "Coating" },
-  { jp: "シルバープレート", en: "Silver Plated" },
-  { jp: "ゴールドプレート", en: "Gold Plated" },
-  { jp: "プレート", en: "Plated" },
-  { jp: "金メッキ", en: "Gold Plated" },
-  { jp: "銀メッキ", en: "Silver Plated" },
-  { jp: "メッキ", en: "Plated" },
-  { jp: "20K金張り", en: "20K Gold Filled" },
-  { jp: "18K金張り", en: "18K Gold Filled" },
-  { jp: "14K金張り", en: "14K Gold Filled" },
-  { jp: "12K金張り", en: "12K Gold Filled" },
-  { jp: "金張り", en: "Gold Filled" },
-  { jp: "銀張り", en: "Silver Filled" },
-  { jp: "張り", en: "Filled" },
-  { jp: "スターリングシルバー製", en: "Sterling Silver" },
-  { jp: "シルバー925製", en: "Sterling Silver" },
-  { jp: "シルバー925", en: "Sterling Silver" },
-  { jp: "925シルバー", en: "Sterling Silver" },
-  { jp: "SV925", en: "Sterling Silver" },
-  { jp: "S925", en: "Sterling Silver" },
-  { jp: "SILVER925", en: "Sterling Silver" },
-  { jp: "純銀製", en: "Sterling Silver" },
-  { jp: "純銀", en: "Sterling Silver" },
-  { jp: "銀製", en: "Silver" },
-  { jp: "ペン先18K", en: "18K Gold Nib" },
-  { jp: "ペン先14K", en: "14K Gold Nib" },
-  { jp: "プレシャスレジン", en: "Precious Resin" },
-  { jp: "高級レジン", en: "Precious Resin" },
-  { jp: "ステンレススチール", en: "Stainless Steel" },
-  { jp: "ステンレス", en: "Stainless Steel" },
-  { jp: "カーボンファイバー", en: "Carbon Fiber" },
-  { jp: "カーボン", en: "Carbon" },
-  { jp: "セルロイド", en: "Celluloid" },
-  { jp: "エボナイト", en: "Ebonite" },
-  { jp: "蒔絵", en: "Maki-e" },
-  { jp: "真鍮", en: "Brass" },
-  { jp: "七宝", en: "Cloisonne" },
-  { jp: "螺鈿", en: "Mother of Pearl" },
-  { jp: "天然木", en: "Natural Wood" },
-  { jp: "木製", en: "Wood" },
-  { jp: "ボディ", en: "Body" },
-  { jp: "キャップ", en: "Cap" },
-  { jp: "クリップ", en: "Clip" },
-  { jp: "リング", en: "Ring" },
-  { jp: "バンド", en: "Band" },
-  { jp: "ノック", en: "Click" },
-  { jp: "レフィル", en: "Refill" },
-  { jp: "リフィル", en: "Refill" },
-  { jp: "替芯", en: "Refill" },
-  { jp: "カートリッジ", en: "Cartridge" },
-  { jp: "コンバーター", en: "Converter" },
-  { jp: "ニブ", en: "Nib" },
-  { jp: "ペン先", en: "Nib" },
-  { jp: "ケース", en: "Case" },
-  { jp: "ボックス", en: "Box" },
-  { jp: "ポーチ", en: "Pouch" },
-  { jp: "セット", en: "Set" },
-  { jp: "ペア", en: "Pair" },
-  { jp: "モデル", en: "Model" },
-  { jp: "タイプ", en: "Type" },
-  { jp: "シリーズ", en: "Series" },
-  { jp: "エディション", en: "Edition" },
-  { jp: "コレクション", en: "Collection" },
-  { jp: "アニバーサリー", en: "Anniversary" },
-  { jp: "リミテッド", en: "Limited" },
-  { jp: "レア", en: "Rare" },
-  { jp: "プレミアム", en: "Premium" },
-  { jp: "ラグジュアリー", en: "Luxury" },
-  { jp: "モダン", en: "Modern" },
-  { jp: "レトロ", en: "Retro" },
-  { jp: "アンティーク", en: "Antique" },
-  { jp: "オリジナル", en: "Original" },
-  { jp: "スペシャル", en: "Special" },
-  { jp: "スタンダード", en: "Standard" },
-  { jp: "レギュラー", en: "Regular" },
-  { jp: "ラージ", en: "Large" },
-  { jp: "スモール", en: "Small" },
-  { jp: "ミディアム", en: "Medium" },
-  { jp: "ロング", en: "Long" },
-  { jp: "ショート", en: "Short" },
-  { jp: "スクエア", en: "Square" },
-  { jp: "ラウンド", en: "Round" },
-  { jp: "フラット", en: "Flat" },
-  { jp: "テーパー", en: "Taper" },
-  { jp: "ストレート", en: "Straight" },
-  { jp: "カーブ", en: "Curve" },
-  { jp: "エッジ", en: "Edge" },
-  { jp: "サーフェス", en: "Surface" },
-  { jp: "グリップ", en: "Grip" },
-  { jp: "バレル", en: "Barrel" },
-  { jp: "コーン", en: "Cone" },
-  { jp: "トップ", en: "Top" },
-  { jp: "エンブレム", en: "Emblem" },
-  { jp: "ロゴ", en: "Logo" },
-  { jp: "マーク", en: "Mark" },
-  { jp: "シリアル", en: "Serial" },
-  { jp: "ナンバー", en: "Number" },
-  { jp: "スター", en: "Star" },
-  { jp: "クラウン", en: "Crown" },
-  { jp: "ハート", en: "Heart" },
-  { jp: "フラワー", en: "Flower" },
-  { jp: "リーフ", en: "Leaf" },
-  { jp: "スネーク", en: "Snake" },
-  { jp: "ドラゴン", en: "Dragon" },
-  { jp: "ドット", en: "Dot" },
-  { jp: "グリッド", en: "Grid" },
-  { jp: "ブロック", en: "Block" },
-  { jp: "プラチナ", en: "Platinum" },
-  { jp: "パラジウム", en: "Palladium" },
-  { jp: "チタニウム", en: "Titanium" },
-  { jp: "チタン", en: "Titanium" },
-  { jp: "ブラス", en: "Brass" },
-  { jp: "クローム", en: "Chrome" },
-  { jp: "ロジウム", en: "Rhodium" },
-  { jp: "エナメル", en: "Enamel" },
-  { jp: "ラッカー", en: "Lacquer" },
-  { jp: "レジン", en: "Resin" },
-  { jp: "プラスチック", en: "Plastic" },
-  { jp: "レザー", en: "Leather" },
-  { jp: "ウッド", en: "Wood" },
-  { jp: "マーブル", en: "Marble" },
-  { jp: "パール", en: "Pearl" },
-  { jp: "クリスタル", en: "Crystal" },
-  { jp: "ストーン", en: "Stone" },
-  { jp: "ジュエリー", en: "Jewelry" },
-  { jp: "アクセサリー", en: "Accessory" },
-  { jp: "ビジネス", en: "Business" },
-  { jp: "オフィス", en: "Office" },
-  { jp: "ギフト", en: "Gift" },
-  { jp: "プレゼント", en: "Present" },
-  { jp: "クリスマス", en: "Christmas" },
-  { jp: "ブランド", en: "Brand" },
-  { jp: "メーカー", en: "Maker" },
-  { jp: "ツイスト式", en: "Twist Type" },
-  { jp: "ノック式", en: "Click Type" },
-  { jp: "キャップ式", en: "Cap Type" },
-  { jp: "カートリッジ式", en: "Cartridge" },
-  { jp: "コンバーター式", en: "Converter" },
-  { jp: "吸引式", en: "Piston Filler" },
-  { jp: "両用式", en: "Cartridge or Converter" },
-  { jp: "ドイツ製", en: "Germany" },
-  { jp: "日本製", en: "Japan" },
-  { jp: "フランス製", en: "France" },
-  { jp: "イタリア製", en: "Italy" },
-  { jp: "スイス製", en: "Switzerland" },
-  { jp: "アメリカ製", en: "USA" },
-  { jp: "イギリス製", en: "UK" },
-  { jp: "ジャパン", en: "Japan" },
-  { jp: "ドイツ", en: "Germany" },
-  { jp: "フランス", en: "France" },
-  { jp: "イタリア", en: "Italy" },
-  { jp: "アメリカ", en: "USA" },
-  { jp: "スイス", en: "Switzerland" },
-  { jp: "イギリス", en: "UK" }
+  { jp: `ダイヤモンド`, en: `Diamond` },
+  { jp: `ダイヤ`, en: `Diamond` },
+  { jp: `パターン`, en: `Pattern` },
+  { jp: `デザイン`, en: `Design` },
+  { jp: `フィニッシュ`, en: `Finish` },
+  { jp: `コーティング`, en: `Coating` },
+  { jp: `シルバープレート`, en: `Silver Plated` },
+  { jp: `ゴールドプレート`, en: `Gold Plated` },
+  { jp: `プレート`, en: `Plated` },
+  { jp: `金メッキ`, en: `Gold Plated` },
+  { jp: `銀メッキ`, en: `Silver Plated` },
+  { jp: `メッキ`, en: `Plated` },
+  { jp: `20K金張り`, en: `20K Gold Filled` },
+  { jp: `18K金張り`, en: `18K Gold Filled` },
+  { jp: `14K金張り`, en: `14K Gold Filled` },
+  { jp: `12K金張り`, en: `12K Gold Filled` },
+  { jp: `金張り`, en: `Gold Filled` },
+  { jp: `銀張り`, en: `Silver Filled` },
+  { jp: `張り`, en: `Filled` },
+  { jp: `スターリングシルバー製`, en: `Sterling Silver` },
+  { jp: `シルバー925製`, en: `Sterling Silver` },
+  { jp: `シルバー925`, en: `Sterling Silver` },
+  { jp: `925シルバー`, en: `Sterling Silver` },
+  { jp: `SV925`, en: `Sterling Silver` },
+  { jp: `S925`, en: `Sterling Silver` },
+  { jp: `SILVER925`, en: `Sterling Silver` },
+  { jp: `純銀製`, en: `Sterling Silver` },
+  { jp: `純銀`, en: `Sterling Silver` },
+  { jp: `銀製`, en: `Silver` },
+  { jp: `ペン先18K`, en: `18K Gold Nib` },
+  { jp: `ペン先14K`, en: `14K Gold Nib` },
+  { jp: `プレシャスレジン`, en: `Precious Resin` },
+  { jp: `高級レジン`, en: `Precious Resin` },
+  { jp: `ステンレススチール`, en: `Stainless Steel` },
+  { jp: `ステンレス`, en: `Stainless Steel` },
+  { jp: `カーボンファイバー`, en: `Carbon Fiber` },
+  { jp: `カーボン`, en: `Carbon` },
+  { jp: `セルロイド`, en: `Celluloid` },
+  { jp: `エボナイト`, en: `Ebonite` },
+  { jp: `蒔絵`, en: `Maki-e` },
+  { jp: `真鍮`, en: `Brass` },
+  { jp: `七宝`, en: `Cloisonne` },
+  { jp: `螺鈿`, en: `Mother of Pearl` },
+  { jp: `天然木`, en: `Natural Wood` },
+  { jp: `木製`, en: `Wood` },
+  { jp: `ボディ`, en: `Body` },
+  { jp: `キャップ`, en: `Cap` },
+  { jp: `クリップ`, en: `Clip` },
+  { jp: `リング`, en: `Ring` },
+  { jp: `バンド`, en: `Band` },
+  { jp: `ノック`, en: `Click` },
+  { jp: `レフィル`, en: `Refill` },
+  { jp: `リフィル`, en: `Refill` },
+  { jp: `替芯`, en: `Refill` },
+  { jp: `カートリッジ`, en: `Cartridge` },
+  { jp: `コンバーター`, en: `Converter` },
+  { jp: `ニブ`, en: `Nib` },
+  { jp: `ペン先`, en: `Nib` },
+  { jp: `ケース`, en: `Case` },
+  { jp: `ボックス`, en: `Box` },
+  { jp: `ポーチ`, en: `Pouch` },
+  { jp: `セット`, en: `Set` },
+  { jp: `ペア`, en: `Pair` },
+  { jp: `モデル`, en: `Model` },
+  { jp: `タイプ`, en: `Type` },
+  { jp: `シリーズ`, en: `Series` },
+  { jp: `エディション`, en: `Edition` },
+  { jp: `コレクション`, en: `Collection` },
+  { jp: `アニバーサリー`, en: `Anniversary` },
+  { jp: `リミテッド`, en: `Limited` },
+  { jp: `レア`, en: `Rare` },
+  { jp: `プレミアム`, en: `Premium` },
+  { jp: `ラグジュアリー`, en: `Luxury` },
+  { jp: `モダン`, en: `Modern` },
+  { jp: `レトロ`, en: `Retro` },
+  { jp: `アンティーク`, en: `Antique` },
+  { jp: `オリジナル`, en: `Original` },
+  { jp: `スペシャル`, en: `Special` },
+  { jp: `スタンダード`, en: `Standard` },
+  { jp: `レギュラー`, en: `Regular` },
+  { jp: `ラージ`, en: `Large` },
+  { jp: `スモール`, en: `Small` },
+  { jp: `ミディアム`, en: `Medium` },
+  { jp: `ロング`, en: `Long` },
+  { jp: `ショート`, en: `Short` },
+  { jp: `スクエア`, en: `Square` },
+  { jp: `ラウンド`, en: `Round` },
+  { jp: `フラット`, en: `Flat` },
+  { jp: `テーパー`, en: `Taper` },
+  { jp: `ストレート`, en: `Straight` },
+  { jp: `カーブ`, en: `Curve` },
+  { jp: `エッジ`, en: `Edge` },
+  { jp: `サーフェス`, en: `Surface` },
+  { jp: `グリップ`, en: `Grip` },
+  { jp: `バレル`, en: `Barrel` },
+  { jp: `コーン`, en: `Cone` },
+  { jp: `トップ`, en: `Top` },
+  { jp: `エンブレム`, en: `Emblem` },
+  { jp: `ロゴ`, en: `Logo` },
+  { jp: `マーク`, en: `Mark` },
+  { jp: `シリアル`, en: `Serial` },
+  { jp: `ナンバー`, en: `Number` },
+  { jp: `スター`, en: `Star` },
+  { jp: `クラウン`, en: `Crown` },
+  { jp: `ハート`, en: `Heart` },
+  { jp: `フラワー`, en: `Flower` },
+  { jp: `リーフ`, en: `Leaf` },
+  { jp: `スネーク`, en: `Snake` },
+  { jp: `ドラゴン`, en: `Dragon` },
+  { jp: `ドット`, en: `Dot` },
+  { jp: `グリッド`, en: `Grid` },
+  { jp: `ブロック`, en: `Block` },
+  { jp: `プラチナ`, en: `Platinum` },
+  { jp: `パラジウム`, en: `Palladium` },
+  { jp: `チタニウム`, en: `Titanium` },
+  { jp: `チタン`, en: `Titanium` },
+  { jp: `ブラス`, en: `Brass` },
+  { jp: `クローム`, en: `Chrome` },
+  { jp: `ロジウム`, en: `Rhodium` },
+  { jp: `エナメル`, en: `Enamel` },
+  { jp: `ラッカー`, en: `Lacquer` },
+  { jp: `レジン`, en: `Resin` },
+  { jp: `プラスチック`, en: `Plastic` },
+  { jp: `レザー`, en: `Leather` },
+  { jp: `ウッド`, en: `Wood` },
+  { jp: `マーブル`, en: `Marble` },
+  { jp: `パール`, en: `Pearl` },
+  { jp: `クリスタル`, en: `Crystal` },
+  { jp: `ストーン`, en: `Stone` },
+  { jp: `ジュエリー`, en: `Jewelry` },
+  { jp: `アクセサリー`, en: `Accessory` },
+  { jp: `ビジネス`, en: `Business` },
+  { jp: `オフィス`, en: `Office` },
+  { jp: `ギフト`, en: `Gift` },
+  { jp: `プレゼント`, en: `Present` },
+  { jp: `クリスマス`, en: `Christmas` },
+  { jp: `ブランド`, en: `Brand` },
+  { jp: `メーカー`, en: `Maker` },
+  { jp: `ツイスト式`, en: `Twist Type` },
+  { jp: `ノック式`, en: `Click Type` },
+  { jp: `キャップ式`, en: `Cap Type` },
+  { jp: `カートリッジ式`, en: `Cartridge` },
+  { jp: `コンバーター式`, en: `Converter` },
+  { jp: `吸引式`, en: `Piston Filler` },
+  { jp: `両用式`, en: `Cartridge or Converter` },
+  { jp: `ドイツ製`, en: `Germany` },
+  { jp: `日本製`, en: `Japan` },
+  { jp: `フランス製`, en: `France` },
+  { jp: `イタリア製`, en: `Italy` },
+  { jp: `スイス製`, en: `Switzerland` },
+  { jp: `アメリカ製`, en: `USA` },
+  { jp: `イギリス製`, en: `UK` },
+  { jp: `ジャパン`, en: `Japan` },
+  { jp: `ドイツ`, en: `Germany` },
+  { jp: `フランス`, en: `France` },
+  { jp: `イタリア`, en: `Italy` },
+  { jp: `アメリカ`, en: `USA` },
+  { jp: `スイス`, en: `Switzerland` },
+  { jp: `イギリス`, en: `UK` }
 ];
 
 var DIC_KANA = {
-  "キャ": "kya", "キュ": "kyu", "キョ": "kyo", "シャ": "sha", "シュ": "shu", "ショ": "sho",
-  "チャ": "cha", "チュ": "chu", "チョ": "cho", "ニャ": "nya", "ニュ": "nyu", "ニョ": "nyo",
-  "ヒャ": "hya", "ヒュ": "hyu", "ヒョ": "hyo", "ミャ": "mya", "ミュ": "myu", "ミョ": "myo",
-  "リャ": "rya", "リュ": "ryu", "リョ": "ryo", "ギャ": "gya", "ギュ": "gyu", "ギョ": "gyo",
-  "ジャ": "ja", "ジュ": "ju", "ジョ": "jo", "ビャ": "bya", "ビュ": "byu", "ビョ": "byo",
-  "ピャ": "pya", "ピュ": "pyu", "ピョ": "pyo",
-  "ファ": "fa", "フィ": "fi", "フェ": "fe", "フォ": "fo", "フュ": "fyu",
-  "ヴァ": "va", "ヴィ": "vi", "ヴェ": "ve", "ヴォ": "vo", "ヴ": "v",
-  "ティ": "ti", "ディ": "di", "デュ": "du", "トゥ": "tu", "ドゥ": "du",
-  "ウィ": "wi", "ウェ": "we", "ウォ": "wo", "シェ": "she", "ジェ": "je", "チェ": "che",
-  "ア": "a", "イ": "i", "ウ": "u", "エ": "e", "オ": "o",
-  "カ": "ka", "キ": "ki", "ク": "ku", "ケ": "ke", "コ": "ko",
-  "サ": "sa", "シ": "shi", "ス": "su", "セ": "se", "ソ": "so",
-  "タ": "ta", "チ": "chi", "ツ": "tsu", "テ": "te", "ト": "to",
-  "ナ": "na", "ニ": "ni", "ヌ": "nu", "ネ": "ne", "ノ": "no",
-  "ハ": "ha", "ヒ": "hi", "フ": "fu", "ヘ": "he", "ホ": "ho",
-  "マ": "ma", "ミ": "mi", "ム": "mu", "メ": "me", "モ": "mo",
-  "ヤ": "ya", "ユ": "yu", "ヨ": "yo",
-  "ラ": "ra", "リ": "ri", "ル": "ru", "レ": "re", "ロ": "ro",
-  "ワ": "wa", "ヲ": "o", "ン": "n",
-  "ガ": "ga", "ギ": "gi", "グ": "gu", "ゲ": "ge", "ゴ": "go",
-  "ザ": "za", "ジ": "ji", "ズ": "zu", "ゼ": "ze", "ゾ": "zo",
-  "ダ": "da", "ヂ": "ji", "ヅ": "zu", "デ": "de", "ド": "do",
-  "バ": "ba", "ビ": "bi", "ブ": "bu", "ベ": "be", "ボ": "bo",
-  "パ": "pa", "ピ": "pi", "プ": "pu", "ペ": "pe", "ポ": "po",
-  "ャ": "ya", "ュ": "yu", "ョ": "yo", "ッ": E, "ー": E
+  [`キャ`]: `kya`, [`キュ`]: `kyu`, [`キョ`]: `kyo`, [`シャ`]: `sha`, [`シュ`]: `shu`, [`ショ`]: `sho`,
+  [`チャ`]: `cha`, [`チュ`]: `chu`, [`チョ`]: `cho`, [`ニャ`]: `nya`, [`ニュ`]: `nyu`, [`ニョ`]: `nyo`,
+  [`ヒャ`]: `hya`, [`ヒュ`]: `hyu`, [`ヒョ`]: `hyo`, [`ミャ`]: `mya`, [`ミュ`]: `myu`, [`ミョ`]: `myo`,
+  [`リャ`]: `rya`, [`リュ`]: `ryu`, [`リョ`]: `ryo`, [`ギャ`]: `gya`, [`ギュ`]: `gyu`, [`ギョ`]: `gyo`,
+  [`ジャ`]: `ja`, [`ジュ`]: `ju`, [`ジョ`]: `jo`, [`ビャ`]: `bya`, [`ビュ`]: `byu`, [`ビョ`]: `byo`,
+  [`ピャ`]: `pya`, [`ピュ`]: `pyu`, [`ピョ`]: `pyo`,
+  [`ファ`]: `fa`, [`フィ`]: `fi`, [`フェ`]: `fe`, [`フォ`]: `fo`, [`フュ`]: `fyu`,
+  [`ヴァ`]: `va`, [`ヴィ`]: `vi`, [`ヴェ`]: `ve`, [`ヴォ`]: `vo`, [`ヴ`]: `v`,
+  [`ティ`]: `ti`, [`ディ`]: `di`, [`デュ`]: `du`, [`トゥ`]: `tu`, [`ドゥ`]: `du`,
+  [`ウィ`]: `wi`, [`ウェ`]: `we`, [`ウォ`]: `wo`, [`シェ`]: `she`, [`ジェ`]: `je`, [`チェ`]: `che`,
+  [`ア`]: `a`, [`イ`]: `i`, [`ウ`]: `u`, [`エ`]: `e`, [`オ`]: `o`,
+  [`カ`]: `ka`, [`キ`]: `ki`, [`ク`]: `ku`, [`ケ`]: `ke`, [`コ`]: `ko`,
+  [`サ`]: `sa`, [`シ`]: `shi`, [`ス`]: `su`, [`セ`]: `se`, [`ソ`]: `so`,
+  [`タ`]: `ta`, [`チ`]: `chi`, [`ツ`]: `tsu`, [`テ`]: `te`, [`ト`]: `to`,
+  [`ナ`]: `na`, [`ニ`]: `ni`, [`ヌ`]: `nu`, [`ネ`]: `ne`, [`ノ`]: `no`,
+  [`ハ`]: `ha`, [`ヒ`]: `hi`, [`フ`]: `fu`, [`ヘ`]: `he`, [`ホ`]: `ho`,
+  [`マ`]: `ma`, [`ミ`]: `mi`, [`ム`]: `mu`, [`メ`]: `me`, [`モ`]: `mo`,
+  [`ヤ`]: `ya`, [`ユ`]: `yu`, [`ヨ`]: `yo`,
+  [`ラ`]: `ra`, [`リ`]: `ri`, [`ル`]: `ru`, [`レ`]: `re`, [`ロ`]: `ro`,
+  [`ワ`]: `wa`, [`ヲ`]: `o`, [`ン`]: `n`,
+  [`ガ`]: `ga`, [`ギ`]: `gi`, [`グ`]: `gu`, [`ゲ`]: `ge`, [`ゴ`]: `go`,
+  [`ザ`]: `za`, [`ジ`]: `ji`, [`ズ`]: `zu`, [`ゼ`]: `ze`, [`ゾ`]: `zo`,
+  [`ダ`]: `da`, [`ヂ`]: `ji`, [`ヅ`]: `zu`, [`デ`]: `de`, [`ド`]: `do`,
+  [`バ`]: `ba`, [`ビ`]: `bi`, [`ブ`]: `bu`, [`ベ`]: `be`, [`ボ`]: `bo`,
+  [`パ`]: `pa`, [`ピ`]: `pi`, [`プ`]: `pu`, [`ペ`]: `pe`, [`ポ`]: `po`,
+  [`ャ`]: `ya`, [`ュ`]: `yu`, [`ョ`]: `yo`, [`ッ`]: ``, [`ー`]: ``
 };
 
 function dicRomaji(s) {
-  var out = E;
+  var out = ``;
   var i = 0;
   while (i < s.length) {
     var two = s.substr(i, 2);
@@ -713,7 +711,7 @@ function dicRomaji(s) {
 var DIC_MODELS_SORTED = DIC_MODELS.slice().sort(function (a, b) { return b.jp.length - a.jp.length; });
 
 function dicTranslate(jp) {
-  if (!jp) return { en: E, romanized: E, leftover: E };
+  if (!jp) return { en: ``, romanized: ``, leftover: `` };
 
   jp = jp.replace(/[\uFF21-\uFF3A\uFF41-\uFF5A\uFF10-\uFF19]/g, function (c) {
     return String.fromCharCode(c.charCodeAt(0) - 0xFEE0);
@@ -725,7 +723,7 @@ function dicTranslate(jp) {
   function decompose(w) {
     var parts = [], romaji = [];
     var rest = w;
-    var buf = E;
+    var buf = ``;
     var guard = 0;
 
     function flushBuf() {
@@ -737,7 +735,7 @@ function dicTranslate(jp) {
       } else {
         parts.push(buf);
       }
-      buf = E;
+      buf = ``;
     }
 
     while (rest.length > 0 && guard < 200) {
@@ -784,116 +782,116 @@ function dicTranslate(jp) {
         if (/[\u3041-\u3096\u4E00-\u9FFF]/.test(d.parts[z2])) leftover.push(d.parts[z2]);
         else okParts.push(d.parts[z2]);
       }
-      if (okParts.length) out.push(okParts.join(" "));
+      if (okParts.length) out.push(okParts.join(` `));
       for (var q0 = 0; q0 < d.romaji.length; q0++) {
-        romanized.push(d.romaji[q0].jp + "→" + d.romaji[q0].en);
+        romanized.push(d.romaji[q0].jp + `→` + d.romaji[q0].en);
       }
       continue;
     }
 
     if (d.parts.length) {
-      out.push(d.parts.join(" "));
+      out.push(d.parts.join(` `));
       for (var q = 0; q < d.romaji.length; q++) {
-        romanized.push(d.romaji[q].jp + "→" + d.romaji[q].en);
+        romanized.push(d.romaji[q].jp + `→` + d.romaji[q].en);
       }
     }
   }
 
   return {
-    en: out.join(" ").replace(/\s+/g, " ").trim(),
-    romanized: romanized.join("、"),
-    leftover: leftover.join(" ")
+    en: out.join(` `).replace(/\s+/g, ` `).trim(),
+    romanized: romanized.join(`、`),
+    leftover: leftover.join(` `)
   };
 }
 
 var DIC_PENTYPES = [
-  { jp: "多機能ペン", en: "Multi Pen" },
-  { jp: "シャープペンシル", en: "Mechanical Pencil" },
-  { jp: "シャープペン", en: "Mechanical Pencil" },
-  { jp: "ローラーボール", en: "Rollerball Pen" },
-  { jp: "ボールペン", en: "Ballpoint Pen" },
-  { jp: "万年筆", en: "Fountain Pen" }
+  { jp: `多機能ペン`, en: `Multi Pen` },
+  { jp: `シャープペンシル`, en: `Mechanical Pencil` },
+  { jp: `シャープペン`, en: `Mechanical Pencil` },
+  { jp: `ローラーボール`, en: `Rollerball Pen` },
+  { jp: `ボールペン`, en: `Ballpoint Pen` },
+  { jp: `万年筆`, en: `Fountain Pen` }
 ];
 
 var DIC_MATERIALS = [
-  { jp: "シルバー925", en: "Sterling Silver 925", asset: "silver" },
-  { jp: "スターリングシルバー", en: "Sterling Silver 925", asset: "silver" },
-  { jp: "純銀", en: "Sterling Silver 925", asset: "silver" },
-  { jp: "銀張り", en: "Silver Filled", asset: "silver" },
-  { jp: "シルバーフィルド", en: "Silver Filled", asset: "silver" },
-  { jp: "20K金張り", en: "20K Gold Filled (Rolled Gold)", short: "20K Gold Filled", asset: "gold" },
-  { jp: "18K金張り", en: "18K Gold Filled (Rolled Gold)", short: "18K Gold Filled", asset: "gold" },
-  { jp: "14K金張り", en: "14K Gold Filled (Rolled Gold)", short: "14K Gold Filled", asset: "gold" },
-  { jp: "12K金張り", en: "12K Gold Filled (Rolled Gold)", short: "12K Gold Filled", asset: "gold" },
-  { jp: "10K金張り", en: "10K Gold Filled (Rolled Gold)", short: "10K Gold Filled", asset: "gold" },
-  { jp: "金張り", en: "Gold Filled (Rolled Gold)", short: "Gold Filled", asset: "gold" },
-  { jp: "ゴールドフィルド", en: "Gold Filled (Rolled Gold)", short: "Gold Filled", asset: "gold" },
-  { jp: "ロールドゴールド", en: "Rolled Gold", asset: "gold" },
-  { jp: "18K金メッキ", en: "18K Gold Plated", asset: E },
-  { jp: "14K金メッキ", en: "14K Gold Plated", asset: E },
-  { jp: "金メッキ", en: "Gold Plated", asset: E },
-  { jp: "ゴールドプレート", en: "Gold Plated", asset: E },
-  { jp: "銀メッキ", en: "Silver Plated", asset: E },
-  { jp: "シルバープレート", en: "Silver Plated", asset: E },
-  { jp: "ロジウムメッキ", en: "Rhodium Plated", asset: E },
-  { jp: "プラチナメッキ", en: "Platinum Plated", asset: E },
-  { jp: "ペン先18K", en: "18K Gold Nib", asset: "gold" },
-  { jp: "ペン先14K", en: "14K Gold Nib", asset: "gold" },
-  { jp: "高級レジン", en: "Precious Resin", asset: E },
-  { jp: "プレシャスレジン", en: "Precious Resin", asset: E },
-  { jp: "ラッカー", en: "Lacquer Finish", asset: E },
-  { jp: "カーボン", en: "Carbon Fiber", asset: E },
-  { jp: "セルロイド", en: "Celluloid", asset: E },
-  { jp: "ステンレス", en: "Stainless Steel", asset: E },
-  { jp: "マット樹脂", en: "Matte Resin", asset: E },
-  { jp: "メタル", en: "Metal", asset: E }
+  { jp: `シルバー925`, en: `Sterling Silver 925`, asset: `silver` },
+  { jp: `スターリングシルバー`, en: `Sterling Silver 925`, asset: `silver` },
+  { jp: `純銀`, en: `Sterling Silver 925`, asset: `silver` },
+  { jp: `銀張り`, en: `Silver Filled`, asset: `silver` },
+  { jp: `シルバーフィルド`, en: `Silver Filled`, asset: `silver` },
+  { jp: `20K金張り`, en: `20K Gold Filled (Rolled Gold)`, short: `20K Gold Filled`, asset: `gold` },
+  { jp: `18K金張り`, en: `18K Gold Filled (Rolled Gold)`, short: `18K Gold Filled`, asset: `gold` },
+  { jp: `14K金張り`, en: `14K Gold Filled (Rolled Gold)`, short: `14K Gold Filled`, asset: `gold` },
+  { jp: `12K金張り`, en: `12K Gold Filled (Rolled Gold)`, short: `12K Gold Filled`, asset: `gold` },
+  { jp: `10K金張り`, en: `10K Gold Filled (Rolled Gold)`, short: `10K Gold Filled`, asset: `gold` },
+  { jp: `金張り`, en: `Gold Filled (Rolled Gold)`, short: `Gold Filled`, asset: `gold` },
+  { jp: `ゴールドフィルド`, en: `Gold Filled (Rolled Gold)`, short: `Gold Filled`, asset: `gold` },
+  { jp: `ロールドゴールド`, en: `Rolled Gold`, asset: `gold` },
+  { jp: `18K金メッキ`, en: `18K Gold Plated`, asset: `` },
+  { jp: `14K金メッキ`, en: `14K Gold Plated`, asset: `` },
+  { jp: `金メッキ`, en: `Gold Plated`, asset: `` },
+  { jp: `ゴールドプレート`, en: `Gold Plated`, asset: `` },
+  { jp: `銀メッキ`, en: `Silver Plated`, asset: `` },
+  { jp: `シルバープレート`, en: `Silver Plated`, asset: `` },
+  { jp: `ロジウムメッキ`, en: `Rhodium Plated`, asset: `` },
+  { jp: `プラチナメッキ`, en: `Platinum Plated`, asset: `` },
+  { jp: `ペン先18K`, en: `18K Gold Nib`, asset: `gold` },
+  { jp: `ペン先14K`, en: `14K Gold Nib`, asset: `gold` },
+  { jp: `高級レジン`, en: `Precious Resin`, asset: `` },
+  { jp: `プレシャスレジン`, en: `Precious Resin`, asset: `` },
+  { jp: `ラッカー`, en: `Lacquer Finish`, asset: `` },
+  { jp: `カーボン`, en: `Carbon Fiber`, asset: `` },
+  { jp: `セルロイド`, en: `Celluloid`, asset: `` },
+  { jp: `ステンレス`, en: `Stainless Steel`, asset: `` },
+  { jp: `マット樹脂`, en: `Matte Resin`, asset: `` },
+  { jp: `メタル`, en: `Metal`, asset: `` }
 ];
 
 var DIC_COLORS = [
-  { jp: "ステンレスシルバー", en: "Stainless Silver" },
-  { jp: "シルバー×ゴールド", en: "Silver and Gold" },
-  { jp: "マットブラック", en: "Matte Black" },
-  { jp: "シルバー", en: "Silver" }, { jp: "ゴールド", en: "Gold" },
-  { jp: "ブラック", en: "Black" }, { jp: "ブルー", en: "Blue" },
-  { jp: "レッド", en: "Red" }, { jp: "グリーン", en: "Green" },
-  { jp: "ホワイト", en: "White" }
+  { jp: `ステンレスシルバー`, en: `Stainless Silver` },
+  { jp: `シルバー×ゴールド`, en: `Silver and Gold` },
+  { jp: `マットブラック`, en: `Matte Black` },
+  { jp: `シルバー`, en: `Silver` }, { jp: `ゴールド`, en: `Gold` },
+  { jp: `ブラック`, en: `Black` }, { jp: `ブルー`, en: `Blue` },
+  { jp: `レッド`, en: `Red` }, { jp: `グリーン`, en: `Green` },
+  { jp: `ホワイト`, en: `White` }
 ];
 
 var DIC_COUNTRIES = [
-  { jp: "ドイツ製", en: "Germany", band: "GERMANY" },
-  { jp: "GERMANY", en: "Germany", band: "GERMANY" },
-  { jp: "日本製", en: "Japan", band: "JAPAN" },
-  { jp: "JAPAN", en: "Japan", band: "JAPAN" },
-  { jp: "フランス製", en: "France", band: "FRANCE" },
-  { jp: "スイス製", en: "Switzerland", band: "SWITZERLAND" },
-  { jp: "イタリア製", en: "Italy", band: "ITALY" },
-  { jp: "イギリス製", en: "UK", band: "UK" },
-  { jp: "アメリカ製", en: "USA", band: "USA" },
-  { jp: "USA", en: "USA", band: "USA" }
+  { jp: `ドイツ製`, en: `Germany`, band: `GERMANY` },
+  { jp: `GERMANY`, en: `Germany`, band: `GERMANY` },
+  { jp: `日本製`, en: `Japan`, band: `JAPAN` },
+  { jp: `JAPAN`, en: `Japan`, band: `JAPAN` },
+  { jp: `フランス製`, en: `France`, band: `FRANCE` },
+  { jp: `スイス製`, en: `Switzerland`, band: `SWITZERLAND` },
+  { jp: `イタリア製`, en: `Italy`, band: `ITALY` },
+  { jp: `イギリス製`, en: `UK`, band: `UK` },
+  { jp: `アメリカ製`, en: `USA`, band: `USA` },
+  { jp: `USA`, en: `USA`, band: `USA` }
 ];
 
 var DIC_SPECS = [
-  { jp: "ツイスト式", en: "Twist mechanism" },
-  { jp: "ノック式", en: "Click mechanism" },
-  { jp: "カートリッジ式", en: "Cartridge filling" },
-  { jp: "コンバーター式", en: "Converter filling" },
-  { jp: "吸引式", en: "Piston filling" }
+  { jp: `ツイスト式`, en: `Twist mechanism` },
+  { jp: `ノック式`, en: `Click mechanism` },
+  { jp: `カートリッジ式`, en: `Cartridge filling` },
+  { jp: `コンバーター式`, en: `Converter filling` },
+  { jp: `吸引式`, en: `Piston filling` }
 ];
 
 var DIC_ACCS = [
-  { jp: "ケース", en: "original case" }, { jp: "袋", en: "pouch" },
-  { jp: "ギャランティ", en: "guarantee card" }, { jp: "説明書", en: "instruction manual" }
+  { jp: `ケース`, en: `original case` }, { jp: `袋`, en: `pouch` },
+  { jp: `ギャランティ`, en: `guarantee card` }, { jp: `説明書`, en: `instruction manual` }
 ];
 
 var DIC_CONDITIONS = [
-  { jp: ["未使用品のデッドストック", "未使用のデッドストック"], grade: "New Old Stock", txt: "Unused old stock. Never used, but stored for a long period." },
-  { jp: ["使用感のほとんどない"], grade: "Excellent", txt: "Very light signs of use. No significant flaws found." },
-  { jp: ["使用感の少ない"], grade: "Excellent", txt: "Light signs of use. No significant flaws found." },
-  { jp: ["目立ったキズ等のない"], grade: "Very Good", txt: "No prominent scratches, but light signs of use consistent with age are present." },
-  { jp: ["キズや凹み", "凹み等あり"], grade: "Fair", txt: "Visible scratches and small dents are present. Sold as a used vintage item." },
-  { jp: ["キズや汚れ等あり", "汚れ等あります"], grade: "Fair", txt: "Visible scratches and stains are present. Sold as a used vintage item." },
-  { jp: ["小キズ等ありますが、使用には問題"], grade: "Good", txt: "Scratches from use are present. Functional, but shows visible wear." },
-  { jp: ["小キズ等ありますが"], grade: "Good", txt: "Scratches from use are present, consistent with its age." }
+  { jp: [`未使用品のデッドストック`, `未使用のデッドストック`], grade: `New Old Stock`, txt: `Unused old stock. Never used, but stored for a long period.` },
+  { jp: [`使用感のほとんどない`], grade: `Excellent`, txt: `Very light signs of use. No significant flaws found.` },
+  { jp: [`使用感の少ない`], grade: `Excellent`, txt: `Light signs of use. No significant flaws found.` },
+  { jp: [`目立ったキズ等のない`], grade: `Very Good`, txt: `No prominent scratches, but light signs of use consistent with age are present.` },
+  { jp: [`キズや凹み`, `凹み等あり`], grade: `Fair`, txt: `Visible scratches and small dents are present. Sold as a used vintage item.` },
+  { jp: [`キズや汚れ等あり`, `汚れ等あります`], grade: `Fair`, txt: `Visible scratches and stains are present. Sold as a used vintage item.` },
+  { jp: [`小キズ等ありますが、使用には問題`], grade: `Good`, txt: `Scratches from use are present. Functional, but shows visible wear.` },
+  { jp: [`小キズ等ありますが`], grade: `Good`, txt: `Scratches from use are present, consistent with its age.` }
 ];
 
 /* ================= SHARED DICTIONARY v1 ここまで ================= */
@@ -903,38 +901,38 @@ var BRAND_PRESETS = (function () {
   for (var i = 0; i < DIC_BRANDS.length; i++) {
     o.push({ jp: DIC_BRANDS[i].jp, en: DIC_BRANDS[i].en, name: DIC_BRANDS[i].name });
   }
-  o.push({ jp: "その他", en: E, name: "その他（任意入力）" });
+  o.push({ jp: `その他`, en: ``, name: `その他（任意入力）` });
   return o;
 })();
 var LAST_BRAND = BRAND_PRESETS.length - 1;
-var PEN_TYPES   = ["ボールペン","万年筆","ローラーボール","シャープペンシル","多機能ペン"];
-var COUNTRIES   = ["ドイツ製","日本製","フランス製","スイス製","イタリア製","イギリス製","アメリカ製","その他（任意入力）"];
-var ERAS        = [E,"1940s","1950s","1960s","1970s","1970～1980s","1980s","1990s","2000s","2010s","2020s"];
-var MATERIALS   = ["ステンレス","メタル","20K金張り","18K金張り","14K金張り","ペン先14K","ペン先18K","銀張り（シルバープレート）","シルバー925（スターリングシルバー）","高級レジン","ラッカー仕上げ","マット樹脂","カーボン","セルロイド","その他"];
-var COLORS_LIST = ["ステンレスシルバー","シルバー","ブラック","ゴールド","シルバー×ゴールド","マットブラック","ブルー","レッド","グリーン","ホワイト","その他"];
-var BP_SPECS    = ["ツイスト式","ノック式"];
-var FP_SPECS    = ["カートリッジ式","コンバーター式","吸引式"];
-var ACCESSORIES = ["ケース","袋","ギャランティ","説明書"];
-var TYPE2_OPTS  = ["高級ボールペン","高級万年筆","高級ローラーボール","高級シャープペンシル","高級多機能ペン","純銀ボールペン","純銀万年筆","純銀ローラーボール","純銀シャープペン"];
+var PEN_TYPES   = [`ボールペン`,`万年筆`,`ローラーボール`,`シャープペンシル`,`多機能ペン`];
+var COUNTRIES   = [`ドイツ製`,`日本製`,`フランス製`,`スイス製`,`イタリア製`,`イギリス製`,`アメリカ製`,`その他（任意入力）`];
+var ERAS        = [``,`1940s`,`1950s`,`1960s`,`1970s`,`1970～1980s`,`1980s`,`1990s`,`2000s`,`2010s`,`2020s`];
+var MATERIALS   = [`ステンレス`,`メタル`,`20K金張り`,`18K金張り`,`14K金張り`,`ペン先14K`,`ペン先18K`,`銀張り（シルバープレート）`,`シルバー925（スターリングシルバー）`,`高級レジン`,`ラッカー仕上げ`,`マット樹脂`,`カーボン`,`セルロイド`,`その他`];
+var COLORS_LIST = [`ステンレスシルバー`,`シルバー`,`ブラック`,`ゴールド`,`シルバー×ゴールド`,`マットブラック`,`ブルー`,`レッド`,`グリーン`,`ホワイト`,`その他`];
+var BP_SPECS    = [`ツイスト式`,`ノック式`];
+var FP_SPECS    = [`カートリッジ式`,`コンバーター式`,`吸引式`];
+var ACCESSORIES = [`ケース`,`袋`,`ギャランティ`,`説明書`];
+var TYPE2_OPTS  = [`高級ボールペン`,`高級万年筆`,`高級ローラーボール`,`高級シャープペンシル`,`高級多機能ペン`,`純銀ボールペン`,`純銀万年筆`,`純銀ローラーボール`,`純銀シャープペン`];
 var CONDITIONS  = [
-{key:"未使用",    label:"未使用",              fn:function(y){return "未使用品のデッドストック品。"+(y?"約"+y+"年前の品とは思えない":E)+"コレクティブルなコンディションに保たれています。";}},
-{key:"未使用A",   label:"未使用に近い A",       fn:function(y){return "使用感のほとんどない美品で、"+(y?"約"+y+"年前の品とは思えない":E)+"コレクティブルなコンディションに保たれています。";}},
-{key:"未使用B",   label:"未使用に近い B",       fn:function(y){return "使用感の少ない美品で、"+(y?"約"+y+"年前の品とは思えない":E)+"コレクティブルなコンディションに保たれています。";}},
-{key:"キズなしA", label:"目立ったキズ等なし A", fn:function(y){return "目立ったキズ等のない美品で、"+(y?"約"+y+"年前の品とは思えない":E)+"コレクティブルなコンディションに保たれています。";}},
-{key:"キズなしB", label:"目立ったキズ等なし B", fn:function(y){return "小キズ等ありますが、"+(y?"約"+y+"年前の品とは思えない":E)+"コレクティブルなコンディションに保たれています。";}},
-{key:"ややA",     label:"ややキズや汚れあり A", fn:function(y){return "小キズ等ありますが、"+(y?"約"+y+"年前の品と考えると":E)+"充分なコンディションに保たれています。";}},
-{key:"ややB",     label:"ややキズや汚れあり B", fn:function(y){return "小キズ等ありますが、使用には問題のないコンディションです。";}},
-{key:"凹みあり",  label:"キズや汚れ・凹みあり", fn:function(y){return "キズや凹み等ありますが、使用には問題のないコンディションです。";}},
-{key:"汚れあり",  label:"キズや汚れ等あり",     fn:function(y){return "キズや汚れ等ありますが、使用には問題のないコンディションです。";}},
+{key:`未使用`,    label:`未使用`,              fn:function(y){return `未使用品のデッドストック品。`+(y?`約`+y+`年前の品とは思えない`:``)+`コレクティブルなコンディションに保たれています。`;}},
+{key:`未使用A`,   label:`未使用に近い A`,       fn:function(y){return `使用感のほとんどない美品で、`+(y?`約`+y+`年前の品とは思えない`:``)+`コレクティブルなコンディションに保たれています。`;}},
+{key:`未使用B`,   label:`未使用に近い B`,       fn:function(y){return `使用感の少ない美品で、`+(y?`約`+y+`年前の品とは思えない`:``)+`コレクティブルなコンディションに保たれています。`;}},
+{key:`キズなしA`, label:`目立ったキズ等なし A`, fn:function(y){return `目立ったキズ等のない美品で、`+(y?`約`+y+`年前の品とは思えない`:``)+`コレクティブルなコンディションに保たれています。`;}},
+{key:`キズなしB`, label:`目立ったキズ等なし B`, fn:function(y){return `小キズ等ありますが、`+(y?`約`+y+`年前の品とは思えない`:``)+`コレクティブルなコンディションに保たれています。`;}},
+{key:`ややA`,     label:`ややキズや汚れあり A`, fn:function(y){return `小キズ等ありますが、`+(y?`約`+y+`年前の品と考えると`:``)+`充分なコンディションに保たれています。`;}},
+{key:`ややB`,     label:`ややキズや汚れあり B`, fn:function(y){return `小キズ等ありますが、使用には問題のないコンディションです。`;}},
+{key:`凹みあり`,  label:`キズや汚れ・凹みあり`, fn:function(y){return `キズや凹み等ありますが、使用には問題のないコンディションです。`;}},
+{key:`汚れあり`,  label:`キズや汚れ等あり`,     fn:function(y){return `キズや汚れ等ありますが、使用には問題のないコンディションです。`;}},
 ];
 
 /* ── eBay英語画像用の対訳テーブル ── */
 var PEN_TYPE_EN = {
-"ボールペン":"BALLPOINT PEN",
-"万年筆":"FOUNTAIN PEN",
-"ローラーボール":"ROLLERBALL PEN",
-"シャープペンシル":"MECHANICAL PENCIL",
-"多機能ペン":"MULTI PEN"
+[`ボールペン`]:`BALLPOINT PEN`,
+[`万年筆`]:`FOUNTAIN PEN`,
+[`ローラーボール`]:`ROLLERBALL PEN`,
+[`シャープペンシル`]:`MECHANICAL PENCIL`,
+[`多機能ペン`]:`MULTI PEN`
 };
 var COUNTRY_EN = (function () {
   var m = {};
@@ -943,109 +941,109 @@ var COUNTRY_EN = (function () {
 })();
 
 var P2_EN = {
-"高級ボールペン":"BALLPOINT PEN",
-"高級万年筆":"FOUNTAIN PEN",
-"高級ローラーボール":"ROLLERBALL PEN",
-"高級シャープペンシル":"MECHANICAL PENCIL",
-"高級シャープペン":"MECHANICAL PENCIL",
-"高級多機能ペン":"MULTI PEN",
-"純銀ボールペン":"STERLING SILVER PEN",
-"純銀万年筆":"STERLING SILVER FP",
-"純銀ローラーボール":"STERLING SILVER RB",
-"純銀シャープペン":"STERLING SILVER PENCIL"
+[`高級ボールペン`]:`BALLPOINT PEN`,
+[`高級万年筆`]:`FOUNTAIN PEN`,
+[`高級ローラーボール`]:`ROLLERBALL PEN`,
+[`高級シャープペンシル`]:`MECHANICAL PENCIL`,
+[`高級シャープペン`]:`MECHANICAL PENCIL`,
+[`高級多機能ペン`]:`MULTI PEN`,
+[`純銀ボールペン`]:`STERLING SILVER PEN`,
+[`純銀万年筆`]:`STERLING SILVER FP`,
+[`純銀ローラーボール`]:`STERLING SILVER RB`,
+[`純銀シャープペン`]:`STERLING SILVER PENCIL`
 };
 
 /* 画像に載せる英語は、すべて共通辞書の dicTranslate() を通す。
    eBay変換ツールと同じ辞書なので、2つのツールで訳がずれない。 */
 function tidyEN(s) {
-  return s.replace(/[、。・]/g, " ")
-          .replace(/[！]/g, "!")
-          .replace(/!{2,}/g, "!")
-          .replace(/\s+([!?.,])/g, "$1")
-          .replace(/[ \t]+/g, " ")
-          .replace(/ *\n */g, "\n")
-          .replace(/\n{2,}/g, "\n")
+  return s.replace(/[、。・]/g, ` `)
+          .replace(/[！]/g, `!`)
+          .replace(/!{2,}/g, `!`)
+          .replace(/\s+([!?.,])/g, `$1`)
+          .replace(/[ \t]+/g, ` `)
+          .replace(/ *\n */g, `\n`)
+          .replace(/\n{2,}/g, `\n`)
           .trim();
 }
 function autoModelEN(jp) {
-  if (!jp) return E;
-  var lines = jp.split("\n").map(function (l) { return dicTranslate(l).en; });
-  return tidyEN(lines.join("\n"));
+  if (!jp) return ``;
+  var lines = jp.split(`\n`).map(function (l) { return dicTranslate(l).en; });
+  return tidyEN(lines.join(`\n`));
 }
 function autoBandEN(jp) {
-  if (!jp) return E;
+  if (!jp) return ``;
   var out = autoModelEN(jp);
-  if (!out) return E;
-  return out.toUpperCase().replace(/(\d{4})S/g, "$1s");
+  if (!out) return ``;
+  return out.toUpperCase().replace(/(\d{4})S/g, `$1s`);
 }
 
-function hasJapanese(s){ return /[\u3040-\u30ff\u4e00-\u9faf]/.test(s||E); }
+function hasJapanese(s){ return /[\u3040-\u30ff\u4e00-\u9faf]/.test(s||``); }
 
 function calcYears(era){
   if(!era)return null;
-  if(era.indexOf("～")!==-1){var p=era.replace(/s/g,E).split("～");var d1=parseInt(p[0]),d2=parseInt(p[1]);if(!isNaN(d1)&&!isNaN(d2))return Math.floor((new Date().getFullYear()-((d1+d2)/2+5))/10)*10;}
+  if(era.indexOf(`～`)!==-1){var p=era.replace(/s/g,``).split(`～`);var d1=parseInt(p[0]),d2=parseInt(p[1]);if(!isNaN(d1)&&!isNaN(d2))return Math.floor((new Date().getFullYear()-((d1+d2)/2+5))/10)*10;}
   var d=parseInt(era);if(isNaN(d))return null;
   return Math.floor((new Date().getFullYear()-(d+5))/10)*10;
 }
 function eraToText(era){
-  if(!era)returnE;
-  if(era.indexOf("～")!==-1)return era.replace("～","〜").replace(/s/g,E)+"年代頃";
-  return era.replace(/s$/,E)+"年代頃";
+  if(!era)return``;
+  if(era.indexOf(`～`)!==-1)return era.replace(`～`,`〜`).replace(/s/g,``)+`年代頃`;
+  return era.replace(/s$/,``)+`年代頃`;
 }
 function buildTitle(bName,bEN,model,penType,era,country){
-  return (era?era+"◆":E)+bName+" 高級"+penType+" "+model+" "+bEN+(country?" "+country:E);
+  return (era?era+`◆`:``)+bName+` 高級`+penType+` `+model+` `+bEN+(country?` `+country:``);
 }
 function buildBody(bName,bEN,bJP,model,modelEN,penType,material,colorVal,era,country,cond,accList,dParts,dNote,bpS,fpS,ink,canWrite,refill,extra,mgmt,refillAdapter,listPrice){
   var yr=calcYears(era);
   var co=CONDITIONS.find(function(c){return c.key===cond;});
-  var condTxt=co?co.fn(yr):E;
-  var isFP=penType==="万年筆",isBP=penType==="ボールペン"||penType==="ローラーボール";
+  var condTxt=co?co.fn(yr):``;
+  var isFP=penType===`万年筆`,isBP=penType===`ボールペン`||penType===`ローラーボール`;
   var eraText=eraToText(era);
-  var dt=E;if(dParts.length>0)dt="※"+dParts.join("、")+"には多少の汚れ等あります。";if(dNote)dt+=(dt?"\n":E)+dNote;
-  var condB=condTxt+(dt?"\n"+dt:E);
-  var hdr=modelEN?bName+"の高級"+penType+"、\n"+model+"\n("+modelEN+")。":bName+"の高級"+penType+"、\n"+model+"。";
-  var eraB=era?"\n絶版希少品、\n"+eraText+"のヴィンテージモデル。\n現在では生産終了・完全廃盤となっている\n貴重なモデルです。\n\n":E;
-  var spec=E;if(isBP&&bpS.length>0)spec="【仕様】"+bpS.join("・")+"\n";if(isFP&&fpS.length>0)spec="【仕様】"+fpS.join("・")+"\n";
-  var inkL=(isFP&&ink&&ink!=="なし")?"【インク】"+ink+"\n":E;
-  var refL=refill?"【備考】"+refill+"\n":E;
-  var adapterL=refillAdapter?"一個数千円するリフィルアダプター付き。\n現行のリフィルが使用できます。\n":E;
-  var accB=accList.length>0?"【付属品】"+accList.join("、")+"\n":E;
-  var mfg=era?"【製造】"+eraText+" "+country:"【製造】"+country;
-  var wL=(isBP&&!canWrite)?"\nご使用の際には替芯の交換をお願いします。":E;
-  var displayCountry=country==="アメリカ製"?"USA製":country;
-  var cS=country==="ドイツ製"?"GERMANYの刻印があります。":country==="日本製"?"JAPANの刻印があります。":country==="アメリカ製"?"USAの刻印があります。":"製造国の刻印があります。";
-  var ex=extra?extra+"\n":E;
-  var priceTag=listPrice?"【定価】"+listPrice+"円\n":E;
-  var priceL=listPrice?"定価"+listPrice+"円の高級モデル。\n":E;
-  var matL=E;
-  if(material==="14K金張り"||material==="20K金張り"||material==="18K金張り"){
-    var kNum=material.replace("K金張り",E);
-    matL=kNum+"金張り（"+kNum+"K、K"+kNum+"）の高級モデル。\n金価格の高騰により、資産としての価値もあります。\n\n";
-  } else if(material==="ペン先14K"){
-    matL="ペン先14金（14K、K14、585）の高級モデル。\n金価格の高騰により、資産としての価値もあります。\n\n";
-  } else if(material==="ペン先18K"){
-    matL="ペン先18金（18K、K18、750）の高級モデル。\n金価格の高騰により、資産としての価値もあります。\n\n";
-  } else if(material==="銀張り（シルバープレート）"){
-    matL="銀張り（シルバープレート）の高級モデル。\n銀価格の高騰により、資産としての価値もあります。\n\n";
-  } else if(material==="シルバー925（スターリングシルバー）"){
-    matL="スターリングシルバー（シルバー925）製。\n銀価格の高騰により、資産としての価値もあります。\n\n";
+  var dt=``;if(dParts.length>0)dt=`※`+dParts.join(`、`)+`には多少の汚れ等あります。`;if(dNote)dt+=(dt?`\n`:``)+dNote;
+  var condB=condTxt+(dt?`\n`+dt:``);
+  var hdr=modelEN?bName+`の高級`+penType+`、\n`+model+`\n(`+modelEN+`)。`:bName+`の高級`+penType+`、\n`+model+`。`;
+  var eraB=era?`\n絶版希少品、\n`+eraText+`のヴィンテージモデル。\n現在では生産終了・完全廃盤となっている\n貴重なモデルです。\n\n`:``;
+  var spec=``;if(isBP&&bpS.length>0)spec=`【仕様】`+bpS.join(`・`)+`\n`;if(isFP&&fpS.length>0)spec=`【仕様】`+fpS.join(`・`)+`\n`;
+  var inkL=(isFP&&ink&&ink!==`なし`)?`【インク】`+ink+`\n`:``;
+  var refL=refill?`【備考】`+refill+`\n`:``;
+  var adapterL=refillAdapter?`一個数千円するリフィルアダプター付き。\n現行のリフィルが使用できます。\n`:``;
+  var accB=accList.length>0?`【付属品】`+accList.join(`、`)+`\n`:``;
+  var mfg=era?`【製造】`+eraText+` `+country:`【製造】`+country;
+  var wL=(isBP&&!canWrite)?`\nご使用の際には替芯の交換をお願いします。`:``;
+  var displayCountry=country===`アメリカ製`?`USA製`:country;
+  var cS=country===`ドイツ製`?`GERMANYの刻印があります。`:country===`日本製`?`JAPANの刻印があります。`:country===`アメリカ製`?`USAの刻印があります。`:`製造国の刻印があります。`;
+  var ex=extra?extra+`\n`:``;
+  var priceTag=listPrice?`【定価】`+listPrice+`円\n`:``;
+  var priceL=listPrice?`定価`+listPrice+`円の高級モデル。\n`:``;
+  var matL=``;
+  if(material===`14K金張り`||material===`20K金張り`||material===`18K金張り`){
+    var kNum=material.replace(`K金張り`,``);
+    matL=kNum+`金張り（`+kNum+`K、K`+kNum+`）の高級モデル。\n金価格の高騰により、資産としての価値もあります。\n\n`;
+  } else if(material===`ペン先14K`){
+    matL=`ペン先14金（14K、K14、585）の高級モデル。\n金価格の高騰により、資産としての価値もあります。\n\n`;
+  } else if(material===`ペン先18K`){
+    matL=`ペン先18金（18K、K18、750）の高級モデル。\n金価格の高騰により、資産としての価値もあります。\n\n`;
+  } else if(material===`銀張り（シルバープレート）`){
+    matL=`銀張り（シルバープレート）の高級モデル。\n銀価格の高騰により、資産としての価値もあります。\n\n`;
+  } else if(material===`シルバー925（スターリングシルバー）`){
+    matL=`スターリングシルバー（シルバー925）製。\n銀価格の高騰により、資産としての価値もあります。\n\n`;
   }
-  return (hdr+"\n"+priceL+eraB+matL+"\n"
-    +"【ブランド】"+bName+"\n【モデル】"+model+"\n"+priceTag+"【素材】"+material+"\n"
-    +mfg+"\n【カラー】"+colorVal+"\n【タイプ】"+penType+"\n"
-    +spec+inkL+refL+adapterL+accB+"\n"
-    +"貴重な"+displayCountry+"、\n"+cS+"\n\n"
-    +"カラーは"+colorVal+"。\n"+ex+"\n"
-    +condB+wL+"\n\n"
-    +"※他にも高級ボールペン、高級万年筆などを多数出品しております。\n"
-    +"おまとめ割引も可能ですので是非ご覧ください。\n\n"
-    +"#ペンpen出品の"+bJP+"製品はこちら\n\n"
-    +"#ペンpen出品の高級"+penType+"はこちら\n\n\n\n"
-    +"検索\nヴィンテージ\nビンテージ\n"+bName+"\n"+bEN+"\n万年筆\nボールペン\nシャープペンシル\nメカニカルペンシル\n\n"
-    +(mgmt||E)).replace(/\n{3,}/g,"\n\n").trim();
+  return (hdr+`\n`+priceL+eraB+matL+`\n`
+    +`【ブランド】`+bName+`\n【モデル】`+model+`\n`+priceTag+`【素材】`+material+`\n`
+    +mfg+`\n【カラー】`+colorVal+`\n【タイプ】`+penType+`\n`
+    +spec+inkL+refL+adapterL+accB+`\n`
+    +`貴重な`+displayCountry+`、\n`+cS+`\n\n`
+    +`カラーは`+colorVal+`。\n`+ex+`\n`
+    +condB+wL+`\n\n`
+    +`※他にも高級ボールペン、高級万年筆などを多数出品しております。\n`
+    +`おまとめ割引も可能ですので是非ご覧ください。\n\n`
+    +`#ペンpen出品の`+bJP+`製品はこちら\n\n`
+    +`#ペンpen出品の高級`+penType+`はこちら\n\n\n\n`
+    +`検索\nヴィンテージ\nビンテージ\n`+bName+`\n`+bEN+`\n万年筆\nボールペン\nシャープペンシル\nメカニカルペンシル\n\n`
+    +(mgmt||``)).replace(/\n{3,}/g,`\n\n`).trim();
 }
 
-var DEF_TURQ = "#38f9dd";
+var DEF_TURQ = `#38f9dd`;
 
 function rrect(ctx,x,y,w,h,r){
   ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.arcTo(x+w,y,x+w,y+r,r);
@@ -1056,36 +1054,36 @@ function rrect(ctx,x,y,w,h,r){
 
 function drawElem(ctx,e){
   if(!e.text)return null;
-  var fs=e.fontSize||26, ff=e.fontFamily||"\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif";
-  ctx.font="bold "+fs+"px "+ff;
-  var lines=e.text.split("\n"), mw=0;
+  var fs=e.fontSize||26, ff=e.fontFamily||`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`;
+  ctx.font=`bold `+fs+`px `+ff;
+  var lines=e.text.split(`\n`), mw=0;
   for(var i=0;i<lines.length;i++){var tw=ctx.measureText(lines[i]).width;if(tw>mw)mw=tw;}
-  if(e.type==="band"){
+  if(e.type===`band`){
     var px=8,py=5;
     var lh=e.lhOverride||fs;
     var bw=mw+px*2, bh=lines.length*lh+py*2;
     var bx=e.rightEdge!=null ? e.rightEdge-bw : e.x;
-    ctx.fillStyle=e.bg||"#111111";
+    ctx.fillStyle=e.bg||`#111111`;
     rrect(ctx,bx,e.y,bw,bh,5);ctx.fill();
-    ctx.fillStyle=e.color||"#ffffff";
+    ctx.fillStyle=e.color||`#ffffff`;
     for(var j=0;j<lines.length;j++){
       var lw=ctx.measureText(lines[j]).width;
       ctx.fillText(lines[j], bx+(bw-lw)/2, e.y+py+(j+0.5)*lh+fs*0.37);
     }
     return {x:bx,y:e.y,w:bw,h:bh};
   } else {
-    ctx.fillStyle=e.color||"#000000";
+    ctx.fillStyle=e.color||`#000000`;
     var lh2=fs*1.2;
-    if(e.align==="center"){
-      ctx.textAlign="center";
+    if(e.align===`center`){
+      ctx.textAlign=`center`;
       for(var k=0;k<lines.length;k++) ctx.fillText(lines[k],e.x,e.y+k*lh2);
-      ctx.textAlign="left";
+      ctx.textAlign=`left`;
       return {x:e.x-mw/2,y:e.y-fs,w:mw,h:lines.length*lh2};
     }
-    if(e.align==="right"){
-      ctx.textAlign="right";
+    if(e.align===`right`){
+      ctx.textAlign=`right`;
       for(var n=0;n<lines.length;n++) ctx.fillText(lines[n],e.x,e.y+n*lh2);
-      ctx.textAlign="left";
+      ctx.textAlign=`left`;
       return {x:e.x-mw,y:e.y-fs,w:mw,h:lines.length*lh2};
     }
     for(var m=0;m<lines.length;m++) ctx.fillText(lines[m],e.x,e.y+m*lh2);
@@ -1094,62 +1092,62 @@ function drawElem(ctx,e){
 }
 
 function buildElements(bJP,bEN,penType,country,model,p2label,p6,p7,p8,p9,turq){
-  var defaultP2=penType==="シャープペンシル"?"高級シャープペン":"高級"+penType;
+  var defaultP2=penType===`シャープペンシル`?`高級シャープペン`:`高級`+penType;
   var p2t=p2label||defaultP2;
   var TC=turq||DEF_TURQ;
   var el=[];
-  el.push({id:"brand_jp", type:"band", text:bJP, x:66, y:56, fontSize:42, lhOverride:50, bg:TC, color:"#000000", fontFamily:"\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif"});
-  var displayCountryImg=country==="アメリカ製"?"USA製":country;
-  if(displayCountryImg) el.push({id:"country", type:"text", text:displayCountryImg, x:311, y:98, fontSize:36, color:"#ee1111", fontFamily:"\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif"});
-  el.push({id:"brand_en", type:"text", text:bEN, x:0, y:150, fontSize:34, color:"#1133cc", align:"center", centerOf:"brand_jp", fontFamily:"Arial,sans-serif"});
-  if(p6) el.push({id:"p6", type:"band", text:p6, x:66, y:240, fontSize:36, lhOverride:36, bg:"#111111", color:"#ffffff", fontFamily:"\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif"});
-  if(p8) el.push({id:"p8", type:"text", text:p8, x:0, y:318, fontSize:36, color:"#ee1111", align:"center", centerOf:"p6", fallbackX:160, fontFamily:"\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif"});
-  if(p9) el.push({id:"p9", type:"text", text:p9, x:0, y:315, fontSize:36, color:"#ee1111", align:"center", centerOf:"p7", fallbackX:450, fontFamily:"\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif"});
-  if(p7) el.push({id:"p7", type:"band", text:p7, x:394, y:323, fontSize:36, lhOverride:36, rightEdge:530, bg:"#111111", color:"#ffffff", fontFamily:"\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif"});
-  var mLines=model?model.split("\n").length:1;
+  el.push({id:`brand_jp`, type:`band`, text:bJP, x:66, y:56, fontSize:42, lhOverride:50, bg:TC, color:`#000000`, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
+  var displayCountryImg=country===`アメリカ製`?`USA製`:country;
+  if(displayCountryImg) el.push({id:`country`, type:`text`, text:displayCountryImg, x:311, y:98, fontSize:36, color:`#ee1111`, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
+  el.push({id:`brand_en`, type:`text`, text:bEN, x:0, y:150, fontSize:34, color:`#1133cc`, align:`center`, centerOf:`brand_jp`, fontFamily:`Arial,sans-serif`});
+  if(p6) el.push({id:`p6`, type:`band`, text:p6, x:66, y:240, fontSize:36, lhOverride:36, bg:`#111111`, color:`#ffffff`, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
+  if(p8) el.push({id:`p8`, type:`text`, text:p8, x:0, y:318, fontSize:36, color:`#ee1111`, align:`center`, centerOf:`p6`, fallbackX:160, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
+  if(p9) el.push({id:`p9`, type:`text`, text:p9, x:0, y:315, fontSize:36, color:`#ee1111`, align:`center`, centerOf:`p7`, fallbackX:450, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
+  if(p7) el.push({id:`p7`, type:`band`, text:p7, x:394, y:323, fontSize:36, lhOverride:36, rightEdge:530, bg:`#111111`, color:`#ffffff`, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
+  var mLines=model?model.split(`\n`).length:1;
   var mBaseY=465-(mLines-1)*Math.round(38*1.2);
-  if(model) el.push({id:"model", type:"text", text:model, x:530, y:mBaseY, fontSize:38, color:"#1133cc", align:"right", fontFamily:"Arial,sans-serif"});
-  el.push({id:"p2", type:"band", text:p2t, x:215, y:482, fontSize:43, lhOverride:50, rightEdge:530, bg:TC, color:"#000000", fontFamily:"\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif"});
+  if(model) el.push({id:`model`, type:`text`, text:model, x:530, y:mBaseY, fontSize:38, color:`#1133cc`, align:`right`, fontFamily:`Arial,sans-serif`});
+  el.push({id:`p2`, type:`band`, text:p2t, x:215, y:482, fontSize:43, lhOverride:50, rightEdge:530, bg:TC, color:`#000000`, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
   return el;
 }
 
 /* ── eBay用（英語）の要素を組み立てる ── */
 function buildElementsEN(bEN,penType,country,model,p2label,era,src,turq){
   var TC=turq||DEF_TURQ;
-  var AR="Arial,sans-serif";
-  var typeEN=PEN_TYPE_EN[penType]||"PEN";
+  var AR=`Arial,sans-serif`;
+  var typeEN=PEN_TYPE_EN[penType]||`PEN`;
   var p2t=P2_EN[p2label]||typeEN;
-  var t6=(src&&src.e6)?src.e6:autoBandEN(src?src.p6:E);
-  var t7=(src&&src.e7)?src.e7:autoBandEN(src?src.p7:E);
-  var t8=(src&&src.e8)?src.e8:autoBandEN(src?src.p8:E);
-  var t9=(src&&src.e9)?src.e9:autoBandEN(src?src.p9:E);
+  var t6=(src&&src.e6)?src.e6:autoBandEN(src?src.p6:``);
+  var t7=(src&&src.e7)?src.e7:autoBandEN(src?src.p7:``);
+  var t8=(src&&src.e8)?src.e8:autoBandEN(src?src.p8:``);
+  var t9=(src&&src.e9)?src.e9:autoBandEN(src?src.p9:``);
   // モデル名：手入力の英語名 → 自動英語化 → 元の文字列
   var mEN=(src&&src.modelEN)?src.modelEN:autoModelEN(model);
   var el=[];
-  el.push({id:"brand_jp", type:"band", text:bEN||"BRAND", x:66, y:56, fontSize:40, lhOverride:48, bg:TC, color:"#000000", fontFamily:AR});
+  el.push({id:`brand_jp`, type:`band`, text:bEN||`BRAND`, x:66, y:56, fontSize:40, lhOverride:48, bg:TC, color:`#000000`, fontFamily:AR});
   // MADE IN 〜 はブランド帯の真下・中央
-  var cEN=COUNTRY_EN[country]||(country?country.replace("製",E):E);
-  if(cEN) el.push({id:"country", type:"text", text:cEN, x:0, y:150, fontSize:30, color:"#1133cc", align:"center", centerOf:"brand_jp", fontFamily:AR});
-  if(era) el.push({id:"brand_en", type:"text", text:"VINTAGE "+era.replace(/～/g,"-").toUpperCase().replace(/(\d{4})S/g,"$1s"), x:0, y:190, fontSize:28, color:"#1133cc", align:"center", centerOf:"brand_jp", fontFamily:AR});
-  if(t6) el.push({id:"p6", type:"band", text:t6, x:66, y:240, fontSize:34, lhOverride:36, bg:"#111111", color:"#ffffff", fontFamily:AR});
-  if(t8) el.push({id:"p8", type:"text", text:t8, x:0, y:330, fontSize:34, color:"#ee1111", align:"center", centerOf:"p6", fallbackX:160, fontFamily:AR});
-  if(t9) el.push({id:"p9", type:"text", text:t9, x:0, y:315, fontSize:34, color:"#ee1111", align:"center", centerOf:"p7", fallbackX:450, fontFamily:AR});
-  if(t7) el.push({id:"p7", type:"band", text:t7, x:394, y:323, fontSize:34, lhOverride:36, rightEdge:530, bg:"#111111", color:"#ffffff", fontFamily:AR});
-  var mLines=mEN?mEN.split("\n").length:1;
+  var cEN=COUNTRY_EN[country]||(country?country.replace(`製`,``):``);
+  if(cEN) el.push({id:`country`, type:`text`, text:cEN, x:0, y:150, fontSize:30, color:`#1133cc`, align:`center`, centerOf:`brand_jp`, fontFamily:AR});
+  if(era) el.push({id:`brand_en`, type:`text`, text:`VINTAGE `+era.replace(/～/g,`-`).toUpperCase().replace(/(\d{4})S/g,`$1s`), x:0, y:190, fontSize:28, color:`#1133cc`, align:`center`, centerOf:`brand_jp`, fontFamily:AR});
+  if(t6) el.push({id:`p6`, type:`band`, text:t6, x:66, y:240, fontSize:34, lhOverride:36, bg:`#111111`, color:`#ffffff`, fontFamily:AR});
+  if(t8) el.push({id:`p8`, type:`text`, text:t8, x:0, y:330, fontSize:34, color:`#ee1111`, align:`center`, centerOf:`p6`, fallbackX:160, fontFamily:AR});
+  if(t9) el.push({id:`p9`, type:`text`, text:t9, x:0, y:315, fontSize:34, color:`#ee1111`, align:`center`, centerOf:`p7`, fallbackX:450, fontFamily:AR});
+  if(t7) el.push({id:`p7`, type:`band`, text:t7, x:394, y:323, fontSize:34, lhOverride:36, rightEdge:530, bg:`#111111`, color:`#ffffff`, fontFamily:AR});
+  var mLines=mEN?mEN.split(`\n`).length:1;
   var mBaseY=465-(mLines-1)*Math.round(38*1.2);
-  if(mEN) el.push({id:"model", type:"text", text:mEN, x:530, y:mBaseY, fontSize:38, color:"#1133cc", align:"right", fontFamily:AR});
-  el.push({id:"p2", type:"band", text:p2t, x:215, y:482, fontSize:40, lhOverride:48, rightEdge:530, bg:TC, color:"#000000", fontFamily:AR});
+  if(mEN) el.push({id:`model`, type:`text`, text:mEN, x:530, y:mBaseY, fontSize:38, color:`#1133cc`, align:`right`, fontFamily:AR});
+  el.push({id:`p2`, type:`band`, text:p2t, x:215, y:482, fontSize:40, lhOverride:48, rightEdge:530, bg:TC, color:`#000000`, fontFamily:AR});
   return el;
 }
 
 function renderFull(canvas,baseImg,elems){
   var W=600,H=600,dpr=window.devicePixelRatio||1;
   canvas.width=W*dpr;canvas.height=H*dpr;
-  var ctx=canvas.getContext("2d");
+  var ctx=canvas.getContext(`2d`);
   ctx.setTransform(1,0,0,1,0,0);
   ctx.scale(dpr,dpr);
-  ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality="high";
-  ctx.fillStyle="#ffffff";ctx.fillRect(0,0,W,H);
+  ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality=`high`;
+  ctx.fillStyle=`#ffffff`;ctx.fillRect(0,0,W,H);
   if(baseImg){
     var sc=Math.min(W/baseImg.naturalWidth,H/baseImg.naturalHeight);
     ctx.drawImage(baseImg,(W-baseImg.naturalWidth*sc)/2,(H-baseImg.naturalHeight*sc)/2,baseImg.naturalWidth*sc,baseImg.naturalHeight*sc);
@@ -1169,16 +1167,16 @@ function renderFull(canvas,baseImg,elems){
 }
 
 
-var NUMS=["①","②","③","④","⑤"];
-var LABELS={brand_jp:"①ブランド帯",country:"④製造国",brand_en:"③英語表記",p6:"⑥左の帯",p8:"⑧左の文字",p9:"⑨右の文字",p7:"⑦右の帯",model:"⑤モデル名",p2:"②下の帯"};
-var TXT_COLORS=[["黒","#000000"],["白","#ffffff"],["赤","#ee1111"],["青","#1133cc"],["緑","#1a7a1a"],["桃","#ff69b4"]];
-var BAND_COLORS=[["黒","#111111"],["ターコイズ",DEF_TURQ],["白","#ffffff"],["赤","#cc1111"],["青","#1133cc"],["緑","#1a7a1a"],["桃","#ff69b4"]];
+var NUMS=[`①`,`②`,`③`,`④`,`⑤`];
+var LABELS={brand_jp:`①ブランド帯`,country:`④製造国`,brand_en:`③英語表記`,p6:`⑥左の帯`,p8:`⑧左の文字`,p9:`⑨右の文字`,p7:`⑦右の帯`,model:`⑤モデル名`,p2:`②下の帯`};
+var TXT_COLORS=[[`黒`,`#000000`],[`白`,`#ffffff`],[`赤`,`#ee1111`],[`青`,`#1133cc`],[`緑`,`#1a7a1a`],[`桃`,`#ff69b4`]];
+var BAND_COLORS=[[`黒`,`#111111`],[`ターコイズ`,DEF_TURQ],[`白`,`#ffffff`],[`赤`,`#cc1111`],[`青`,`#1133cc`],[`緑`,`#1a7a1a`],[`桃`,`#ff69b4`]];
 
 function $(id){return document.getElementById(id);}
-function esc(s){return String(s==null?E:s).replace(/[&<>\u0022]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\u0022":"&quot;"}[c];});}
+function esc(s){return String(s==null?``:s).replace(/[&<>\u0022]/g,function(c){return {[`&`]:`&amp;`,[`<`]:`&lt;`,[`>`]:`&gt;`,[`\u0022`]:`&quot;`}[c];});}
 function opts(arr,val,txt){
-  var h=E;
-  for(var i=0;i<arr.length;i+=1){h+="<option value=\u0022"+esc(val(arr[i]))+"\u0022>"+esc(txt(arr[i]))+"</option>";}
+  var h=``;
+  for(var i=0;i<arr.length;i+=1){h+=`<option value=\u0022`+esc(val(arr[i]))+`\u0022>`+esc(txt(arr[i]))+`</option>`;}
   return h;
 }
 
@@ -1186,223 +1184,220 @@ function makeItem(){
   var b=BRAND_PRESETS[0];
   return {
     brandIdx:0, bJP:b.jp, bEN:b.en, bName:b.name,
-    model:E, modelEN:E, penType:PEN_TYPES[0],
+    model:``, modelEN:``, penType:PEN_TYPES[0],
     material:MATERIALS[0], colorVal:COLORS_LIST[0],
-    era:E, country:COUNTRIES[0],
+    era:``, country:COUNTRIES[0],
     cond:CONDITIONS[0].key,
-    accList:[], dParts:[], dNote:E,
-    bpS:[], fpS:[], ink:"なし",
-    canWrite:true, refill:E, extra:E, mgmt:E,
-    refillAdapter:false, listPrice:E,
-    p2L:E, p2Custom:false,
-    p6:E, p7:E, p8:E, p9:E,
+    accList:[], dParts:[], dNote:``,
+    bpS:[], fpS:[], ink:`なし`,
+    canWrite:true, refill:``, extra:``, mgmt:``,
+    refillAdapter:false, listPrice:``,
+    p2L:``, p2Custom:false,
+    p6:``, p7:``, p8:``, p9:``,
     turq:DEF_TURQ,
     imgB64:null, imgEl:null,
-    elems:buildElements(b.jp,b.en,PEN_TYPES[0],COUNTRIES[0],E,E,E,E,E,E,DEF_TURQ),
+    elems:buildElements(b.jp,b.en,PEN_TYPES[0],COUNTRIES[0],``,``,``,``,``,``,DEF_TURQ),
     selIds:[],
-    makeEbayImg:false, e6:E, e7:E, e8:E, e9:E,
-    elemsEN:buildElementsEN(b.en,PEN_TYPES[0],COUNTRIES[0],E,E,E,null,DEF_TURQ),
+    makeEbayImg:false, e6:``, e7:``, e8:``, e9:``,
+    elemsEN:buildElementsEN(b.en,PEN_TYPES[0],COUNTRIES[0],``,``,``,null,DEF_TURQ),
     selIdsEN:[],
-    titleOut:E, bodyOut:E, imgOut:E, imgOutEN:E, imgElems:null, imgElemsEN:null
+    titleOut:``, bodyOut:``, imgOut:``, imgOutEN:``, imgElems:null, imgElemsEN:null
   };
 }
 var items=[makeItem(),makeItem(),makeItem(),makeItem(),makeItem()];
 var activeTab=0;
 
 function toast(msg){
-  var t=$("toast");
+  var t=$(`toast`);
   t.textContent=msg;
-  t.className="toast on";
+  t.className=`toast on`;
   clearTimeout(t.tm);
-  t.tm=setTimeout(function(){t.className="toast";},2400);
+  t.tm=setTimeout(function(){t.className=`toast`;},2400);
 }
 
 function ctrlHTML(pre){
-  var h="<div class=\u0022ctrl\u0022>";
-  h+="<div class=\u0022ctrlTop\u0022><span class=\u0022ctrlLbl\u0022 id=\u0022"+pre+"_lbl\u0022>↑ 画像をタップして選択</span>";
-  h+="<button class=\u0022del\u0022 id=\u0022"+pre+"_del\u0022>消す</button></div>";
-  h+="<div class=\u0022ctrlBody\u0022 id=\u0022"+pre+"_body\u0022>";
-  h+="<div class=\u0022mvWrap\u0022><div class=\u0022pad\u0022>";
-  h+="<i></i><button data-mv=\u00220,-30\u0022>↑</button><i></i>";
-  h+="<button data-mv=\u0022-30,0\u0022>←</button><button data-mv=\u00220,30\u0022>↓</button><button data-mv=\u002230,0\u0022>→</button>";
-  h+="</div><div class=\u0022pad sm\u0022>";
-  h+="<i></i><button data-mv=\u00220,-5\u0022>↑5</button><i></i>";
-  h+="<button data-mv=\u0022-5,0\u0022>←5</button><button data-mv=\u00220,5\u0022>↓5</button><button data-mv=\u00225,0\u0022>→5</button>";
-  h+="</div></div>";
-  h+="<div class=\u0022fs\u0022><div class=\u0022cap2\u0022>文字サイズ</div>";
-  h+="<button data-fs=\u00225\u0022>A＋大</button><button data-fs=\u00221\u0022>A＋1</button>";
-  h+="<div class=\u0022fsNow\u0022 id=\u0022"+pre+"_fs\u0022></div>";
-  h+="<button data-fs=\u0022-1\u0022>A－1</button><button data-fs=\u0022-5\u0022>A－大</button></div>";
-  h+="</div>";
-  h+="<div class=\u0022colWrap\u0022 id=\u0022"+pre+"_cols\u0022>";
-  h+="<div class=\u0022cap2\u0022>文字色</div><div class=\u0022swatch\u0022 id=\u0022"+pre+"_tc\u0022></div>";
-  h+="<div id=\u0022"+pre+"_bandWrap\u0022><div class=\u0022cap2\u0022>帯の色</div><div class=\u0022swatch\u0022 id=\u0022"+pre+"_bc\u0022></div></div>";
-  h+="</div></div>";
+  var h=`<div class=\u0022ctrl\u0022>`;
+  h+=`<div class=\u0022ctrlTop\u0022><span class=\u0022ctrlLbl\u0022 id=\u0022`+pre+`_lbl\u0022>↑ 画像をタップして選択</span>`;
+  h+=`<button class=\u0022del\u0022 id=\u0022`+pre+`_del\u0022>消す</button></div>`;
+  h+=`<div class=\u0022ctrlBody\u0022 id=\u0022`+pre+`_body\u0022>`;
+  h+=`<div class=\u0022mvWrap\u0022><div class=\u0022pad\u0022>`;
+  h+=`<i></i><button data-mv=\u00220,-30\u0022>↑</button><i></i>`;
+  h+=`<button data-mv=\u0022-30,0\u0022>←</button><button data-mv=\u00220,30\u0022>↓</button><button data-mv=\u002230,0\u0022>→</button>`;
+  h+=`</div><div class=\u0022pad sm\u0022>`;
+  h+=`<i></i><button data-mv=\u00220,-5\u0022>↑5</button><i></i>`;
+  h+=`<button data-mv=\u0022-5,0\u0022>←5</button><button data-mv=\u00220,5\u0022>↓5</button><button data-mv=\u00225,0\u0022>→5</button>`;
+  h+=`</div></div>`;
+  h+=`<div class=\u0022fs\u0022><div class=\u0022cap2\u0022>文字サイズ</div>`;
+  h+=`<button data-fs=\u00225\u0022>A＋大</button><button data-fs=\u00221\u0022>A＋1</button>`;
+  h+=`<div class=\u0022fsNow\u0022 id=\u0022`+pre+`_fs\u0022></div>`;
+  h+=`<button data-fs=\u0022-1\u0022>A－1</button><button data-fs=\u0022-5\u0022>A－大</button></div>`;
+  h+=`</div>`;
+  h+=`<div class=\u0022colWrap\u0022 id=\u0022`+pre+`_cols\u0022>`;
+  h+=`<div class=\u0022cap2\u0022>文字色</div><div class=\u0022swatch\u0022 id=\u0022`+pre+`_tc\u0022></div>`;
+  h+=`<div id=\u0022`+pre+`_bandWrap\u0022><div class=\u0022cap2\u0022>帯の色</div><div class=\u0022swatch\u0022 id=\u0022`+pre+`_bc\u0022></div></div>`;
+  h+=`</div></div>`;
   return h;
 }
 
 function paneHTML(n){
-  var pre="i"+n;
-  var h=E;
+  var pre=`i`+n;
+  var h=``;
 
   if(n>0){
-    h+="<div class=\u0022copyFrom\u0022><div class=\u0022cap3\u0022>前の品目からコピー</div><div class=\u0022cfBtns\u0022>";
-    for(var s=0;s<n;s+=1){h+="<button data-cf=\u0022"+s+"\u0022>"+NUMS[s]+"からコピー</button>";}
-    h+="</div></div>";
+    h+=`<div class=\u0022copyFrom\u0022><div class=\u0022cap3\u0022>前の品目からコピー</div><div class=\u0022cfBtns\u0022>`;
+    for(var s=0;s<n;s+=1){h+=`<button data-cf=\u0022`+s+`\u0022>`+NUMS[s]+`からコピー</button>`;}
+    h+=`</div></div>`;
   }
 
-  h+="<div class=\u0022card\u0022><div class=\u0022cap\u0022>── "+NUMS[n]+" ブランド</div>";
-  h+="<label class=\u0022f\u0022>ブランド選択</label>";
-  h+="<select id=\u0022"+pre+"_brand\u0022>"+opts(BRAND_PRESETS,function(b,i){return E;},function(b){return b.name;})+"</select>";
-  h+="<div id=\u0022"+pre+"_custom\u0022 style=\u0022display:none\u0022>";
-  h+="<label class=\u0022f\u0022>ブランドJP</label><input type=\u0022text\u0022 id=\u0022"+pre+"_bJP\u0022 placeholder=\u0022例: モンブラン\u0022>";
-  h+="<label class=\u0022f\u0022>ブランドEN</label><input type=\u0022text\u0022 id=\u0022"+pre+"_bEN\u0022 placeholder=\u0022例: MONTBLANC\u0022>";
-  h+="<label class=\u0022f\u0022>ブランド表示名</label><input type=\u0022text\u0022 id=\u0022"+pre+"_bName\u0022 placeholder=\u0022例: MONTBLANC（モンブラン）\u0022>";
-  h+="</div>";
-  h+="<div class=\u0022hashNote\u0022>ハッシュタグ → <b id=\u0022"+pre+"_hash\u0022></b></div></div>";
+  h+=`<div class=\u0022card\u0022><div class=\u0022cap\u0022>── `+NUMS[n]+` ブランド</div>`;
+  h+=`<label class=\u0022f\u0022>ブランド選択</label>`;
+  h+=`<select id=\u0022`+pre+`_brand\u0022>`+opts(BRAND_PRESETS,function(b,i){return ``;},function(b){return b.name;})+`</select>`;
+  h+=`<div id=\u0022`+pre+`_custom\u0022 style=\u0022display:none\u0022>`;
+  h+=`<label class=\u0022f\u0022>ブランドJP</label><input type=\u0022text\u0022 id=\u0022`+pre+`_bJP\u0022 placeholder=\u0022例: モンブラン\u0022>`;
+  h+=`<label class=\u0022f\u0022>ブランドEN</label><input type=\u0022text\u0022 id=\u0022`+pre+`_bEN\u0022 placeholder=\u0022例: MONTBLANC\u0022>`;
+  h+=`<label class=\u0022f\u0022>ブランド表示名</label><input type=\u0022text\u0022 id=\u0022`+pre+`_bName\u0022 placeholder=\u0022例: MONTBLANC（モンブラン）\u0022>`;
+  h+=`</div>`;
+  h+=`<div class=\u0022hashNote\u0022>ハッシュタグ → <b id=\u0022`+pre+`_hash\u0022></b></div></div>`;
 
-  h+="<div class=\u0022card\u0022><div class=\u0022cap\u0022>── 商品基本情報</div>";
-  h+="<label class=\u0022f\u0022>⑤ モデル名（改行で複数行）</label>";
-  h+="<textarea id=\u0022"+pre+"_model\u0022 placeholder=\u0022例: ノブレス ゴールド\u0022></textarea>";
+  h+=`<div class=\u0022card\u0022><div class=\u0022cap\u0022>── 商品基本情報</div>`;
+  h+=`<label class=\u0022f\u0022>⑤ モデル名（改行で複数行）</label>`;
+  h+=`<textarea id=\u0022`+pre+`_model\u0022 placeholder=\u0022例: ノブレス ゴールド\u0022></textarea>`;
 
-h+=”<label class=\u0022f\u0022>モデル名（英語・任意）</label>”;
-h+=”<textarea id=\u0022”+pre+”_modelEN\u0022 placeholder=\u0022例: Noblesse Gold\u0022></textarea>”;
-h+=”<label class=\u0022f\u0022>ペンの種類</label>”;
-h+=”<select id=\u0022”+pre+”_penType\u0022>”+opts(PEN_TYPES,function(p){return p;},function(p){return p;})+”</select>”;
-h+=”<label class=\u0022f\u0022>製造年代</label>”;
-h+=”<select id=\u0022”+pre+”_era\u0022><option value=\u0022\u0022>不明 / 記載なし</option>”;
-for(var e=1;e<ERAS.length;e+=1){h+=”<option value=\u0022”+esc(ERAS[e])+”\u0022>”+esc(ERAS[e])+”</option>”;}
-h+=”</select>”;
-h+=”<label class=\u0022f\u0022>製造国</label>”;
-h+=”<select id=\u0022”+pre+”_country\u0022>”+opts(COUNTRIES,function(c){return c;},function(c){return c;})+”</select>”;
-h+=”<input type=\u0022text\u0022 id=\u0022”+pre+”_countryFree\u0022 placeholder=\u0022例: スウェーデン製\u0022 style=\u0022display:none;margin-top:8px\u0022>”;
-h+=”<label class=\u0022f\u0022>素材</label>”;
-h+=”<select id=\u0022”+pre+”_material\u0022>”+opts(MATERIALS,function(m){return m;},function(m){return m;})+”</select>”;
-h+=”<label class=\u0022f\u0022>カラー</label>”;
-h+=”<select id=\u0022”+pre+”_color\u0022>”+opts(COLORS_LIST,function(c){return c;},function(c){return c;})+”</select>”;
-h+=”</div>”;
+h+=`<label class=\u0022f\u0022>モデル名（英語・任意）</label>`;
+h+=`<textarea id=\u0022`+pre+`_modelEN\u0022 placeholder=\u0022例: Noblesse Gold\u0022></textarea>`;
+h+=`<label class=\u0022f\u0022>ペンの種類</label>`;
+h+=`<select id=\u0022`+pre+`_penType\u0022>`+opts(PEN_TYPES,function(p){return p;},function(p){return p;})+`</select>`;
+h+=`<label class=\u0022f\u0022>製造年代</label>`;
+h+=`<select id=\u0022`+pre+`_era\u0022><option value=\u0022\u0022>不明 / 記載なし</option>`;
+for(var e=1;e<ERAS.length;e+=1){h+=`<option value=\u0022`+esc(ERAS[e])+`\u0022>`+esc(ERAS[e])+`</option>`;}
+h+=`</select>`;
+h+=`<label class=\u0022f\u0022>製造国</label>`;
+h+=`<select id=\u0022`+pre+`_country\u0022>`+opts(COUNTRIES,function(c){return c;},function(c){return c;})+`</select>`;
+h+=`<input type=\u0022text\u0022 id=\u0022`+pre+`_countryFree\u0022 placeholder=\u0022例: スウェーデン製\u0022 style=\u0022display:none;margin-top:8px\u0022>`;
+h+=`<label class=\u0022f\u0022>素材</label>`;
+h+=`<select id=\u0022`+pre+`_material\u0022>`+opts(MATERIALS,function(m){return m;},function(m){return m;})+`</select>`;
+h+=`<label class=\u0022f\u0022>カラー</label>`;
+h+=`<select id=\u0022`+pre+`_color\u0022>`+opts(COLORS_LIST,function(c){return c;},function(c){return c;})+`</select>`;
+h+=`</div>`;
 
-h+=”<div class=\u0022card\u0022><div class=\u0022cap\u0022>── 仕様</div>”;
-h+=”<div id=\u0022”+pre+”_bp\u0022 style=\u0022display:none\u0022>”;
-h+=”<label class=\u0022f\u0022>ボールペン仕様</label><div class=\u0022chips\u0022 id=\u0022”+pre+”_bpS\u0022></div>”;
-h+=”<label class=\u0022f\u0022>書き込み状態</label><div class=\u0022two\u0022>”;
-h+=”<div class=\u0022tg\u0022 data-cw=\u00221\u0022>✏️ 書ける</div><div class=\u0022tg\u0022 data-cw=\u00220\u0022>🚫 書けない</div></div>”;
-h+=”<label class=\u0022f\u0022>リフィルアダプター</label><div class=\u0022two\u0022>”;
-h+=”<div class=\u0022tg\u0022 data-ra=\u00220\u0022>なし</div><div class=\u0022tg\u0022 data-ra=\u00221\u0022>あり</div></div>”;
-h+=”<label class=\u0022f\u0022>リフィル補足</label><input type=\u0022text\u0022 id=\u0022”+pre+”_refill\u0022 placeholder=\u0022例: 新品リフィル付（互換品）\u0022>”;
-h+=”</div>”;
-h+=”<div id=\u0022”+pre+”_fp\u0022 style=\u0022display:none\u0022>”;
-h+=”<label class=\u0022f\u0022>万年筆仕様</label><div class=\u0022chips\u0022 id=\u0022”+pre+”_fpS\u0022></div>”;
-h+=”<label class=\u0022f\u0022>インクの有無</label>”;
-h+=”<select id=\u0022”+pre+”_ink\u0022><option>なし</option><option>あり（純正）</option><option>あり（互換品）</option></select>”;
-h+=”</div>”;
-h+=”<p class=\u0022none\u0022 id=\u0022”+pre+”_nospec\u0022 style=\u0022display:none\u0022>仕様選択なし</p>”;
-h+=”</div>”;
+h+=`<div class=\u0022card\u0022><div class=\u0022cap\u0022>── 仕様</div>`;
+h+=`<div id=\u0022`+pre+`_bp\u0022 style=\u0022display:none\u0022>`;
+h+=`<label class=\u0022f\u0022>ボールペン仕様</label><div class=\u0022chips\u0022 id=\u0022`+pre+`_bpS\u0022></div>`;
+h+=`<label class=\u0022f\u0022>書き込み状態</label><div class=\u0022two\u0022>`;
+h+=`<div class=\u0022tg\u0022 data-cw=\u00221\u0022>✏️ 書ける</div><div class=\u0022tg\u0022 data-cw=\u00220\u0022>🚫 書けない</div></div>`;
+h+=`<label class=\u0022f\u0022>リフィルアダプター</label><div class=\u0022two\u0022>`;
+h+=`<div class=\u0022tg\u0022 data-ra=\u00220\u0022>なし</div><div class=\u0022tg\u0022 data-ra=\u00221\u0022>あり</div></div>`;
+h+=`<label class=\u0022f\u0022>リフィル補足</label><input type=\u0022text\u0022 id=\u0022`+pre+`_refill\u0022 placeholder=\u0022例: 新品リフィル付（互換品）\u0022>`;
+h+=`</div>`;
+h+=`<div id=\u0022`+pre+`_fp\u0022 style=\u0022display:none\u0022>`;
+h+=`<label class=\u0022f\u0022>万年筆仕様</label><div class=\u0022chips\u0022 id=\u0022`+pre+`_fpS\u0022></div>`;
+h+=`<label class=\u0022f\u0022>インクの有無</label>`;
+h+=`<select id=\u0022`+pre+`_ink\u0022><option>なし</option><option>あり（純正）</option><option>あり（互換品）</option></select>`;
+h+=`</div>`;
+h+=`<p class=\u0022none\u0022 id=\u0022`+pre+`_nospec\u0022 style=\u0022display:none\u0022>仕様選択なし</p>`;
+h+=`</div>`;
 
-h+=”<div class=\u0022card\u0022><div class=\u0022cap\u0022>── 状態・付属品</div>”;
-h+=”<label class=\u0022f\u0022>状態</label>”;
-h+=”<select id=\u0022”+pre+”_cond\u0022>”+opts(CONDITIONS,function(c){return c.key;},function(c){return c.label;})+”</select>”;
-h+=”<div class=\u0022condTxt\u0022 id=\u0022”+pre+”_condTxt\u0022></div>”;
-h+=”<label class=\u0022f\u0022>付属品</label><div class=\u0022chips\u0022 id=\u0022”+pre+”_acc\u0022></div>”;
-h+=”<div id=\u0022”+pre+”_dirtyWrap\u0022 style=\u0022display:none\u0022>”;
-h+=”<label class=\u0022f\u0022>多少の汚れあり</label><div class=\u0022chips\u0022 id=\u0022”+pre+”_dirty\u0022></div>”;
-h+=”<label class=\u0022f\u0022>汚れ補足</label><input type=\u0022text\u0022 id=\u0022”+pre+”_dNote\u0022 placeholder=\u0022例: ケース内側にシミあり\u0022>”;
-h+=”</div></div>”;
+h+=`<div class=\u0022card\u0022><div class=\u0022cap\u0022>── 状態・付属品</div>`;
+h+=`<label class=\u0022f\u0022>状態</label>`;
+h+=`<select id=\u0022`+pre+`_cond\u0022>`+opts(CONDITIONS,function(c){return c.key;},function(c){return c.label;})+`</select>`;
+h+=`<div class=\u0022condTxt\u0022 id=\u0022`+pre+`_condTxt\u0022></div>`;
+h+=`<label class=\u0022f\u0022>付属品</label><div class=\u0022chips\u0022 id=\u0022`+pre+`_acc\u0022></div>`;
+h+=`<div id=\u0022`+pre+`_dirtyWrap\u0022 style=\u0022display:none\u0022>`;
+h+=`<label class=\u0022f\u0022>多少の汚れあり</label><div class=\u0022chips\u0022 id=\u0022`+pre+`_dirty\u0022></div>`;
+h+=`<label class=\u0022f\u0022>汚れ補足</label><input type=\u0022text\u0022 id=\u0022`+pre+`_dNote\u0022 placeholder=\u0022例: ケース内側にシミあり\u0022>`;
+h+=`</div></div>`;
 
-h+=”<div class=\u0022card\u0022><div class=\u0022cap\u0022>── 補足・管理番号</div>”;
-h+=”<label class=\u0022f\u0022>定価（円）</label><input type=\u0022text\u0022 id=\u0022”+pre+”_listPrice\u0022 placeholder=\u0022例: 15000\u0022>”;
-h+=”<label class=\u0022f\u0022>説明文への追記</label><textarea id=\u0022”+pre+”_extra\u0022 placeholder=\u0022例: スリムなボディが特長です。\u0022></textarea>”;
-h+=”<label class=\u0022f\u0022>管理番号</label><input type=\u0022text\u0022 id=\u0022”+pre+”_mgmt\u0022 placeholder=\u0022例: 26022801\u0022>”;
-h+=”</div>”;
+h+=`<div class=\u0022card\u0022><div class=\u0022cap\u0022>── 補足・管理番号</div>`;
+h+=`<label class=\u0022f\u0022>定価（円）</label><input type=\u0022text\u0022 id=\u0022`+pre+`_listPrice\u0022 placeholder=\u0022例: 15000\u0022>`;
+h+=`<label class=\u0022f\u0022>説明文への追記</label><textarea id=\u0022`+pre+`_extra\u0022 placeholder=\u0022例: スリムなボディが特長です。\u0022></textarea>`;
+h+=`<label class=\u0022f\u0022>管理番号</label><input type=\u0022text\u0022 id=\u0022`+pre+`_mgmt\u0022 placeholder=\u0022例: 26022801\u0022>`;
+h+=`</div>`;
 
-h+=”<div class=\u0022card\u0022><div class=\u0022cap\u0022>── トップ画像</div>”;
-h+=”<label class=\u0022f\u0022>商品写真</label>”;
-h+=”<label class=\u0022drop\u0022 id=\u0022”+pre+”_drop\u0022><div id=\u0022”+pre+”_dropIn\u0022><div class=\u0022camera\u0022>📷</div><div class=\u0022dropTxt\u0022>タップして写真を選択</div></div>”;
-h+=”<input type=\u0022file\u0022 accept=\u0022image/*\u0022 id=\u0022”+pre+”_file\u0022 style=\u0022display:none\u0022></label>”;
-h+=”<button class=\u0022ghost\u0022 id=\u0022”+pre+”_imgDel\u0022 style=\u0022display:none\u0022>✕ 写真を削除</button>”;
+h+=`<div class=\u0022card\u0022><div class=\u0022cap\u0022>── トップ画像</div>`;
+h+=`<label class=\u0022f\u0022>商品写真</label>`;
+h+=`<label class=\u0022drop\u0022 id=\u0022`+pre+`_drop\u0022><div id=\u0022`+pre+`_dropIn\u0022><div class=\u0022camera\u0022>📷</div><div class=\u0022dropTxt\u0022>タップして写真を選択</div></div>`;
+h+=`<input type=\u0022file\u0022 accept=\u0022image/*\u0022 id=\u0022`+pre+`_file\u0022 style=\u0022display:none\u0022></label>`;
+h+=`<button class=\u0022ghost\u0022 id=\u0022`+pre+`_imgDel\u0022 style=\u0022display:none\u0022>✕ 写真を削除</button>`;
 
-h+=”<div class=\u0022tipBox\u0022><b>①②③④⑤は自動。⑥〜⑨は任意。</b>プレビューをタップ→調整</div>”;
+h+=`<div class=\u0022tipBox\u0022><b>①②③④⑤は自動。⑥〜⑨は任意。</b>プレビューをタップ→調整</div>`;
 
-h+=”<div class=\u0022turqRow\u0022><span class=\u0022cap3\u0022>帯色:</span><input type=\u0022color\u0022 id=\u0022”+pre+”_turq\u0022 value=\u0022”+DEF_TURQ+”\u0022>”;
-h+=”<button class=\u0022mini\u0022 id=\u0022”+pre+”_turqR\u0022>リセット</button></div>”;
+h+=`<div class=\u0022turqRow\u0022><span class=\u0022cap3\u0022>帯色:</span><input type=\u0022color\u0022 id=\u0022`+pre+`_turq\u0022 value=\u0022`+DEF_TURQ+`\u0022>`;
+h+=`<button class=\u0022mini\u0022 id=\u0022`+pre+`_turqR\u0022>リセット</button></div>`;
 
-h+=”<div class=\u0022ebayBox\u0022 id=\u0022”+pre+”_ebayBox\u0022>”;
-h+=”<div class=\u0022ebayHead\u0022 id=\u0022”+pre+”_ebayTog\u0022><span class=\u0022cb\u0022 id=\u0022”+pre+”*ebayCb\u0022></span>”;
-h+=”<span class=\u0022ebayTitle\u0022>🌐 eBay用の英語画像も一緒に作る</span></div>”;
-h+=”<div class=\u0022ebaySub\u0022>日本語画像とは別に、英語表記の画像をもう1枚生成します</div>”;
-h+=”<div id=\u0022”+pre+”*ebayPanel\u0022 style=\u0022display:none\u0022>”;
-h+=”<div class=\u0022mEN\u0022 id=\u0022”+pre+”*mEN\u0022></div>”;
-h+=”<div class=\u0022ebaySub2\u0022>⑥〜⑨は日本語から自動翻訳されます。訳がおかしい時だけ英語を直接入れてください</div>”;
-var EN=[[“⑥”,“左・黒帯”,“e6”],[“⑦”,“右・黒帯”,“e7”],[“⑧”,“左・赤文字”,“e8”],[“⑨”,“右・赤文字”,“e9”]];
+h+=`<div class=\u0022ebayBox\u0022 id=\u0022`+pre+`_ebayBox\u0022>`;
+h+=`<div class=\u0022ebayHead\u0022 id=\u0022`+pre+`_ebayTog\u0022><span class=\u0022cb\u0022 id=\u0022`+pre+`_ebayCb\u0022></span>`;
+h+=`<span class=\u0022ebayTitle\u0022>🌐 eBay用の英語画像も一緒に作る</span></div>`;
+h+=`<div class=\u0022ebaySub\u0022>日本語画像とは別に、英語表記の画像をもう1枚生成します</div>`;
+h+=`<div id=\u0022`+pre+`_ebayPanel\u0022 style=\u0022display:none\u0022>`;
+h+=`<div class=\u0022mEN\u0022 id=\u0022`+pre+`_mEN\u0022></div>`;
+h+=`<div class=\u0022ebaySub2\u0022>⑥〜⑨は日本語から自動翻訳されます。訳がおかしい時だけ英語を直接入れてください</div>`;
+var EN=[[`⑥`,`左・黒帯`,`e6`],[`⑦`,`右・黒帯`,`e7`],[`⑧`,`左・赤文字`,`e8`],[`⑨`,`右・赤文字`,`e9`]];
 for(var q=0;q<EN.length;q+=1){
-h+=”<div class=\u0022enRow\u0022 id=\u0022”+pre+”*”+EN[q][2]+“Row\u0022 style=\u0022display:none\u0022>”;
-h+=”<div class=\u0022enLbl\u0022 id=\u0022”+pre+”*”+EN[q][2]+“Lbl\u0022>”+EN[q][0]+” “+EN[q][1]+”</div>”;
-h+=”<textarea id=\u0022”+pre+”*”+EN[q][2]+”\u0022 placeholder=\u0022英語を直接入力\u0022></textarea></div>”;
+h+=`<div class=\u0022enRow\u0022 id=\u0022`+pre+`_`+EN[q][2]+`Row\u0022 style=\u0022display:none\u0022>`;
+h+=`<div class=\u0022enLbl\u0022 id=\u0022`+pre+`_`+EN[q][2]+`Lbl\u0022>`+EN[q][0]+` `+EN[q][1]+`</div>`;
+h+=`<textarea id=\u0022`+pre+`_`+EN[q][2]+`\u0022 placeholder=\u0022英語を直接入力\u0022></textarea></div>`;
 }
-h+=”<div class=\u0022ebaySub2\u0022 id=\u0022”+pre+”_enEmpty\u0022>⑥〜⑨に日本語を入れると、ここに英訳欄が出ます</div>”;
-h+=”</div></div>”;
+h+=`<div class=\u0022ebaySub2\u0022 id=\u0022`+pre+`_enEmpty\u0022>⑥〜⑨に日本語を入れると、ここに英訳欄が出ます</div>`;
+h+=`</div></div>`;
 
-h+=”<div class=\u0022numRow\u0022><span class=\u0022nb auto\u0022>②</span><span class=\u0022cap3\u0022>右下の帯</span></div>”;
-h+=”<select id=\u0022”+pre+”_p2\u0022></select>”;
-h+=”<input type=\u0022text\u0022 id=\u0022”+pre+”_p2c\u0022 placeholder=\u0022例: 高級鉛筆\u0022 style=\u0022display:none;margin-top:8px\u0022>”;
+h+=`<div class=\u0022numRow\u0022><span class=\u0022nb auto\u0022>②</span><span class=\u0022cap3\u0022>右下の帯</span></div>`;
+h+=`<select id=\u0022`+pre+`_p2\u0022></select>`;
+h+=`<input type=\u0022text\u0022 id=\u0022`+pre+`_p2c\u0022 placeholder=\u0022例: 高級鉛筆\u0022 style=\u0022display:none;margin-top:8px\u0022>`;
 
-var JPF=[[“⑥”,“左・黒帯”,“p6”,“例: 初期型”],[“⑦”,“右・黒帯”,“p7”,“例: 20金張り”],[“⑧”,“左・赤文字”,“p8”,“例: レア！”],[“⑨”,“右・赤文字”,“p9”,“例: 美品”]];
+var JPF=[[`⑥`,`左・黒帯`,`p6`,`例: 初期型`],[`⑦`,`右・黒帯`,`p7`,`例: 20金張り`],[`⑧`,`左・赤文字`,`p8`,`例: レア！`],[`⑨`,`右・赤文字`,`p9`,`例: 美品`]];
 for(var r=0;r<JPF.length;r+=1){
-h+=”<div class=\u0022numRow\u0022 style=\u0022margin-top:12px\u0022><span class=\u0022nb\u0022>”+JPF[r][0]+”</span><span class=\u0022cap3\u0022>”+JPF[r][1]+”</span></div>”;
-h+=”<textarea id=\u0022”+pre+”_”+JPF[r][2]+”\u0022 placeholder=\u0022”+JPF[r][3]+”\u0022></textarea>”;
+h+=`<div class=\u0022numRow\u0022 style=\u0022margin-top:12px\u0022><span class=\u0022nb\u0022>`+JPF[r][0]+`</span><span class=\u0022cap3\u0022>`+JPF[r][1]+`</span></div>`;
+h+=`<textarea id=\u0022`+pre+`_`+JPF[r][2]+`\u0022 placeholder=\u0022`+JPF[r][3]+`\u0022></textarea>`;
 }
 
-h+=”<div class=\u0022pvHead\u0022><span class=\u0022cap3\u0022>── プレビュー（日本語）</span><button class=\u0022mini\u0022 id=\u0022”+pre+”_rstJP\u0022>位置リセット</button></div>”;
-h+=”<canvas id=\u0022”+pre+”_cvJP\u0022 class=\u0022pv\u0022></canvas>”;
-h+=ctrlHTML(pre+”_jp”);
+h+=`<div class=\u0022pvHead\u0022><span class=\u0022cap3\u0022>── プレビュー（日本語）</span><button class=\u0022mini\u0022 id=\u0022`+pre+`_rstJP\u0022>位置リセット</button></div>`;
+h+=`<canvas id=\u0022`+pre+`_cvJP\u0022 class=\u0022pv\u0022></canvas>`;
+h+=ctrlHTML(pre+`_jp`);
 
-h+=”<div id=\u0022”+pre+”_enPv\u0022 style=\u0022display:none\u0022>”;
-h+=”<div class=\u0022pvHead en\u0022><span class=\u0022cap3\u0022>── プレビュー（eBay英語）🌐</span><button class=\u0022mini\u0022 id=\u0022”+pre+”_rstEN\u0022>位置リセット</button></div>”;
-h+=”<canvas id=\u0022”+pre+”_cvEN\u0022 class=\u0022pv en\u0022></canvas>”;
-h+=ctrlHTML(pre+”_en”);
-h+=”</div>”;
+h+=`<div id=\u0022`+pre+`_enPv\u0022 style=\u0022display:none\u0022>`;
+h+=`<div class=\u0022pvHead en\u0022><span class=\u0022cap3\u0022>── プレビュー（eBay英語）🌐</span><button class=\u0022mini\u0022 id=\u0022`+pre+`_rstEN\u0022>位置リセット</button></div>`;
+h+=`<canvas id=\u0022`+pre+`_cvEN\u0022 class=\u0022pv en\u0022></canvas>`;
+h+=ctrlHTML(pre+`_en`);
+h+=`</div>`;
 
-h+=”</div>”;
+h+=`</div>`;
 
-h+=”<button class=\u0022go\u0022 id=\u0022”+pre+”_gen\u0022>✦ “+NUMS[n]+” タイトル・説明文・画像を生成</button>”;
-h+=”<canvas id=\u0022”+pre+”_hidden\u0022 style=\u0022display:none\u0022></canvas>”;
+h+=`<button class=\u0022go\u0022 id=\u0022`+pre+`_gen\u0022>✦ `+NUMS[n]+` タイトル・説明文・画像を生成</button>`;
+h+=`<canvas id=\u0022`+pre+`_hidden\u0022 style=\u0022display:none\u0022></canvas>`;
 return h;
 }
 
 function chipHTML(list,pre,kind){
-var h=E;
+var h=``;
 for(var i=0;i<list.length;i+=1){
-h+=”<div class=\u0022chip\u0022 data-”+kind+”=\u0022”+esc(list[i])+”\u0022><span class=\u0022box\u0022>✓</span>”+esc(list[i])+”</div>”;
+h+=`<div class=\u0022chip\u0022 data-`+kind+`=\u0022`+esc(list[i])+`\u0022><span class=\u0022box\u0022>✓</span>`+esc(list[i])+`</div>`;
 }
 return h;
 }
 
 function boot(){
-var tabs=E,panes=E;
+var tabs=`,panes=`;
 for(var n=0;n<5;n+=1){
-tabs+=”<button data-tab=\u0022”+n+”\u0022”+(n===0?” class=\u0022on\u0022”:E)+”>”+NUMS[n]+” “+(n+1)+“品目<i class=\u0022dot\u0022 id=\u0022dot”+n+”\u0022></i></button>”;
-panes+=”<div class=\u0022pane”+(n===0?” on”:E)+”\u0022 id=\u0022pane”+n+”\u0022>”+paneHTML(n)+”</div>”;
+tabs+=`<button data-tab=\u0022`+n+`\u0022`+(n===0?` class=\u0022on\u0022`:`)+`>`+NUMS[n]+` `+(n+1)+`品目<i class=\u0022dot\u0022 id=\u0022dot`+n+`\u0022></i></button>`; panes+=`<div class=\u0022pane`+(n===0?` on`:`)+`\u0022 id=\u0022pane`+n+`\u0022>`+paneHTML(n)+`</div>`;
 }
-$(“tabs”).innerHTML=tabs;
-$(“panes”).innerHTML=panes;
+$(`tabs`).innerHTML=tabs;
+$(`panes`).innerHTML=panes;
 
-var st=E;
-for(var m=0;m<5;m+=1){st+=”<div class=\u0022stItem\u0022 id=\u0022st”+m+”\u0022></div>”;}
-$(“batchStatus”).innerHTML=st;
+var st=``;
+for(var m=0;m<5;m+=1){st+=`<div class=\u0022stItem\u0022 id=\u0022st`+m+`\u0022></div>`;}
+$(`batchStatus`).innerHTML=st;
 
 for(var k=0;k<5;k+=1){wire(k);}
 for(var j=0;j<5;j+=1){refresh(j);}
 
-$(“tabs”).addEventListener(“click”,function(ev){
-var b=ev.target.closest(“button[data-tab]”);
+$(`tabs`).addEventListener(`click`,function(ev){
+var b=ev.target.closest(`button[data-tab]`);
 if(!b)return;
-activeTab=parseInt(b.getAttribute(“data-tab”),10);
-var bs=$(“tabs”).children;
-for(var i=0;i<bs.length;i+=1){bs[i].className=(i===activeTab?“on”:E);}
-for(var p=0;p<5;p+=1){
-$(“pane”+p).className=“pane”+(p===activeTab?” on”:E);
+activeTab=parseInt(b.getAttribute(`data-tab`),10);
+var bs=$(`tabs`).children;
+for(var i=0;i<bs.length;i+=1){bs[i].className=(i===activeTab?`on`:`);} for(var p=0;p<5;p+=1){ $(`pane`+p).className=`pane`+(p===activeTab?` on`:`);
 if(p!==activeTab){
-var c1=$(“i”+p+”_cvJP”),c2=$(“i”+p+”_cvEN”);
+var c1=$(`i`+p+`_cvJP`),c2=$(`i`+p+`_cvEN`);
 if(c1){c1.width=1;c1.height=1;}
 if(c2){c2.width=1;c2.height=1;}
 }
@@ -1411,29 +1406,29 @@ refresh(activeTab);
 window.scrollTo(0,0);
 });
 
-$(“genAll”).addEventListener(“click”,function(){
+$(`genAll`).addEventListener(`click`,function(){
 var any=false;
 for(var i=0;i<5;i+=1){if(items[i].model)any=true;}
-if(!any){toast(“⚠ 少なくとも1品のモデル名を入れてください”);return;}
+if(!any){toast(`⚠ 少なくとも1品のモデル名を入れてください`);return;}
 for(var g=0;g<5;g+=1){if(items[g].model)genOne(g);}
-toast(“✓ まとめて生成しました”);
-setTimeout(function(){$(“results”).scrollIntoView({behavior:“smooth”});},250);
+toast(`✓ まとめて生成しました`);
+setTimeout(function(){$(`results`).scrollIntoView({behavior:`smooth`});},250);
 });
 }
 
 function wire(n){
-var pre=“i”+n;
+var pre=`i`+n;
 var it=items[n];
 
 function bind(id,fn,evt){
-var el=$(pre+”_”+id);
+var el=$(pre+`_`+id);
 if(!el)return;
-el.addEventListener(evt||“input”,function(){fn(el);refresh(n);});
+el.addEventListener(evt||`input`,function(){fn(el);refresh(n);});
 }
 
-$(pre+”_brand”).selectedIndex=0;
-$(pre+”_brand”).addEventListener(“change”,function(){
-var idx=$(pre+”_brand”).selectedIndex;
+$(pre+`_brand`).selectedIndex=0;
+$(pre+`_brand`).addEventListener(`change`,function(){
+var idx=$(pre+`_brand`).selectedIndex;
 it.brandIdx=idx;
 if(idx!==LAST_BRAND){
 var b=BRAND_PRESETS[idx];
@@ -1441,80 +1436,80 @@ it.bJP=b.jp;it.bEN=b.en;it.bName=b.name;
 }
 refresh(n);
 });
-bind(“bJP”,function(el){it.bJP=el.value;});
-bind(“bEN”,function(el){it.bEN=el.value;});
-bind(“bName”,function(el){it.bName=el.value;});
+bind(`bJP`,function(el){it.bJP=el.value;});
+bind(`bEN`,function(el){it.bEN=el.value;});
+bind(`bName`,function(el){it.bName=el.value;});
 
-bind(“model”,function(el){it.model=el.value;});
-bind(“modelEN”,function(el){it.modelEN=el.value;});
-bind(“penType”,function(el){it.penType=el.value;},“change”);
-bind(“era”,function(el){it.era=el.value;},“change”);
-bind(“country”,function(el){
-if(el.value===“その他（任意入力）”){it.country=E;}
+bind(`model`,function(el){it.model=el.value;});
+bind(`modelEN`,function(el){it.modelEN=el.value;});
+bind(`penType`,function(el){it.penType=el.value;},`change`);
+bind(`era`,function(el){it.era=el.value;},`change`);
+bind(`country`,function(el){
+if(el.value===`その他（任意入力）`){it.country=``;}
 else{it.country=el.value;}
-},“change”);
-bind(“countryFree”,function(el){it.country=el.value;});
-bind(“material”,function(el){it.material=el.value;},“change”);
-bind(“color”,function(el){it.colorVal=el.value;},“change”);
-bind(“ink”,function(el){it.ink=el.value;},“change”);
-bind(“refill”,function(el){it.refill=el.value;});
-bind(“cond”,function(el){it.cond=el.value;},“change”);
-bind(“dNote”,function(el){it.dNote=el.value;});
-bind(“listPrice”,function(el){it.listPrice=el.value;});
-bind(“extra”,function(el){it.extra=el.value;});
-bind(“mgmt”,function(el){it.mgmt=el.value;});
-bind(“p6”,function(el){it.p6=el.value;});
-bind(“p7”,function(el){it.p7=el.value;});
-bind(“p8”,function(el){it.p8=el.value;});
-bind(“p9”,function(el){it.p9=el.value;});
-bind(“e6”,function(el){it.e6=el.value;});
-bind(“e7”,function(el){it.e7=el.value;});
-bind(“e8”,function(el){it.e8=el.value;});
-bind(“e9”,function(el){it.e9=el.value;});
-bind(“p2c”,function(el){it.p2L=el.value;});
-bind(“turq”,function(el){it.turq=el.value;},“change”);
+},`change`);
+bind(`countryFree`,function(el){it.country=el.value;});
+bind(`material`,function(el){it.material=el.value;},`change`);
+bind(`color`,function(el){it.colorVal=el.value;},`change`);
+bind(`ink`,function(el){it.ink=el.value;},`change`);
+bind(`refill`,function(el){it.refill=el.value;});
+bind(`cond`,function(el){it.cond=el.value;},`change`);
+bind(`dNote`,function(el){it.dNote=el.value;});
+bind(`listPrice`,function(el){it.listPrice=el.value;});
+bind(`extra`,function(el){it.extra=el.value;});
+bind(`mgmt`,function(el){it.mgmt=el.value;});
+bind(`p6`,function(el){it.p6=el.value;});
+bind(`p7`,function(el){it.p7=el.value;});
+bind(`p8`,function(el){it.p8=el.value;});
+bind(`p9`,function(el){it.p9=el.value;});
+bind(`e6`,function(el){it.e6=el.value;});
+bind(`e7`,function(el){it.e7=el.value;});
+bind(`e8`,function(el){it.e8=el.value;});
+bind(`e9`,function(el){it.e9=el.value;});
+bind(`p2c`,function(el){it.p2L=el.value;});
+bind(`turq`,function(el){it.turq=el.value;},`change`);
 
-$(pre+”_turqR”).addEventListener(“click”,function(){
-it.turq=DEF_TURQ;$(pre+”_turq”).value=DEF_TURQ;refresh(n);
+$(pre+`_turqR`).addEventListener(`click`,function(){
+it.turq=DEF_TURQ;$(pre+`_turq`).value=DEF_TURQ;refresh(n);
 });
 
-$(pre+”_p2”).addEventListener(“change”,function(){
-var v=$(pre+”_p2”).value;
-if(v===”**custom**”){it.p2Custom=true;it.p2L=E;}
+$(pre+`_p2`).addEventListener(`change`,function(){
+var v=$(pre+`_p2`).value;
+if(v===`__custom__`){it.p2Custom=true;it.p2L=``;}
 else{it.p2Custom=false;it.p2L=v;}
 refresh(n);
 });
 
-$(pre+”_bpS”).innerHTML=chipHTML(BP_SPECS,pre,“bps”);
-$(pre+”_fpS”).innerHTML=chipHTML(FP_SPECS,pre,“fps”);
-$(pre+”_acc”).innerHTML=chipHTML(ACCESSORIES,pre,“acc”);
-$(pre+”_dirty”).innerHTML=chipHTML(ACCESSORIES,pre,“dirty”);
+$(pre+`_bpS`).innerHTML=chipHTML(BP_SPECS,pre,`bps`);
+$(pre+`_fpS`).innerHTML=chipHTML(FP_SPECS,pre,`fps`);
+$(pre+`_acc`).innerHTML=chipHTML(ACCESSORIES,pre,`acc`);
+$(pre+`_dirty`).innerHTML=chipHTML(ACCESSORIES,pre,`dirty`);
 
 function toggleIn(arr,v){
 var i=arr.indexOf(v);
 if(i>=0){arr.splice(i,1);}else{arr.push(v);}
 }
 function chipClick(wrapId,key,arr){
-$(pre+”_”+wrapId).addEventListener(“click”,function(ev){
-var c=ev.target.closest(”.chip”);
+$(pre+`_`+wrapId).addEventListener(`click`,function(ev){
+var c=ev.target.closest(`.chip`);
 if(!c)return;
-toggleIn(arr,c.getAttribute(“data-”+key));
+toggleIn(arr,c.getAttribute(`data-`+key));
 refresh(n);
 });
 }
-chipClick(“bpS”,“bps”,it.bpS);
-chipClick(“fpS”,“fps”,it.fpS);
-chipClick(“acc”,“acc”,it.accList);
-chipClick(“dirty”,“dirty”,it.dParts);
+chipClick(`bpS`,`bps`,it.bpS);
+chipClick(`fpS`,`fps`,it.fpS);
+chipClick(`acc`,`acc`,it.accList);
+chipClick(`dirty`,`dirty`,it.dParts);
 
-$(pre+”_bp”).addEventListener(“click”,function(ev){
-var t=ev.target.closest(”[data-cw]”);
-if(t){it.canWrite=t.getAttribute(“data-cw”)===“1”;refresh(n);return;}
-var r=ev.target.closest(”[data-ra]”);
-if(r){it.refillAdapter=r.getAttribute(“data-ra”)===“1”;refresh(n);}
+$(pre+`_bp`).addEventListener(`click`,function(ev){
+var t=ev.target.closest(`[data-cw]`);
+if(t){it.canWrite=t.getAttribute(`data-cw`)===`1`;refresh(n);return;}
+var r=ev.target.closest(`[data-ra]`);
+if(r){it.refillAdapter=r.getAttribute(`data-ra`)===`1`;refresh(n);}
 });
 
-$(pre+”_file”).addEventListener(“change”,function(ev){
+$(pre+`_file`).addEventListener(`change`,function(ev){
 var f=ev.target.files[0];
 if(!f)return;
 var rd=new FileReader();
@@ -1525,38 +1520,38 @@ img.src=e2.target.result;
 };
 rd.readAsDataURL(f);
 });
-$(pre+”_imgDel”).addEventListener(“click”,function(){
-it.imgB64=null;it.imgEl=null;$(pre+”_file”).value=E;refresh(n);
+$(pre+`_imgDel`).addEventListener(`click`,function(){
+it.imgB64=null;it.imgEl=null;$(pre+`_file`).value=``;refresh(n);
 });
 
-$(pre+”_ebayTog”).addEventListener(“click”,function(){
+$(pre+`_ebayTog`).addEventListener(`click`,function(){
 it.makeEbayImg=!it.makeEbayImg;refresh(n);
 });
 
-$(pre+”_rstJP”).addEventListener(“click”,function(){
+$(pre+`_rstJP`).addEventListener(`click`,function(){
 it.elems=buildElements(it.bJP,it.bEN,it.penType,it.country,it.model,it.p2L,it.p6,it.p7,it.p8,it.p9,it.turq);
 it.selIds=[];refresh(n);
 });
-$(pre+”_rstEN”).addEventListener(“click”,function(){
+$(pre+`_rstEN`).addEventListener(`click`,function(){
 it.elemsEN=buildElementsEN(it.bEN,it.penType,it.country,it.model,it.p2L,it.era,it,it.turq);
 it.selIdsEN=[];refresh(n);
 });
 
-wireCanvas(n,“jp”);
-wireCanvas(n,“en”);
+wireCanvas(n,`jp`);
+wireCanvas(n,`en`);
 
-$(pre+”_gen”).addEventListener(“click”,function(){
-if(!it.model){toast(“⚠ “+NUMS[n]+” モデル名を入れてください”);return;}
+$(pre+`_gen`).addEventListener(`click`,function(){
+if(!it.model){toast(`⚠ `+NUMS[n]+` モデル名を入れてください`);return;}
 genOne(n);
-toast(“✓ “+NUMS[n]+” 生成しました”);
-setTimeout(function(){$(“results”).scrollIntoView({behavior:“smooth”});},250);
+toast(`✓ `+NUMS[n]+` 生成しました`);
+setTimeout(function(){$(`results`).scrollIntoView({behavior:`smooth`});},250);
 });
 
 if(n>0){
-$(“pane”+n).querySelector(”.cfBtns”).addEventListener(“click”,function(ev){
-var b=ev.target.closest(”[data-cf]”);
+$(`pane`+n).querySelector(`.cfBtns`).addEventListener(`click`,function(ev){
+var b=ev.target.closest(`[data-cf]`);
 if(!b)return;
-var si=parseInt(b.getAttribute(“data-cf”),10);
+var si=parseInt(b.getAttribute(`data-cf`),10);
 var src=items[si];
 var skip={imgB64:1,imgEl:1,elems:1,elemsEN:1,selIds:1,selIdsEN:1,
 titleOut:1,bodyOut:1,imgOut:1,imgOutEN:1,imgElems:1,imgElemsEN:1};
@@ -1569,36 +1564,36 @@ it.elemsEN=buildElementsEN(it.bEN,it.penType,it.country,it.model,it.p2L,it.era,i
 it.selIds=[];it.selIdsEN=[];
 syncForm(n);
 refresh(n);
-toast(“✓ “+NUMS[si]+” のデータをコピーしました”);
+toast(`✓ `+NUMS[si]+` のデータをコピーしました`);
 });
 }
 }
 
 function syncForm(n){
-var pre=“i”+n,it=items[n];
-$(pre+”_brand”).selectedIndex=it.brandIdx;
-$(pre+”_bJP”).value=it.bJP;
-$(pre+”_bEN”).value=it.bEN;
-$(pre+”_bName”).value=it.bName;
-$(pre+”_model”).value=it.model;
-$(pre+”_modelEN”).value=it.modelEN;
-$(pre+”_penType”).value=it.penType;
-$(pre+”_era”).value=it.era;
-$(pre+”_country”).value=(COUNTRIES.indexOf(it.country)>=0?it.country:“その他（任意入力）”);
-$(pre+”_countryFree”).value=it.country;
-$(pre+”_material”).value=it.material;
-$(pre+”_color”).value=it.colorVal;
-$(pre+”_ink”).value=it.ink;
-$(pre+”_refill”).value=it.refill;
-$(pre+”_cond”).value=it.cond;
-$(pre+”_dNote”).value=it.dNote;
-$(pre+”_listPrice”).value=it.listPrice;
-$(pre+”_extra”).value=it.extra;
-$(pre+”_mgmt”).value=it.mgmt;
-$(pre+”*turq”).value=it.turq;
-var f=[“p6”,“p7”,“p8”,“p9”,“e6”,“e7”,“e8”,“e9”];
-for(var i=0;i<f.length;i+=1){$(pre+”*”+f[i]).value=it[f[i]];}
-$(pre+”_p2c”).value=it.p2L;
+var pre=`i`+n,it=items[n];
+$(pre+`_brand`).selectedIndex=it.brandIdx;
+$(pre+`_bJP`).value=it.bJP;
+$(pre+`_bEN`).value=it.bEN;
+$(pre+`_bName`).value=it.bName;
+$(pre+`_model`).value=it.model;
+$(pre+`_modelEN`).value=it.modelEN;
+$(pre+`_penType`).value=it.penType;
+$(pre+`_era`).value=it.era;
+$(pre+`_country`).value=(COUNTRIES.indexOf(it.country)>=0?it.country:`その他（任意入力）`);
+$(pre+`_countryFree`).value=it.country;
+$(pre+`_material`).value=it.material;
+$(pre+`_color`).value=it.colorVal;
+$(pre+`_ink`).value=it.ink;
+$(pre+`_refill`).value=it.refill;
+$(pre+`_cond`).value=it.cond;
+$(pre+`_dNote`).value=it.dNote;
+$(pre+`_listPrice`).value=it.listPrice;
+$(pre+`_extra`).value=it.extra;
+$(pre+`_mgmt`).value=it.mgmt;
+$(pre+`_turq`).value=it.turq;
+var f=[`p6`,`p7`,`p8`,`p9`,`e6`,`e7`,`e8`,`e9`];
+for(var i=0;i<f.length;i+=1){$(pre+`_`+f[i]).value=it[f[i]];}
+$(pre+`_p2c`).value=it.p2L;
 }
 
 function mergeElems(fresh,prev){
@@ -1616,94 +1611,91 @@ return Object.assign({},f,kept);
 }
 
 function refresh(n){
-var pre=“i”+n,it=items[n];
+var pre=`i`+n,it=items[n];
 
-$(pre+”_custom”).style.display=(it.brandIdx===LAST_BRAND?“block”:“none”);
-$(pre+”_hash”).textContent=”#ペンpen出品の”+it.bJP+“製品はこちら”;
+$(pre+`_custom`).style.display=(it.brandIdx===LAST_BRAND?`block`:`none`);
+$(pre+`_hash`).textContent=`#ペンpen出品の`+it.bJP+`製品はこちら`;
 
-var freeCountry=(COUNTRIES.indexOf(it.country)<0||it.country===E||it.country===“その他（任意入力）”);
-$(pre+”_countryFree”).style.display=(freeCountry?“block”:“none”);
+var freeCountry=(COUNTRIES.indexOf(it.country)<0||it.country===``||it.country===`その他（任意入力）`);
+$(pre+`_countryFree`).style.display=(freeCountry?`block`:`none`);
 
-var isFP=(it.penType===“万年筆”);
-var isBP=(it.penType===“ボールペン”||it.penType===“ローラーボール”);
-$(pre+”_bp”).style.display=(isBP?“block”:“none”);
-$(pre+”_fp”).style.display=(isFP?“block”:“none”);
-$(pre+”_nospec”).style.display=(!isBP&&!isFP?“block”:“none”);
+var isFP=(it.penType===`万年筆`);
+var isBP=(it.penType===`ボールペン`||it.penType===`ローラーボール`);
+$(pre+`_bp`).style.display=(isBP?`block`:`none`);
+$(pre+`_fp`).style.display=(isFP?`block`:`none`);
+$(pre+`_nospec`).style.display=(!isBP&&!isFP?`block`:`none`);
 
-setChips(pre+”_bpS”,“bps”,it.bpS);
-setChips(pre+”_fpS”,“fps”,it.fpS);
-setChips(pre+”_acc”,“acc”,it.accList);
-setChips(pre+”_dirty”,“dirty”,it.dParts);
+setChips(pre+`_bpS`,`bps`,it.bpS);
+setChips(pre+`_fpS`,`fps`,it.fpS);
+setChips(pre+`_acc`,`acc`,it.accList);
+setChips(pre+`_dirty`,`dirty`,it.dParts);
 
-var dirtyChips=$(pre+”_dirty”).children;
+var dirtyChips=$(pre+`_dirty`).children;
 for(var d=0;d<dirtyChips.length;d+=1){
-var nm=dirtyChips[d].getAttribute(“data-dirty”);
-dirtyChips[d].style.display=(it.accList.indexOf(nm)>=0?“inline-flex”:“none”);
+var nm=dirtyChips[d].getAttribute(`data-dirty`);
+dirtyChips[d].style.display=(it.accList.indexOf(nm)>=0?`inline-flex`:`none`);
 }
-$(pre+”_dirtyWrap”).style.display=(it.accList.length>0?“block”:“none”);
+$(pre+`_dirtyWrap`).style.display=(it.accList.length>0?`block`:`none`);
 
-setToggle($(pre+”_bp”),”[data-cw]”,“cw”,it.canWrite?“1”:“0”);
-setToggle($(pre+”_bp”),”[data-ra]”,“ra”,it.refillAdapter?“1”:“0”);
+setToggle($(pre+`_bp`),`[data-cw]`,`cw`,it.canWrite?`1`:`0`);
+setToggle($(pre+`_bp`),`[data-ra]`,`ra`,it.refillAdapter?`1`:`0`);
 
 var co=null;
 for(var c=0;c<CONDITIONS.length;c+=1){if(CONDITIONS[c].key===it.cond)co=CONDITIONS[c];}
-$(pre+”_condTxt”).textContent=(co?co.fn(calcYears(it.era)):E);
+$(pre+`_condTxt`).textContent=(co?co.fn(calcYears(it.era)):``);
 
 if(it.imgB64){
-$(pre+”_dropIn”).innerHTML=”<img src=\u0022”+it.imgB64+”\u0022 class=\u0022thumb\u0022>”;
-$(pre+”_drop”).className=“drop has”;
-$(pre+”_imgDel”).style.display=“block”;
+$(pre+`_dropIn`).innerHTML=`<img src=\u0022`+it.imgB64+`\u0022 class=\u0022thumb\u0022>`;
+$(pre+`_drop`).className=`drop has`;
+$(pre+`_imgDel`).style.display=`block`;
 }else{
-$(pre+”_dropIn”).innerHTML=”<div class=\u0022camera\u0022>📷</div><div class=\u0022dropTxt\u0022>タップして写真を選択</div>”;
-$(pre+”_drop”).className=“drop”;
-$(pre+”_imgDel”).style.display=“none”;
+$(pre+`_dropIn`).innerHTML=`<div class=\u0022camera\u0022>📷</div><div class=\u0022dropTxt\u0022>タップして写真を選択</div>`;
+$(pre+`_drop`).className=`drop`;
+$(pre+`_imgDel`).style.display=`none`;
 }
 
-var p2sel=$(pre+”_p2”);
-var autoLbl=“自動（高級”+(it.penType===“シャープペンシル”?“シャープペン”:it.penType)+”）”;
-var ph=”<option value=\u0022\u0022>”+esc(autoLbl)+”</option>”;
-if(it.penType===“シャープペンシル”){
-ph+=”<option value=\u0022高級シャープペン\u0022>高級シャープペン</option><option value=\u0022純銀シャープペン\u0022>純銀シャープペン</option>”;
+var p2sel=$(pre+`_p2`);
+var autoLbl=`自動（高級`+(it.penType===`シャープペンシル`?`シャープペン`:it.penType)+`）`;
+var ph=`<option value=\u0022\u0022>`+esc(autoLbl)+`</option>`;
+if(it.penType===`シャープペンシル`){
+ph+=`<option value=\u0022高級シャープペン\u0022>高級シャープペン</option><option value=\u0022純銀シャープペン\u0022>純銀シャープペン</option>`;
 }else{
-for(var t=0;t<TYPE2_OPTS.length;t+=1){ph+=”<option value=\u0022”+esc(TYPE2_OPTS[t])+”\u0022>”+esc(TYPE2_OPTS[t])+”</option>”;}
+for(var t=0;t<TYPE2_OPTS.length;t+=1){ph+=`<option value=\u0022`+esc(TYPE2_OPTS[t])+`\u0022>`+esc(TYPE2_OPTS[t])+`</option>`;}
 }
-ph+=”<option value=\u0022__custom__\u0022>任意入力…</option>”;
+ph+=`<option value=\u0022__custom__\u0022>任意入力...</option>`;
 if(p2sel.innerHTML!==ph)p2sel.innerHTML=ph;
-p2sel.value=(it.p2Custom?”**custom**”:it.p2L);
-$(pre+”_p2c”).style.display=(it.p2Custom?“block”:“none”);
+p2sel.value=(it.p2Custom?`__custom__`:it.p2L);
+$(pre+`_p2c`).style.display=(it.p2Custom?`block`:`none`);
 
-$(pre+”_ebayCb”).className=“cb”+(it.makeEbayImg?” on”:E);
-$(pre+”_ebayBox”).className=“ebayBox”+(it.makeEbayImg?” on”:E);
-$(pre+”_ebayPanel”).style.display=(it.makeEbayImg?“block”:“none”);
-$(pre+”_enPv”).style.display=(it.makeEbayImg?“block”:“none”);
+$(pre+`_ebayCb`).className=`cb`+(it.makeEbayImg?` on`:`); $(pre+`_ebayBox`).className=`ebayBox`+(it.makeEbayImg?` on`:`);
+$(pre+`_ebayPanel`).style.display=(it.makeEbayImg?`block`:`none`);
+$(pre+`_enPv`).style.display=(it.makeEbayImg?`block`:`none`);
 
 var mEN=it.modelEN?it.modelEN:autoModelEN(it.model);
 var bad=hasJapanese(mEN);
 if(it.model){
-$(pre+”_mEN”).style.display=“block”;
-$(pre+”_mEN”).className=“mEN”+(bad?” bad”:E);
-$(pre+”_mEN”).innerHTML=”<div class=\u0022mENcap\u0022>⑤ モデル名（英語画像用）</div><div class=\u0022mENval\u0022>”+esc(mEN||“未入力”)+”</div>”
-+(bad?”<div class=\u0022mENwarn\u0022>日本語が残っています。「モデル名（英語・任意）」に英語を入れてください</div>”:E);
+$(pre+`_mEN`).style.display=`block`;
+$(pre+`_mEN`).className=`mEN`+(bad?` bad`:`); $(pre+`_mEN`).innerHTML=`<div class=\u0022mENcap\u0022>⑤ モデル名（英語画像用）</div><div class=\u0022mENval\u0022>`+esc(mEN||`未入力`)+`</div>` +(bad?`<div class=\u0022mENwarn\u0022>日本語が残っています。「モデル名（英語・任意）」に英語を入れてください</div>`:`);
 }else{
-$(pre+”_mEN”).style.display=“none”;
+$(pre+`_mEN`).style.display=`none`;
 }
 
-var enKeys=[[“e6”,“p6”],[“e7”,“p7”],[“e8”,“p8”],[“e9”,“p9”]];
+var enKeys=[[`e6`,`p6`],[`e7`,`p7`],[`e8`,`p8`],[`e9`,`p9`]];
 var anyEn=false;
 for(var q=0;q<enKeys.length;q+=1){
 var ek=enKeys[q][0],jk=enKeys[q][1];
 var jp=it[jk];
 var show=(jp||it[ek]);
-$(pre+”*”+ek+“Row”).style.display=(show?“block”:“none”);
+$(pre+`_`+ek+`Row`).style.display=(show?`block`:`none`);
 if(show){
 anyEn=true;
 var auto=autoBandEN(jp);
-var base=$(pre+”*”+ek+“Lbl”).textContent.split(” → “)[0];
-$(pre+”*”+ek+“Lbl”).textContent=base+((auto&&!it[ek])?” → 自動訳: “+auto:E);
-$(pre+”*”+ek).placeholder=auto||“英語を直接入力”;
+var base=$(pre+`_`+ek+`Lbl`).textContent.split(`→`)[0];
+$(pre+`_`+ek+`Lbl`).textContent=base+((auto&&!it[ek])?`→ 自動訳:`+auto:``);
+$(pre+`_`+ek).placeholder=auto||`英語を直接入力`;
 }
 }
-$(pre+”_enEmpty”).style.display=(anyEn?“none”:“block”);
+$(pre+`_enEmpty`).style.display=(anyEn?`none`:`block`);
 
 it.elems=mergeElems(
 buildElements(it.bJP,it.bEN,it.penType,it.country,it.model,it.p2L,it.p6,it.p7,it.p8,it.p9,it.turq),
@@ -1716,18 +1708,16 @@ it.selIds=validIds(it.selIds,it.elems);
 it.selIdsEN=validIds(it.selIdsEN,it.elemsEN);
 
 if(n===activeTab){
-drawPreview(n,“jp”);
-if(it.makeEbayImg)drawPreview(n,“en”);
+drawPreview(n,`jp`);
+if(it.makeEbayImg)drawPreview(n,`en`);
 }
-paintCtrl(n,“jp”);
-paintCtrl(n,“en”);
+paintCtrl(n,`jp`);
+paintCtrl(n,`en`);
 
-var dot=$(“dot”+n);
-dot.className=“dot”+(it.titleOut?” done”:(it.model?” ready”:E));
-var st=$(“st”+n);
-st.className=“stItem”+(it.model?” on”:E);
-st.innerHTML=NUMS[n]+(it.makeEbayImg?”<span class=\u0022glob\u0022>🌐</span>”:E)+”<br><span class=\u0022stSub\u0022>”
-+esc(it.model?(it.model.split(”\n”)[0].slice(0,8)||“入力済”):”-”)+”</span>”;
+var dot=$(`dot`+n);
+dot.className=`dot`+(it.titleOut?` done`:(it.model?` ready`:`)); var st=$(`st`+n); st.className=`stItem`+(it.model?` on`:`);
+st.innerHTML=NUMS[n]+(it.makeEbayImg?`<span class=\u0022glob\u0022>🌐</span>`:``)+`<br><span class=\u0022stSub\u0022>`
++esc(it.model?(it.model.split(`\n`)[0].slice(0,8)||`入力済`):`-`)+`</span>`;
 }
 
 function validIds(sel,elems){
@@ -1743,14 +1733,8 @@ return out;
 function setChips(wrapId,key,arr){
 var ch=$(wrapId).children;
 for(var i=0;i<ch.length;i+=1){
-var v=ch[i].getAttribute(“data-”+key);
-ch[i].className=“chip”+(arr.indexOf(v)>=0?” on”:E);
-}
-}
-function setToggle(root,sel,attr,val){
-var ns=root.querySelectorAll(sel);
-for(var i=0;i<ns.length;i+=1){
-ns[i].className=“tg”+(ns[i].getAttribute(“data-”+attr)===val?” on”:E);
+var v=ch[i].getAttribute(`data-`+key);
+ch[i].className=`chip`+(arr.indexOf(v)>=0?` on`:`); } } function setToggle(root,sel,attr,val){ var ns=root.querySelectorAll(sel); for(var i=0;i<ns.length;i+=1){ ns[i].className=`tg`+(ns[i].getAttribute(`data-`+attr)===val?` on`:`);
 }
 }
 
@@ -1758,18 +1742,18 @@ var bboxStore={};
 
 function drawPreview(n,which){
 var it=items[n];
-var cv=$(“i”+n+”*cv”+(which===“jp”?“JP”:“EN”));
+var cv=$(`i`+n+`_cv`+(which===`jp`?`JP`:`EN`));
 if(!cv)return;
-var elems=(which===“jp”?it.elems:it.elemsEN);
-var sel=(which===“jp”?it.selIds:it.selIdsEN);
+var elems=(which===`jp`?it.elems:it.elemsEN);
+var sel=(which===`jp`?it.selIds:it.selIdsEN);
 var W=600,H=600,dpr=Math.min(window.devicePixelRatio||1,2);
 cv.width=W*dpr;cv.height=H*dpr;
-var ctx=cv.getContext(“2d”);
+var ctx=cv.getContext(`2d`);
 ctx.setTransform(1,0,0,1,0,0);
 ctx.scale(dpr,dpr);
 ctx.imageSmoothingEnabled=true;
-ctx.imageSmoothingQuality=“high”;
-ctx.fillStyle=”#ffffff”;ctx.fillRect(0,0,W,H);
+ctx.imageSmoothingQuality=`high`;
+ctx.fillStyle=`#ffffff`;ctx.fillRect(0,0,W,H);
 if(it.imgEl){
 var sc=Math.min(W/it.imgEl.naturalWidth,H/it.imgEl.naturalHeight);
 ctx.drawImage(it.imgEl,(W-it.imgEl.naturalWidth*sc)/2,(H-it.imgEl.naturalHeight*sc)/2,
@@ -1794,21 +1778,21 @@ for(var k=0;k<sel.length;k+=1){
 var b=map[sel[k]];
 if(!b)continue;
 ctx.save();
-ctx.strokeStyle=(sel.length>1?”#9933ff”:”#ff6600”);
+ctx.strokeStyle=(sel.length>1?`#9933ff`:`#ff6600`);
 ctx.lineWidth=3;ctx.setLineDash([6,3]);
 ctx.strokeRect(b.x-5,b.y-5,b.w+10,b.h+10);
 ctx.setLineDash([]);
-ctx.fillStyle=(sel.length>1?”#9933ff”:”#ff6600”);
+ctx.fillStyle=(sel.length>1?`#9933ff`:`#ff6600`);
 var pts=[[b.x-5,b.y-5],[b.x+b.w+5,b.y-5],[b.x-5,b.y+b.h+5],[b.x+b.w+5,b.y+b.h+5]];
 for(var q=0;q<pts.length;q+=1){ctx.beginPath();ctx.arc(pts[q][0],pts[q][1],5,0,Math.PI*2);ctx.fill();}
 ctx.restore();
 }
-bboxStore[n+”*”+which]=map;
+bboxStore[n+`_`+which]=map;
 }
 
 function wireCanvas(n,which){
-var pre=“i”+n;
-var cv=$(pre+”_cv”+(which===“jp”?“JP”:“EN”));
+var pre=`i`+n;
+var cv=$(pre+`_cv`+(which===`jp`?`JP`:`EN`));
 var it=items[n];
 var touch=null;
 
@@ -1817,8 +1801,8 @@ var r=cv.getBoundingClientRect();
 return {x:(cx-r.left)*(600/r.width),y:(cy-r.top)*(600/r.height)};
 }
 function hit(px,py){
-var map=bboxStore[n+”_”+which]||{};
-var elems=(which===“jp”?it.elems:it.elemsEN);
+var map=bboxStore[n+`_`+which]||{};
+var elems=(which===`jp`?it.elems:it.elemsEN);
 for(var i=elems.length-1;i>=0;i-=1){
 var e=elems[i];
 if(!e.text)continue;
@@ -1831,37 +1815,37 @@ return null;
 function tap(cx,cy){
 var p=pos(cx,cy);
 var id=hit(p.x,p.y);
-var sel=(which===“jp”?it.selIds:it.selIdsEN);
+var sel=(which===`jp`?it.selIds:it.selIdsEN);
 if(!id){
-if(which===“jp”){it.selIds=[];}else{it.selIdsEN=[];}
+if(which===`jp`){it.selIds=[];}else{it.selIdsEN=[];}
 }else{
 var i=sel.indexOf(id);
 if(i>=0){sel.splice(i,1);}else{sel.push(id);}
 }
 refresh(n);
 }
-cv.addEventListener(“touchstart”,function(e){
+cv.addEventListener(`touchstart`,function(e){
 if(e.touches&&e.touches[0])touch={x:e.touches[0].clientX,y:e.touches[0].clientY};
 });
-cv.addEventListener(“touchend”,function(e){
+cv.addEventListener(`touchend`,function(e){
 e.preventDefault();
 if(!touch)return;
 var t=touch;touch=null;
 tap(t.x,t.y);
 });
-cv.addEventListener(“click”,function(e){
+cv.addEventListener(`click`,function(e){
 if(touch)return;
 tap(e.clientX,e.clientY);
 });
 
-var root=$(pre+”_”+which+”_body”).parentNode;
-root.addEventListener(“click”,function(ev){
-var sel=(which===“jp”?it.selIds:it.selIdsEN);
-var elems=(which===“jp”?it.elems:it.elemsEN);
+var root=$(pre+`_`+which+`_body`).parentNode;
+root.addEventListener(`click`,function(ev){
+var sel=(which===`jp`?it.selIds:it.selIdsEN);
+var elems=(which===`jp`?it.elems:it.elemsEN);
 if(sel.length===0)return;
-var mv=ev.target.closest(”[data-mv]”);
+var mv=ev.target.closest(`[data-mv]`);
 if(mv){
-var d=mv.getAttribute(“data-mv”).split(”,”);
+var d=mv.getAttribute(`data-mv`).split(`,`);
 applySel(elems,sel,function(e){
 e.x=(e.x||0)+parseInt(d[0],10);
 e.y=(e.y||0)+parseInt(d[1],10);
@@ -1869,64 +1853,58 @@ if(e.rightEdge!=null)e.rightEdge=e.rightEdge+parseInt(d[0],10);
 });
 refresh(n);return;
 }
-var fs=ev.target.closest(”[data-fs]”);
+var fs=ev.target.closest(`[data-fs]`);
 if(fs){
-var dd=parseInt(fs.getAttribute(“data-fs”),10);
+var dd=parseInt(fs.getAttribute(`data-fs`),10);
 var bands={};
 for(var i=0;i<elems.length;i+=1){
-if(sel.indexOf(elems[i].id)>=0&&elems[i].type===“band”)bands[elems[i].id]=true;
+if(sel.indexOf(elems[i].id)>=0&&elems[i].type===`band`)bands[elems[i].id]=true;
 }
 applySel(elems,sel,function(e){
 if(e.centerOf&&bands[e.centerOf])return;
 e.fontSize=Math.max(8,Math.min(120,(e.fontSize||26)+dd));
-if(e.type===“band”&&e.lhOverride!=null){e.lhOverride=Math.max(8,Math.min(200,e.lhOverride+dd));}
+if(e.type===`band`&&e.lhOverride!=null){e.lhOverride=Math.max(8,Math.min(200,e.lhOverride+dd));}
 });
 refresh(n);return;
 }
-var tc=ev.target.closest(”[data-tc]”);
-if(tc){applySel(elems,sel,function(e){e.color=tc.getAttribute(“data-tc”);});refresh(n);return;}
-var bc=ev.target.closest(”[data-bc]”);
-if(bc){applySel(elems,sel,function(e){e.bg=bc.getAttribute(“data-bc”);});refresh(n);return;}
+var tc=ev.target.closest(`[data-tc]`);
+if(tc){applySel(elems,sel,function(e){e.color=tc.getAttribute(`data-tc`);});refresh(n);return;}
+var bc=ev.target.closest(`[data-bc]`);
+if(bc){applySel(elems,sel,function(e){e.bg=bc.getAttribute(`data-bc`);});refresh(n);return;}
 });
 
-$(pre+”_”+which+”_del”).addEventListener(“click”,function(){
-var sel=(which===“jp”?it.selIds:it.selIdsEN);
-var elems=(which===“jp”?it.elems:it.elemsEN);
-applySel(elems,sel,function(e){e.text=E;});
-if(which===“jp”){it.selIds=[];}else{it.selIdsEN=[];}
+$(pre+`_`+which+`_del`).addEventListener(`click`,function(){
+var sel=(which===`jp`?it.selIds:it.selIdsEN);
+var elems=(which===`jp`?it.elems:it.elemsEN);
+applySel(elems,sel,function(e){e.text=``;});
+if(which===`jp`){it.selIds=[];}else{it.selIdsEN=[];}
 refresh(n);
 });
 
-var tcIn=document.createElement(“input”);
-tcIn.type=“color”;tcIn.className=“picker”;
-$(pre+”_”+which+”*tc”).appendChild(tcIn);
-tcIn.addEventListener(“input”,function(){
-var sel=(which===“jp”?it.selIds:it.selIdsEN);
-applySel((which===“jp”?it.elems:it.elemsEN),sel,function(e){e.color=tcIn.value;});
+var tcIn=document.createElement(`input`);
+tcIn.type=`color`;tcIn.className=`picker`;
+$(pre+`_`+which+`_tc`).appendChild(tcIn);
+tcIn.addEventListener(`input`,function(){
+var sel=(which===`jp`?it.selIds:it.selIdsEN);
+applySel((which===`jp`?it.elems:it.elemsEN),sel,function(e){e.color=tcIn.value;});
 refresh(n);
 });
-var bcIn=document.createElement(“input”);
-bcIn.type=“color”;bcIn.className=“picker”;
-$(pre+”*”+which+”_bc”).appendChild(bcIn);
-bcIn.addEventListener(“input”,function(){
-var sel=(which===“jp”?it.selIds:it.selIdsEN);
-applySel((which===“jp”?it.elems:it.elemsEN),sel,function(e){e.bg=bcIn.value;});
+var bcIn=document.createElement(`input`);
+bcIn.type=`color`;bcIn.className=`picker`;
+$(pre+`_`+which+`_bc`).appendChild(bcIn);
+bcIn.addEventListener(`input`,function(){
+var sel=(which===`jp`?it.selIds:it.selIdsEN);
+applySel((which===`jp`?it.elems:it.elemsEN),sel,function(e){e.bg=bcIn.value;});
 refresh(n);
 });
 
-var tcw=$(pre+”_”+which+”*tc”),bcw=$(pre+”*”+which+”_bc”);
-var pre1=E;
-for(var a=0;a<TXT_COLORS.length;a+=1){
-pre1+=”<button data-tc=\u0022”+TXT_COLORS[a][1]+”\u0022 style=\u0022background:”+TXT_COLORS[a][1]
-+”;color:”+(TXT_COLORS[a][0]===“白”||TXT_COLORS[a][0]===“桃”?”#000”:”#fff”)+”\u0022>”+TXT_COLORS[a][0]+”</button>”;
-}
-tcw.insertAdjacentHTML(“afterbegin”,pre1);
-var pre2=E;
+var tcw=$(pre+`_`+which+`_tc`),bcw=$(pre+`_`+which+`_bc`);
+var pre1=`; for(var a=0;a<TXT_COLORS.length;a+=1){ pre1+=`<button data-tc=\u0022`+TXT_COLORS[a][1]+`\u0022 style=\u0022background:`+TXT_COLORS[a][1] +`;color:`+(TXT_COLORS[a][0]===`白`||TXT_COLORS[a][0]===`桃`?`#000`:`#fff`)+`\u0022>`+TXT_COLORS[a][0]+`</button>`; } tcw.insertAdjacentHTML(`afterbegin`,pre1); var pre2=`;
 for(var b2=0;b2<BAND_COLORS.length;b2+=1){
-pre2+=”<button data-bc=\u0022”+BAND_COLORS[b2][1]+”\u0022 style=\u0022background:”+BAND_COLORS[b2][1]
-+”;color:”+(BAND_COLORS[b2][0]===“白”||BAND_COLORS[b2][0]===“ターコイズ”||BAND_COLORS[b2][0]===“桃”?”#000”:”#fff”)+”\u0022>”+BAND_COLORS[b2][0]+”</button>”;
+pre2+=`<button data-bc=\u0022`+BAND_COLORS[b2][1]+`\u0022 style=\u0022background:`+BAND_COLORS[b2][1]
++`;color:`+(BAND_COLORS[b2][0]===`白`||BAND_COLORS[b2][0]===`ターコイズ`||BAND_COLORS[b2][0]===`桃`?`#000`:`#fff`)+`\u0022>`+BAND_COLORS[b2][0]+`</button>`;
 }
-bcw.insertAdjacentHTML(“afterbegin”,pre2);
+bcw.insertAdjacentHTML(`afterbegin`,pre2);
 }
 
 function applySel(elems,sel,fn){
@@ -1937,34 +1915,34 @@ fn(elems[i]);
 }
 
 function paintCtrl(n,which){
-var pre=“i”+n;
-if(!$(pre+”_”+which+”*lbl”))return;
+var pre=`i`+n;
+if(!$(pre+`_`+which+`_lbl`))return;
 var it=items[n];
-var sel=(which===“jp”?it.selIds:it.selIdsEN);
-var elems=(which===“jp”?it.elems:it.elemsEN);
+var sel=(which===`jp`?it.selIds:it.selIdsEN);
+var elems=(which===`jp`?it.elems:it.elemsEN);
 var first=null;
 for(var i=0;i<elems.length;i+=1){if(elems[i].id===sel[0])first=elems[i];}
-$(pre+”*”+which+”*lbl”).textContent=
-(sel.length===0?“↑ 画像をタップして選択”:(sel.length>1?“✦ “+sel.length+“個選択中”:“✦ “+(LABELS[sel[0]]||sel[0])));
-$(pre+”*”+which+”*del”).style.display=(sel.length>0?“inline-block”:“none”);
-$(pre+”*”+which+”*body”).style.display=(sel.length>0?“flex”:“none”);
-$(pre+”*”+which+”*cols”).style.display=(first?“block”:“none”);
-$(pre+”*”+which+”*fs”).textContent=(first?(first.fontSize||26)+“px”:E);
-$(pre+”*”+which+”_bandWrap”).style.display=(first&&first.type===“band”?“block”:“none”);
+$(pre+`_`+which+`_lbl`).textContent=
+(sel.length===0?`↑ 画像をタップして選択`:(sel.length>1?`✦ `+sel.length+`個選択中`:`✦ `+(LABELS[sel[0]]||sel[0])));
+$(pre+`_`+which+`_del`).style.display=(sel.length>0?`inline-block`:`none`);
+$(pre+`_`+which+`_body`).style.display=(sel.length>0?`flex`:`none`);
+$(pre+`_`+which+`_cols`).style.display=(first?`block`:`none`);
+$(pre+`_`+which+`_fs`).textContent=(first?(first.fontSize||26)+`px`:``);
+$(pre+`_`+which+`_bandWrap`).style.display=(first&&first.type===`band`?`block`:`none`);
 }
 
 function genOne(n){
 var it=items[n];
-var cv=$(“i”+n+”_hidden”);
+var cv=$(`i`+n+`_hidden`);
 var elsJP=it.elems.map(function(e){return Object.assign({},e);});
 renderFull(cv,it.imgEl,elsJP);
-it.imgOut=cv.toDataURL(“image/jpeg”,0.92);
+it.imgOut=cv.toDataURL(`image/jpeg`,0.92);
 it.imgElems=elsJP;
-it.imgOutEN=E;it.imgElemsEN=null;
+it.imgOutEN=``;it.imgElemsEN=null;
 if(it.makeEbayImg){
 var elsEN=it.elemsEN.map(function(e){return Object.assign({},e);});
 renderFull(cv,it.imgEl,elsEN);
-it.imgOutEN=cv.toDataURL(“image/jpeg”,0.92);
+it.imgOutEN=cv.toDataURL(`image/jpeg`,0.92);
 it.imgElemsEN=elsEN;
 }
 it.titleOut=buildTitle(it.bName,it.bEN,it.model,it.penType,it.era,it.country);
@@ -1976,77 +1954,72 @@ refresh(n);
 }
 
 function renderResults(){
-var h=E;
-for(var n=0;n<5;n+=1){
-var it=items[n];
-if(!it.titleOut&&!it.imgOut)continue;
-h+=”<div class=\u0022res\u0022><div class=\u0022resHead\u0022>”+NUMS[n]+” “+esc(it.bName)
-+(it.model?”<div class=\u0022resSub\u0022>”+esc(it.model.split(”\n”)[0])+”</div>”:E)+”</div>”;
+var h=`; for(var n=0;n<5;n+=1){ var it=items[n]; if(!it.titleOut&&!it.imgOut)continue; h+=`<div class=\u0022res\u0022><div class=\u0022resHead\u0022>`+NUMS[n]+` `+esc(it.bName) +(it.model?`<div class=\u0022resSub\u0022>`+esc(it.model.split(`\n`)[0])+`</div>`:`)+`</div>`;
 if(it.imgOut){
-h+=”<div class=\u0022resSec\u0022><div class=\u0022cap4\u0022>── メルカリ・ヤフオク用（日本語）</div>”;
-h+=”<img src=\u0022”+it.imgOut+”\u0022 class=\u0022resImg\u0022>”;
-h+=”<button class=\u0022copyImg\u0022 data-img=\u0022”+n+”,jp\u0022>📋 画像をコピー</button>”;
-h+=”<div class=\u0022saveTip\u0022>コピー後、メモアプリなどでペーストして保存<br>できない時は<b>画像を長押し</b>→「\u0022写真\u0022に追加」</div></div>”;
+h+=`<div class=\u0022resSec\u0022><div class=\u0022cap4\u0022>── メルカリ・ヤフオク用（日本語）</div>`;
+h+=`<img src=\u0022`+it.imgOut+`\u0022 class=\u0022resImg\u0022>`;
+h+=`<button class=\u0022copyImg\u0022 data-img=\u0022`+n+`,jp\u0022>📋 画像をコピー</button>`;
+h+=`<div class=\u0022saveTip\u0022>コピー後、メモアプリなどでペーストして保存<br>できない時は<b>画像を長押し</b>→「\u0022写真\u0022に追加」</div></div>`;
 }
 if(it.imgOutEN){
-h+=”<div class=\u0022resSec\u0022><div class=\u0022cap4 en\u0022>── eBay用（英語）</div>”;
-h+=”<img src=\u0022”+it.imgOutEN+”\u0022 class=\u0022resImg en\u0022>”;
-h+=”<button class=\u0022copyImg en\u0022 data-img=\u0022”+n+”,en\u0022>🌐 eBay用画像をコピー</button></div>”;
+h+=`<div class=\u0022resSec\u0022><div class=\u0022cap4 en\u0022>── eBay用（英語）</div>`;
+h+=`<img src=\u0022`+it.imgOutEN+`\u0022 class=\u0022resImg en\u0022>`;
+h+=`<button class=\u0022copyImg en\u0022 data-img=\u0022`+n+`,en\u0022>🌐 eBay用画像をコピー</button></div>`;
 }
-h+=”<div class=\u0022resSec\u0022><div class=\u0022cap4\u0022>── タイトル</div>”;
-h+=”<div class=\u0022outBox\u0022 id=\u0022tt”+n+”\u0022>”+esc(it.titleOut)+”</div>”;
-h+=”<button class=\u0022copyTxt\u0022 data-txt=\u0022tt”+n+”\u0022>📋 タイトルをコピー</button></div>”;
-h+=”<div class=\u0022resSec\u0022><div class=\u0022cap4\u0022>── 説明文</div>”;
-h+=”<div class=\u0022outBox tall\u0022 id=\u0022bd”+n+”\u0022>”+esc(it.bodyOut)+”</div>”;
-h+=”<button class=\u0022copyTxt\u0022 data-txt=\u0022bd”+n+”\u0022>📋 説明文をコピー</button></div>”;
-h+=”</div>”;
+h+=`<div class=\u0022resSec\u0022><div class=\u0022cap4\u0022>── タイトル</div>`;
+h+=`<div class=\u0022outBox\u0022 id=\u0022tt`+n+`\u0022>`+esc(it.titleOut)+`</div>`;
+h+=`<button class=\u0022copyTxt\u0022 data-txt=\u0022tt`+n+`\u0022>📋 タイトルをコピー</button></div>`;
+h+=`<div class=\u0022resSec\u0022><div class=\u0022cap4\u0022>── 説明文</div>`;
+h+=`<div class=\u0022outBox tall\u0022 id=\u0022bd`+n+`\u0022>`+esc(it.bodyOut)+`</div>`;
+h+=`<button class=\u0022copyTxt\u0022 data-txt=\u0022bd`+n+`\u0022>📋 説明文をコピー</button></div>`;
+h+=`</div>`;
 }
-var box=$(“results”);
-if(!h){box.innerHTML=E;box.style.display=“none”;return;}
-box.style.display=“block”;
-box.innerHTML=”<div class=\u0022resTitle\u0022>── 生成結果 ──</div><div class=\u0022resGrid\u0022>”+h+”</div>”;
+var box=$(`results`);
+if(!h){box.innerHTML=``;box.style.display=`none`;return;}
+box.style.display=`block`;
+box.innerHTML=`<div class=\u0022resTitle\u0022>── 生成結果 ──</div><div class=\u0022resGrid\u0022>`+h+`</div>`;
 }
 
 function copyImage(n,which){
 var it=items[n];
-var els=(which===“en”?it.imgElemsEN:it.imgElems);
-if(!els){toast(“⚠ もう一度生成してください”);return;}
-var cv=$(“i”+n+”_hidden”);
+var els=(which===`en`?it.imgElemsEN:it.imgElems);
+if(!els){toast(`⚠ もう一度生成してください`);return;}
+var cv=$(`i`+n+`_hidden`);
 renderFull(cv,it.imgEl,els);
-var src=cv.toDataURL(“image/png”);
-var arr=src.split(”,”);
+var src=cv.toDataURL(`image/png`);
+var arr=src.split(`,`);
 var mime=arr[0].match(/:(.*?);/)[1];
 var bstr=atob(arr[1]);
 var u8=new Uint8Array(bstr.length);
 for(var i=0;i<bstr.length;i+=1){u8[i]=bstr.charCodeAt(i);}
 var blob=new Blob([u8],{type:mime});
-var ng=“⚠ コピー不可。画像を長押しして保存してください”;
+var ng=`⚠ コピー不可。画像を長押しして保存してください`;
 if(navigator.clipboard&&window.ClipboardItem){
 try{
 var payload={};
 payload[mime]=Promise.resolve(blob);
 navigator.clipboard.write([new ClipboardItem(payload)])
-.then(function(){toast(“✓ “+NUMS[n]+” 画像をコピーしました”);})
+.then(function(){toast(`✓ `+NUMS[n]+` 画像をコピーしました`);})
 .catch(function(){toast(ng);});
 }catch(e){toast(ng);}
 }else{toast(ng);}
 }
 
 function wireResults(){
-$(“results”).addEventListener(“click”,function(ev){
-var ci=ev.target.closest(”[data-img]”);
+$(`results`).addEventListener(`click`,function(ev){
+var ci=ev.target.closest(`[data-img]`);
 if(ci){
-var p=ci.getAttribute(“data-img”).split(”,”);
+var p=ci.getAttribute(`data-img`).split(`,`);
 copyImage(parseInt(p[0],10),p[1]);
 return;
 }
-var ct=ev.target.closest(”[data-txt]”);
+var ct=ev.target.closest(`[data-txt]`);
 if(ct){
-var el=$(ct.getAttribute(“data-txt”));
+var el=$(ct.getAttribute(`data-txt`));
 if(!el)return;
 navigator.clipboard.writeText(el.textContent)
-.then(function(){toast(“✓ コピーしました”);})
-.catch(function(){toast(“⚠ コピーできませんでした”);});
+.then(function(){toast(`✓ コピーしました`);})
+.catch(function(){toast(`⚠ コピーできませんでした`);});
 }
 });
 }
@@ -2056,7 +2029,7 @@ boot();
 wireResults();
 }catch(e){
 if(window.penShowError){
-window.penShowError(“起動できませんでした”,(e&&e.message?e.message:e)+”\n\n”+(e&&e.stack?e.stack:E));
+window.penShowError(`起動できませんでした`,(e&&e.message?e.message:e)+`\n\n`+(e&&e.stack?e.stack:``));
 }
 }
 
