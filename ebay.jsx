@@ -43,7 +43,10 @@ var MODELS = [
 { jp: “タウンゼント”, en: “Townsend” },
 { jp: “アポジー”, en: “Apogee” },
 { jp: “エグゼクティブ”, en: “Executive” },
+{ jp: “ニュークラシック”, en: “New Classic” },
 { jp: “クラシック”, en: “Classic” },
+{ jp: “ニュー”, en: “New” },
+{ jp: “オールド”, en: “Old” },
 { jp: “サファリ”, en: “Safari” },
 { jp: “アルスター”, en: “AL-star” },
 { jp: “スクリブル”, en: “Scribble” },
@@ -408,6 +411,49 @@ var m2 = t.match(/(\d{4})s/); if (m2) return m2[1] + “s”;
 return “”;
 }
 
+// 「1993〜1995年」のような製造期間を拾う
+function extractProduction(t) {
+var m = t.match(/(\d{4})\s*年?\s*[\u301C\uFF5E\u2013\u2014\u2015\u30FC\uFF0D-~]\s*(\d{4})\s*年/);
+if (m) return { from: m[1], to: m[2] };
+return null;
+}
+
+// 「1995年だけ製造」のような単年の製造表記
+function extractSingleYear(t) {
+var m = t.match(/(\d{4})\s*年(?:に|の)?\s*(?:のみ|だけ)?\s*(?:製造|生産)/);
+if (m) return m[1];
+return null;
+}
+
+// 「刻印より、1993年に製造されたものだと推察されます」
+function extractStampedYear(t) {
+var sents = t.split(/[。\n]/);
+for (var i = 0; i < sents.length; i++) {
+if (sents[i].indexOf(“刻印”) >= 0 || sents[i].indexOf(“刻印より”) >= 0) {
+var m = sents[i].match(/(\d{4})\s*年/);
+if (m) return m[1];
+}
+}
+return null;
+}
+
+// 刻印の文を除いた本文（製造年の二重検出を避ける）
+function withoutStampSentences(t) {
+var sents = t.split(/[。\n]/);
+var keep = [];
+for (var i = 0; i < sents.length; i++) {
+if (sents[i].indexOf(“刻印”) < 0) keep.push(sents[i]);
+}
+return keep.join(”。”);
+}
+
+// 希少性の記述があるか
+var RARE_WORDS = [“短い期間”, “短期間”, “わずかな期間”, “希少”, “貴重”, “レアな”, “生産数が少な”, “入手困難”, “幻の”];
+function hasRarity(t) {
+for (var i = 0; i < RARE_WORDS.length; i++) if (t.indexOf(RARE_WORDS[i]) >= 0) return true;
+return false;
+}
+
 // 長い語から順にマッチさせる（部分一致による誤分割を防ぐ）
 var MODELS_SORTED = MODELS.slice().sort(function (a, b) { return b.jp.length - a.jp.length; });
 
@@ -561,6 +607,14 @@ var colorEn = colR.en;
 
 var country = findOne(all, COUNTRIES);
 var era = extractEra(all);
+var prod = extractProduction(all);
+var stamped = extractStampedYear(all);
+var single = prod ? null : extractSingleYear(withoutStampSentences(all));
+var rare = hasRarity(all);
+// 年代の記載がなければ、製造年から作る
+if (!era && prod) era = prod.from.slice(0, 3) + “0s”;
+if (!era && single) era = single.slice(0, 3) + “0s”;
+if (!era && stamped) era = stamped.slice(0, 3) + “0s”;
 var specs = findAll(all, SPECS);
 var accs = findAll(all, ACCS);
 
@@ -627,6 +681,31 @@ add(””);
 if (era) {
 add(“Vintage “ + era + “ model. Discontinued and no longer in production.”,
 era + “頃のヴィンテージモデル。現在は生産終了・廃盤。”);
+add(””);
+}
+if (prod && rare) {
+add(“This model was produced only for a short period, from “ + prod.from + “ to “ + prod.to + “, which makes it very hard to find today.”,
+prod.from + “〜” + prod.to + “年の短い期間だけ製造された、大変貴重なモデルです。”);
+add(””);
+} else if (prod) {
+add(“Produced from “ + prod.from + “ to “ + prod.to + “.”,
+prod.from + “〜” + prod.to + “年に製造されたモデルです。”);
+add(””);
+} else if (single && rare) {
+add(“This model was produced only in “ + single + “, which makes it very hard to find today.”,
+single + “年だけ製造された、大変貴重なモデルです。”);
+add(””);
+} else if (single) {
+add(“Produced in “ + single + “.”, single + “年に製造されたモデルです。”);
+add(””);
+} else if (rare) {
+add(“A rare model that is difficult to find today.”,
+“現在では入手が難しい、希少なモデルです。”);
+add(””);
+}
+if (stamped) {
+add(“Based on the engraved markings, this pen is believed to have been produced in “ + stamped + “.”,
+“刻印より、” + stamped + “年に製造されたものだと推察されます。”);
 add(””);
 }
 if (material && material.asset === “gold”) {
@@ -713,6 +792,8 @@ colorRaw: colR.raw,
 materialRaw: matR.raw,
 country: country ? country.en : “(未検出)”,
 era: era || “(未検出)”,
+production: prod ? prod.from + “〜” + prod.to : (single ? single + “年” : (stamped ? “刻印より “ + stamped + “年” : “(未検出)”)),
+rare: rare,
 condition: cond.grade
 }
 };
@@ -834,6 +915,7 @@ return (
           <div>Color　　　{detected.color}{detected.colorRaw && <span style={{ fontSize: 10, color: MT }}>　（{detected.colorRaw}）</span>}</div>
           <div>Made in　　{detected.country}</div>
           <div>Era　　　　{detected.era}</div>
+          <div>製造期間　　{detected.production}{detected.rare && <span style={{ fontSize: 10, color: MT }}>　（希少と判定）</span>}</div>
           <div>Condition　<strong>{detected.condition}</strong></div>
         </div>
         {detected.romanized && <div style={{ marginTop: 10, padding: "9px 11px", background: "#e3f2fd", borderRadius: 5, fontSize: 11, color: "#0d47a1", lineHeight: 1.7 }}>
