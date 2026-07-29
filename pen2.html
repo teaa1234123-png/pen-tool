@@ -193,7 +193,7 @@ pointer-events:none;z-index:100;white-space:nowrap;}
 
 <div class="head">
   <div class="mark">✒️✒️✒️</div>
-  <div class="lead">MERCARI / EBAY LISTING TOOL v11</div>
+  <div class="lead">MERCARI / EBAY LISTING TOOL v13</div>
   <h1>5品まとめ出品ツール</h1>
 </div>
 
@@ -228,7 +228,7 @@ pointer-events:none;z-index:100;white-space:nowrap;}
   }
   window.penShowError = show;
   window.onerror = function (msg, src, line, col, e) {
-    show(`エラーが発生しました v11`, msg + `\n\n行: ` + line + ` 文字: ` + col);
+    show(`エラーが発生しました v13`, msg + `\n\n行: ` + line + ` 文字: ` + col);
     return false;
   };
   setTimeout(function () {
@@ -1234,6 +1234,7 @@ function makeItem(){
     makeEbayImg:false, e6:E, e7:E, e8:E, e9:E,
     elemsEN:buildElementsEN(b.en,PEN_TYPES[0],COUNTRIES[0],E,E,E,null,DEF_TURQ),
     selIdsEN:[],
+    hid:{}, hidEN:{}, lastT:{}, lastTEN:{},
     titleOut:E, bodyOut:E, imgOut:E, imgOutEN:E, imgElems:null, imgElemsEN:null
   };
 }
@@ -1566,11 +1567,11 @@ it.makeEbayImg=!it.makeEbayImg;refresh(n);
 
 $(pre+`_rstJP`).addEventListener(`click`,function(){
 it.elems=buildElements(it.bJP,it.bEN,it.penType,it.country,it.model,it.p2L,it.p6,it.p7,it.p8,it.p9,it.turq);
-it.selIds=[];refresh(n);
+it.hid={};it.lastT={};it.selIds=[];refresh(n);
 });
 $(pre+`_rstEN`).addEventListener(`click`,function(){
 it.elemsEN=buildElementsEN(it.bEN,it.penType,it.country,it.model,it.p2L,it.era,it,it.turq);
-it.selIdsEN=[];refresh(n);
+it.hidEN={};it.lastTEN={};it.selIdsEN=[];refresh(n);
 });
 
 wireCanvas(n,`jp`);
@@ -1590,13 +1591,21 @@ if(!b)return;
 var si=parseInt(b.getAttribute(`data-cf`),10);
 var src=items[si];
 var skip={imgB64:1,imgEl:1,elems:1,elemsEN:1,selIds:1,selIdsEN:1,
+hid:1,hidEN:1,lastT:1,lastTEN:1,
 titleOut:1,bodyOut:1,imgOut:1,imgOutEN:1,imgElems:1,imgElemsEN:1};
 for(var k in src){
 if(skip[k])continue;
 it[k]=(src[k] instanceof Array)?src[k].slice():src[k];
 }
-it.elems=buildElements(it.bJP,it.bEN,it.penType,it.country,it.model,it.p2L,it.p6,it.p7,it.p8,it.p9,it.turq);
-it.elemsEN=buildElementsEN(it.bEN,it.penType,it.country,it.model,it.p2L,it.era,it,it.turq);
+function cloneEls(a){
+return (a||[]).map(function(e){return Object.assign({},e);});
+}
+it.elems=cloneEls(src.elems);
+it.elemsEN=cloneEls(src.elemsEN);
+it.hid=Object.assign({},src.hid);
+it.hidEN=Object.assign({},src.hidEN);
+it.lastT=Object.assign({},src.lastT);
+it.lastTEN=Object.assign({},src.lastTEN);
 it.selIds=[];it.selIdsEN=[];
 syncForm(n);
 refresh(n);
@@ -1644,6 +1653,16 @@ if(old.rightEdge!==undefined)kept.rightEdge=old.rightEdge;
 if(old.lhOverride!==undefined)kept.lhOverride=old.lhOverride;
 return Object.assign({},f,kept);
 });
+}
+
+function applyHidden(elems,hid,last){
+for(var i=0;i<elems.length;i+=1){
+var e=elems[i];
+if(last[e.id]!==undefined && last[e.id]!==e.text){ delete hid[e.id]; }
+last[e.id]=e.text;
+if(hid[e.id]){ e.text=E; }
+}
+return elems;
 }
 
 function refresh(n){
@@ -1739,12 +1758,12 @@ $(pre+`_`+ek).placeholder=auto||`英語を直接入力`;
 }
 $(pre+`_enEmpty`).style.display=(anyEn?`none`:`block`);
 
-it.elems=mergeElems(
+it.elems=applyHidden(mergeElems(
 buildElements(it.bJP,it.bEN,it.penType,it.country,it.model,it.p2L,it.p6,it.p7,it.p8,it.p9,it.turq),
-it.elems);
-it.elemsEN=mergeElems(
+it.elems),it.hid,it.lastT);
+it.elemsEN=applyHidden(mergeElems(
 buildElementsEN(it.bEN,it.penType,it.country,it.model,it.p2L,it.era,it,it.turq),
-it.elemsEN);
+it.elemsEN),it.hidEN,it.lastTEN);
 
 it.selIds=validIds(it.selIds,it.elems);
 it.selIdsEN=validIds(it.selIdsEN,it.elemsEN);
@@ -1925,8 +1944,8 @@ if(bc){applySel(elems,sel,function(e){e.bg=bc.getAttribute(`data-bc`);});refresh
 
 $(pre+`_`+which+`_del`).addEventListener(`click`,function(){
 var sel=(which===`jp`?it.selIds:it.selIdsEN);
-var elems=(which===`jp`?it.elems:it.elemsEN);
-applySel(elems,sel,function(e){e.text=E;});
+var hid=(which===`jp`?it.hid:it.hidEN);
+for(var i=0;i<sel.length;i+=1){hid[sel[i]]=true;}
 if(which===`jp`){it.selIds=[];}else{it.selIdsEN=[];}
 refresh(n);
 });
