@@ -56,7 +56,7 @@ button { font-family: inherit; cursor: pointer; }
 <body>
 <div class="hd">
   <div class="icon">🇯🇵 → 🌐</div>
-  <div class="sub">EBAY TEXT CONVERTER v7</div>
+  <div class="sub">EBAY TEXT CONVERTER v19</div>
   <h1>日本語出品 → eBay英語</h1>
 </div>
 
@@ -314,7 +314,7 @@ var DIC_MODELS = [
   { jp: `未使用`, en: `Unused` },
   { jp: `新品同様`, en: `Like New` },
   { jp: `極美品`, en: `Mint` },
-  { jp: `美品`, en: `Excellent` },
+  { jp: `美品`, en: `EXC+` },
   { jp: `良品`, en: `Good` },
   { jp: `並品`, en: `Fair` },
   { jp: `訳あり`, en: `As Is` },
@@ -529,6 +529,149 @@ var DIC_MODELS = [
   { jp: `スイス製`, en: `Switzerland` },
   { jp: `アメリカ製`, en: `USA` },
   { jp: `イギリス製`, en: `UK` },
+  { jp: `ファイヤー`, en: `Fire` },
+  { jp: `ファイアー`, en: `Fire` },
+  { jp: `ファイア`, en: `Fire` },
+  { jp: `ダンス`, en: `Dance` },
+  { jp: `ラックブラック`, en: `Lac Black` },
+  { jp: `ラック`, en: `Lac` },
+  { jp: `フレイム`, en: `Flame` },
+  { jp: `アイス`, en: `Ice` },
+  { jp: `スノーホワイト`, en: `Snow White` },
+  { jp: `スノー`, en: `Snow` },
+  { jp: `レイン`, en: `Rain` },
+  { jp: `サンダー`, en: `Thunder` },
+  { jp: `ウィンド`, en: `Wind` },
+  { jp: `アース`, en: `Earth` },
+  { jp: `サン`, en: `Sun` },
+  { jp: `スカーレット`, en: `Scarlet` },
+  { jp: `クリムゾン`, en: `Crimson` },
+  { jp: `インディゴ`, en: `Indigo` },
+  { jp: `コバルト`, en: `Cobalt` },
+  { jp: `サファイア`, en: `Sapphire` },
+  { jp: `ルビー`, en: `Ruby` },
+  { jp: `オパール`, en: `Opal` },
+  { jp: `ジェード`, en: `Jade` },
+  { jp: `アンバー`, en: `Amber` },
+  { jp: `オニキス`, en: `Onyx` },
+  { jp: `グラナイト`, en: `Granite` },
+  { jp: `サンド`, en: `Sand` },
+  { jp: `ダスト`, en: `Dust` },
+  { jp: `ミスト`, en: `Mist` },
+  { jp: `シルク`, en: `Silk` },
+  { jp: `ベルベット`, en: `Velvet` },
+  { jp: `リネン`, en: `Linen` },
+  { jp: `コットン`, en: `Cotton` },
+  { jp: `ウール`, en: `Wool` },
+  { jp: `タイガー`, en: `Tiger` },
+  { jp: `ライオン`, en: `Lion` },
+  { jp: `イーグル`, en: `Eagle` },
+  { jp: `ファルコン`, en: `Falcon` },
+  { jp: `ホーク`, en: `Hawk` },
+  { jp: `スワン`, en: `Swan` },
+  { jp: `フェニックス`, en: `Phoenix` },
+  { jp: `ユニコーン`, en: `Unicorn` },
+  { jp: `パンサー`, en: `Panther` },
+  { jp: `ドリーム`, en: `Dream` },
+  { jp: `ホープ`, en: `Hope` },
+  { jp: `ラブ`, en: `Love` },
+  { jp: `ピース`, en: `Peace` },
+  { jp: `ジョイ`, en: `Joy` },
+  { jp: `グレース`, en: `Grace` },
+  { jp: `ハーモニー`, en: `Harmony` },
+  { jp: `メロディ`, en: `Melody` },
+  { jp: `リズム`, en: `Rhythm` },
+  { jp: `エコー`, en: `Echo` },
+  { jp: `オーロラ`, en: `Aurora` },
+  { jp: `ギャラクシー`, en: `Galaxy` },
+  { jp: `コスモ`, en: `Cosmo` },
+  { jp: `プラネット`, en: `Planet` },
+  { jp: `オービット`, en: `Orbit` },
+  { jp: `コメット`, en: `Comet` },
+  { jp: `ネビュラ`, en: `Nebula` },
+  { jp: `クレスト`, en: `Crest` },
+  { jp: `シールド`, en: `Shield` },
+  { jp: `アロー`, en: `Arrow` },
+  { jp: `スパーク`, en: `Spark` },
+  { jp: `グロウ`, en: `Glow` },
+  { jp: `シャイン`, en: `Shine` },
+  { jp: `グリッター`, en: `Glitter` },
+  { jp: `ラスター`, en: `Luster` },
+  { jp: `ニードル`, en: `Needle` },
+  { jp: `ローラー`, en: `Roller` },
+  { jp: `ツイン`, en: `Twin` },
+  { jp: `デュオ`, en: `Duo` },
+  { jp: `トリオ`, en: `Trio` },
+  { jp: `アクリル`, en: `Acrylic` },
+  { jp: `ガラス`, en: `Glass` },
+  { jp: `セラミック`, en: `Ceramic` },
+  { jp: `アルミニウム`, en: `Aluminum` },
+  { jp: `アルミ`, en: `Aluminum` },
+  { jp: `ニッケル`, en: `Nickel` },
+  { jp: `コッパー`, en: `Copper` },
+  { jp: `スチール`, en: `Steel` },
+  { jp: `アイアン`, en: `Iron` },
+  { jp: `カーマイン`, en: `Carmine` },
+  { jp: `セピア`, en: `Sepia` },
+  { jp: `カーキ`, en: `Khaki` },
+  { jp: `オリーブ`, en: `Olive` },
+  { jp: `マスタード`, en: `Mustard` },
+  { jp: `ワイン`, en: `Wine` },
+  { jp: `プラム`, en: `Plum` },
+  { jp: `ラベンダー`, en: `Lavender` },
+  { jp: `モーブ`, en: `Mauve` },
+  { jp: `コーラル`, en: `Coral` },
+  { jp: `サーモン`, en: `Salmon` },
+  { jp: `ピーチ`, en: `Peach` },
+  { jp: `クリーム`, en: `Cream` },
+  { jp: `ジェットブラック`, en: `Jet Black` },
+  { jp: `ミッドナイトブルー`, en: `Midnight Blue` },
+  { jp: `ロイヤルブルー`, en: `Royal Blue` },
+  { jp: `マリンブルー`, en: `Marine Blue` },
+  { jp: `マリン`, en: `Marine` },
+  { jp: `ネイビーブルー`, en: `Navy Blue` },
+  { jp: `グロス`, en: `Gloss` },
+  { jp: `セミグロス`, en: `Semi Gloss` },
+  { jp: `パウダー`, en: `Powder` },
+  { jp: `ギャランティー`, en: `Guarantee Card` },
+  { jp: `インナー`, en: `Inner` },
+  { jp: `アウター`, en: `Outer` },
+  { jp: `スペア`, en: `Spare` },
+  { jp: `パーツ`, en: `Parts` },
+  { jp: `リペア`, en: `Repair` },
+  { jp: `メンテナンス`, en: `Maintenance` },
+  { jp: `ダイアゴナル`, en: `Diagonal` },
+  { jp: `バーティカル`, en: `Vertical` },
+  { jp: `ホリゾンタル`, en: `Horizontal` },
+  { jp: `クロスハッチ`, en: `Crosshatch` },
+  { jp: `ハッチ`, en: `Hatch` },
+  { jp: `ジグザグ`, en: `Zigzag` },
+  { jp: `ハニカム`, en: `Honeycomb` },
+  { jp: `スケール`, en: `Scale` },
+  { jp: `フィッシュボーン`, en: `Fishbone` },
+  { jp: `バスケット`, en: `Basket` },
+  { jp: `ウィーブ`, en: `Weave` },
+  { jp: `ロープ`, en: `Rope` },
+  { jp: `チェーン`, en: `Chain` },
+  { jp: `ケーブル`, en: `Cable` },
+  { jp: `オーバル`, en: `Oval` },
+  { jp: `テーパード`, en: `Tapered` },
+  { jp: `シリンダー`, en: `Cylinder` },
+  { jp: `ソブリン`, en: `Sovereign` },
+  { jp: `リーガル`, en: `Regal` },
+  { jp: `マジェスティ`, en: `Majesty` },
+  { jp: `エクセレンス`, en: `Excellence` },
+  { jp: `スプリーム`, en: `Supreme` },
+  { jp: `アルティメット`, en: `Ultimate` },
+  { jp: `インフィニット`, en: `Infinite` },
+  { jp: `エレメント`, en: `Element` },
+  { jp: `エッセンス`, en: `Essence` },
+  { jp: `オリジン`, en: `Origin` },
+  { jp: `レガシー`, en: `Legacy` },
+  { jp: `トリビュート`, en: `Tribute` },
+  { jp: `ファースト`, en: `First` },
+  { jp: `セカンド`, en: `Second` },
+  { jp: `サード`, en: `Third` },
   { jp: `ジャパン`, en: `Japan` },
   { jp: `ドイツ`, en: `Germany` },
   { jp: `フランス`, en: `France` },
@@ -593,17 +736,15 @@ function dicTranslate(jp) {
   var out = [], romanized = [], leftover = [];
 
   function decompose(w) {
-    var parts = [], romaji = [];
+    var parts = [], unres = [];
     var rest = w;
     var buf = E;
     var guard = 0;
 
     function flushBuf() {
       if (!buf) return;
-      if (/^[\u30A0-\u30FF]+$/.test(buf)) {
-        var r = dicRomaji(buf);
-        parts.push(r);
-        romaji.push({ jp: buf, en: r });
+      if (/^[\u30A0-\u30FF\u30FC]+$/.test(buf)) {
+        unres.push(buf);
       } else {
         parts.push(buf);
       }
@@ -628,7 +769,7 @@ function dicTranslate(jp) {
       }
     }
     flushBuf();
-    return { parts: parts, romaji: romaji };
+    return { parts: parts, unres: unres };
   }
 
   for (var n = 0; n < words.length; n++) {
@@ -644,29 +785,13 @@ function dicTranslate(jp) {
     }
 
     var d = decompose(w);
-    var hasUntranslatable = false;
+    var okParts = [];
     for (var z = 0; z < d.parts.length; z++) {
-      if (/[\u3041-\u3096\u4E00-\u9FFF]/.test(d.parts[z])) { hasUntranslatable = true; break; }
+      if (/[\u3041-\u3096\u4E00-\u9FFF]/.test(d.parts[z])) leftover.push(d.parts[z]);
+      else okParts.push(d.parts[z]);
     }
-    if (hasUntranslatable) {
-      var okParts = [];
-      for (var z2 = 0; z2 < d.parts.length; z2++) {
-        if (/[\u3041-\u3096\u4E00-\u9FFF]/.test(d.parts[z2])) leftover.push(d.parts[z2]);
-        else okParts.push(d.parts[z2]);
-      }
-      if (okParts.length) out.push(okParts.join(` `));
-      for (var q0 = 0; q0 < d.romaji.length; q0++) {
-        romanized.push(d.romaji[q0].jp + `→` + d.romaji[q0].en);
-      }
-      continue;
-    }
-
-    if (d.parts.length) {
-      out.push(d.parts.join(` `));
-      for (var q = 0; q < d.romaji.length; q++) {
-        romanized.push(d.romaji[q].jp + `→` + d.romaji[q].en);
-      }
-    }
+    for (var u = 0; u < d.unres.length; u++) leftover.push(d.unres[u]);
+    if (okParts.length) out.push(okParts.join(` `));
   }
 
   return {
