@@ -193,7 +193,7 @@ pointer-events:none;z-index:100;white-space:nowrap;}
 
 <div class="head">
   <div class="mark">✒️✒️✒️</div>
-  <div class="lead">MERCARI / EBAY LISTING TOOL v13</div>
+  <div class="lead">MERCARI / EBAY LISTING TOOL v19</div>
   <h1>5品まとめ出品ツール</h1>
 </div>
 
@@ -228,7 +228,7 @@ pointer-events:none;z-index:100;white-space:nowrap;}
   }
   window.penShowError = show;
   window.onerror = function (msg, src, line, col, e) {
-    show(`エラーが発生しました v13`, msg + `\n\n行: ` + line + ` 文字: ` + col);
+    show(`エラーが発生しました v19`, msg + `\n\n行: ` + line + ` 文字: ` + col);
     return false;
   };
   setTimeout(function () {
@@ -444,7 +444,7 @@ var DIC_MODELS = [
   { jp: `未使用`, en: `Unused` },
   { jp: `新品同様`, en: `Like New` },
   { jp: `極美品`, en: `Mint` },
-  { jp: `美品`, en: `Excellent` },
+  { jp: `美品`, en: `EXC+` },
   { jp: `良品`, en: `Good` },
   { jp: `並品`, en: `Fair` },
   { jp: `訳あり`, en: `As Is` },
@@ -659,6 +659,149 @@ var DIC_MODELS = [
   { jp: `スイス製`, en: `Switzerland` },
   { jp: `アメリカ製`, en: `USA` },
   { jp: `イギリス製`, en: `UK` },
+  { jp: `ファイヤー`, en: `Fire` },
+  { jp: `ファイアー`, en: `Fire` },
+  { jp: `ファイア`, en: `Fire` },
+  { jp: `ダンス`, en: `Dance` },
+  { jp: `ラックブラック`, en: `Lac Black` },
+  { jp: `ラック`, en: `Lac` },
+  { jp: `フレイム`, en: `Flame` },
+  { jp: `アイス`, en: `Ice` },
+  { jp: `スノーホワイト`, en: `Snow White` },
+  { jp: `スノー`, en: `Snow` },
+  { jp: `レイン`, en: `Rain` },
+  { jp: `サンダー`, en: `Thunder` },
+  { jp: `ウィンド`, en: `Wind` },
+  { jp: `アース`, en: `Earth` },
+  { jp: `サン`, en: `Sun` },
+  { jp: `スカーレット`, en: `Scarlet` },
+  { jp: `クリムゾン`, en: `Crimson` },
+  { jp: `インディゴ`, en: `Indigo` },
+  { jp: `コバルト`, en: `Cobalt` },
+  { jp: `サファイア`, en: `Sapphire` },
+  { jp: `ルビー`, en: `Ruby` },
+  { jp: `オパール`, en: `Opal` },
+  { jp: `ジェード`, en: `Jade` },
+  { jp: `アンバー`, en: `Amber` },
+  { jp: `オニキス`, en: `Onyx` },
+  { jp: `グラナイト`, en: `Granite` },
+  { jp: `サンド`, en: `Sand` },
+  { jp: `ダスト`, en: `Dust` },
+  { jp: `ミスト`, en: `Mist` },
+  { jp: `シルク`, en: `Silk` },
+  { jp: `ベルベット`, en: `Velvet` },
+  { jp: `リネン`, en: `Linen` },
+  { jp: `コットン`, en: `Cotton` },
+  { jp: `ウール`, en: `Wool` },
+  { jp: `タイガー`, en: `Tiger` },
+  { jp: `ライオン`, en: `Lion` },
+  { jp: `イーグル`, en: `Eagle` },
+  { jp: `ファルコン`, en: `Falcon` },
+  { jp: `ホーク`, en: `Hawk` },
+  { jp: `スワン`, en: `Swan` },
+  { jp: `フェニックス`, en: `Phoenix` },
+  { jp: `ユニコーン`, en: `Unicorn` },
+  { jp: `パンサー`, en: `Panther` },
+  { jp: `ドリーム`, en: `Dream` },
+  { jp: `ホープ`, en: `Hope` },
+  { jp: `ラブ`, en: `Love` },
+  { jp: `ピース`, en: `Peace` },
+  { jp: `ジョイ`, en: `Joy` },
+  { jp: `グレース`, en: `Grace` },
+  { jp: `ハーモニー`, en: `Harmony` },
+  { jp: `メロディ`, en: `Melody` },
+  { jp: `リズム`, en: `Rhythm` },
+  { jp: `エコー`, en: `Echo` },
+  { jp: `オーロラ`, en: `Aurora` },
+  { jp: `ギャラクシー`, en: `Galaxy` },
+  { jp: `コスモ`, en: `Cosmo` },
+  { jp: `プラネット`, en: `Planet` },
+  { jp: `オービット`, en: `Orbit` },
+  { jp: `コメット`, en: `Comet` },
+  { jp: `ネビュラ`, en: `Nebula` },
+  { jp: `クレスト`, en: `Crest` },
+  { jp: `シールド`, en: `Shield` },
+  { jp: `アロー`, en: `Arrow` },
+  { jp: `スパーク`, en: `Spark` },
+  { jp: `グロウ`, en: `Glow` },
+  { jp: `シャイン`, en: `Shine` },
+  { jp: `グリッター`, en: `Glitter` },
+  { jp: `ラスター`, en: `Luster` },
+  { jp: `ニードル`, en: `Needle` },
+  { jp: `ローラー`, en: `Roller` },
+  { jp: `ツイン`, en: `Twin` },
+  { jp: `デュオ`, en: `Duo` },
+  { jp: `トリオ`, en: `Trio` },
+  { jp: `アクリル`, en: `Acrylic` },
+  { jp: `ガラス`, en: `Glass` },
+  { jp: `セラミック`, en: `Ceramic` },
+  { jp: `アルミニウム`, en: `Aluminum` },
+  { jp: `アルミ`, en: `Aluminum` },
+  { jp: `ニッケル`, en: `Nickel` },
+  { jp: `コッパー`, en: `Copper` },
+  { jp: `スチール`, en: `Steel` },
+  { jp: `アイアン`, en: `Iron` },
+  { jp: `カーマイン`, en: `Carmine` },
+  { jp: `セピア`, en: `Sepia` },
+  { jp: `カーキ`, en: `Khaki` },
+  { jp: `オリーブ`, en: `Olive` },
+  { jp: `マスタード`, en: `Mustard` },
+  { jp: `ワイン`, en: `Wine` },
+  { jp: `プラム`, en: `Plum` },
+  { jp: `ラベンダー`, en: `Lavender` },
+  { jp: `モーブ`, en: `Mauve` },
+  { jp: `コーラル`, en: `Coral` },
+  { jp: `サーモン`, en: `Salmon` },
+  { jp: `ピーチ`, en: `Peach` },
+  { jp: `クリーム`, en: `Cream` },
+  { jp: `ジェットブラック`, en: `Jet Black` },
+  { jp: `ミッドナイトブルー`, en: `Midnight Blue` },
+  { jp: `ロイヤルブルー`, en: `Royal Blue` },
+  { jp: `マリンブルー`, en: `Marine Blue` },
+  { jp: `マリン`, en: `Marine` },
+  { jp: `ネイビーブルー`, en: `Navy Blue` },
+  { jp: `グロス`, en: `Gloss` },
+  { jp: `セミグロス`, en: `Semi Gloss` },
+  { jp: `パウダー`, en: `Powder` },
+  { jp: `ギャランティー`, en: `Guarantee Card` },
+  { jp: `インナー`, en: `Inner` },
+  { jp: `アウター`, en: `Outer` },
+  { jp: `スペア`, en: `Spare` },
+  { jp: `パーツ`, en: `Parts` },
+  { jp: `リペア`, en: `Repair` },
+  { jp: `メンテナンス`, en: `Maintenance` },
+  { jp: `ダイアゴナル`, en: `Diagonal` },
+  { jp: `バーティカル`, en: `Vertical` },
+  { jp: `ホリゾンタル`, en: `Horizontal` },
+  { jp: `クロスハッチ`, en: `Crosshatch` },
+  { jp: `ハッチ`, en: `Hatch` },
+  { jp: `ジグザグ`, en: `Zigzag` },
+  { jp: `ハニカム`, en: `Honeycomb` },
+  { jp: `スケール`, en: `Scale` },
+  { jp: `フィッシュボーン`, en: `Fishbone` },
+  { jp: `バスケット`, en: `Basket` },
+  { jp: `ウィーブ`, en: `Weave` },
+  { jp: `ロープ`, en: `Rope` },
+  { jp: `チェーン`, en: `Chain` },
+  { jp: `ケーブル`, en: `Cable` },
+  { jp: `オーバル`, en: `Oval` },
+  { jp: `テーパード`, en: `Tapered` },
+  { jp: `シリンダー`, en: `Cylinder` },
+  { jp: `ソブリン`, en: `Sovereign` },
+  { jp: `リーガル`, en: `Regal` },
+  { jp: `マジェスティ`, en: `Majesty` },
+  { jp: `エクセレンス`, en: `Excellence` },
+  { jp: `スプリーム`, en: `Supreme` },
+  { jp: `アルティメット`, en: `Ultimate` },
+  { jp: `インフィニット`, en: `Infinite` },
+  { jp: `エレメント`, en: `Element` },
+  { jp: `エッセンス`, en: `Essence` },
+  { jp: `オリジン`, en: `Origin` },
+  { jp: `レガシー`, en: `Legacy` },
+  { jp: `トリビュート`, en: `Tribute` },
+  { jp: `ファースト`, en: `First` },
+  { jp: `セカンド`, en: `Second` },
+  { jp: `サード`, en: `Third` },
   { jp: `ジャパン`, en: `Japan` },
   { jp: `ドイツ`, en: `Germany` },
   { jp: `フランス`, en: `France` },
@@ -723,17 +866,15 @@ function dicTranslate(jp) {
   var out = [], romanized = [], leftover = [];
 
   function decompose(w) {
-    var parts = [], romaji = [];
+    var parts = [], unres = [];
     var rest = w;
     var buf = E;
     var guard = 0;
 
     function flushBuf() {
       if (!buf) return;
-      if (/^[\u30A0-\u30FF]+$/.test(buf)) {
-        var r = dicRomaji(buf);
-        parts.push(r);
-        romaji.push({ jp: buf, en: r });
+      if (/^[\u30A0-\u30FF\u30FC]+$/.test(buf)) {
+        unres.push(buf);
       } else {
         parts.push(buf);
       }
@@ -758,7 +899,7 @@ function dicTranslate(jp) {
       }
     }
     flushBuf();
-    return { parts: parts, romaji: romaji };
+    return { parts: parts, unres: unres };
   }
 
   for (var n = 0; n < words.length; n++) {
@@ -774,29 +915,13 @@ function dicTranslate(jp) {
     }
 
     var d = decompose(w);
-    var hasUntranslatable = false;
+    var okParts = [];
     for (var z = 0; z < d.parts.length; z++) {
-      if (/[\u3041-\u3096\u4E00-\u9FFF]/.test(d.parts[z])) { hasUntranslatable = true; break; }
+      if (/[\u3041-\u3096\u4E00-\u9FFF]/.test(d.parts[z])) leftover.push(d.parts[z]);
+      else okParts.push(d.parts[z]);
     }
-    if (hasUntranslatable) {
-      var okParts = [];
-      for (var z2 = 0; z2 < d.parts.length; z2++) {
-        if (/[\u3041-\u3096\u4E00-\u9FFF]/.test(d.parts[z2])) leftover.push(d.parts[z2]);
-        else okParts.push(d.parts[z2]);
-      }
-      if (okParts.length) out.push(okParts.join(` `));
-      for (var q0 = 0; q0 < d.romaji.length; q0++) {
-        romanized.push(d.romaji[q0].jp + `→` + d.romaji[q0].en);
-      }
-      continue;
-    }
-
-    if (d.parts.length) {
-      out.push(d.parts.join(` `));
-      for (var q = 0; q < d.romaji.length; q++) {
-        romanized.push(d.romaji[q].jp + `→` + d.romaji[q].en);
-      }
-    }
+    for (var u = 0; u < d.unres.length; u++) leftover.push(d.unres[u]);
+    if (okParts.length) out.push(okParts.join(` `));
   }
 
   return {
@@ -970,19 +1095,24 @@ function tidyEN(s) {
 function transLines(jp) {
   var lines = jp.split(`\n`);
   var res = lines.map(function (l) { return dicTranslate(l); });
-  var broken = false;
+  var broken = false, left = [];
   for (var i = 0; i < lines.length; i++) {
     if (lines[i].trim() && (!res[i].en || res[i].leftover)) broken = true;
+    if (res[i].leftover) left.push(res[i].leftover);
   }
   if (broken && lines.length > 1) {
     var joined = dicTranslate(lines.join(E));
-    if (joined.en && !joined.leftover) return joined.en;
+    if (joined.en && !joined.leftover) return { en: joined.en, leftover: E };
   }
-  return res.map(function (r) { return r.en; }).join(`\n`);
+  return { en: res.map(function (r) { return r.en; }).join(`\n`), leftover: left.join(` `) };
 }
 function autoModelEN(jp) {
   if (!jp) return E;
-  return tidyEN(transLines(jp));
+  return tidyEN(transLines(jp).en);
+}
+function leftoverOf(jp) {
+  if (!jp) return E;
+  return transLines(jp).leftover;
 }
 function wrapEN(s) {
   return s.split(`\n`).map(function (line) {
@@ -1015,7 +1145,7 @@ function calcYears(era){
   return Math.floor((new Date().getFullYear()-(d+5))/10)*10;
 }
 function eraToText(era){
-  if(!era)returnE;
+  if(!era)return E;
   if(era.indexOf(`～`)!==-1)return era.replace(`～`,`〜`).replace(/s/g,E)+`年代頃`;
   return era.replace(/s$/,E)+`年代頃`;
 }
@@ -1127,16 +1257,16 @@ function buildElements(bJP,bEN,penType,country,model,p2label,p6,p7,p8,p9,turq){
   var el=[];
   el.push({id:`brand_jp`, type:`band`, text:bJP, x:66, y:56, fontSize:42, lhOverride:50, bg:TC, color:`#000000`, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
   var displayCountryImg=country===`アメリカ製`?`USA製`:country;
-  if(displayCountryImg) el.push({id:`country`, type:`text`, text:displayCountryImg, x:311, y:98, fontSize:36, color:`#ee1111`, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
+  if(displayCountryImg) el.push({id:`country`, type:`text`, text:displayCountryImg, x:281, y:103, fontSize:36, color:`#ee1111`, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
   el.push({id:`brand_en`, type:`text`, text:bEN, x:0, y:150, fontSize:34, color:`#1133cc`, align:`center`, centerOf:`brand_jp`, fontFamily:`Arial,sans-serif`});
   if(p6) el.push({id:`p6`, type:`band`, text:p6, x:66, y:240, fontSize:36, lhOverride:36, bg:`#111111`, color:`#ffffff`, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
   var p6Lines=p6?p6.split(`\n`).length:1;
   var p7Lines=p7?p7.split(`\n`).length:1;
   if(p8) el.push({id:`p8`, type:`text`, text:p8, x:0, y:240+p6Lines*36+10+38, fontSize:36, color:`#ee1111`, align:`center`, centerOf:`p6`, fallbackX:160, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
-  if(p9) el.push({id:`p9`, type:`text`, text:p9, x:0, y:303, fontSize:36, color:`#ee1111`, align:`center`, centerOf:`p7`, fallbackX:450, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
+  if(p9) el.push({id:`p9`, type:`text`, text:p9, x:0, y:313, fontSize:36, color:`#ee1111`, align:`center`, centerOf:`p7`, fallbackX:450, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
   if(p7) el.push({id:`p7`, type:`band`, text:p7, x:394, y:323, fontSize:36, lhOverride:36, rightEdge:530, bg:`#111111`, color:`#ffffff`, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
   var mLines=model?model.split(`\n`).length:1;
-  var mBaseY=465-(mLines-1)*Math.round(38*1.2);
+  var mBaseY=465-(mLines-1)*46;
   if(model) el.push({id:`model`, type:`text`, text:model, x:530, y:mBaseY, fontSize:38, color:`#1133cc`, align:`right`, fontFamily:`Arial,sans-serif`});
   el.push({id:`p2`, type:`band`, text:p2t, x:215, y:482, fontSize:43, lhOverride:50, rightEdge:530, bg:TC, color:`#000000`, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
   return el;
@@ -1148,33 +1278,33 @@ function buildElementsEN(bEN,penType,country,model,p2label,era,src,turq){
   var AR=`Arial,sans-serif`;
   var typeEN=PEN_TYPE_EN[penType]||`PEN`;
   var p2t=P2_EN[p2label]||typeEN;
-  var t6=(src&&src.e6)?src.e6:autoBandEN(src?src.p6:E);
-  var t7=(src&&src.e7)?src.e7:autoBandEN(src?src.p7:E);
-  var t8=(src&&src.e8)?src.e8:autoBandEN(src?src.p8:E);
-  var t9=(src&&src.e9)?src.e9:autoBandEN(src?src.p9:E);
+  var t6=(src&&src.t_e6)?src.e6:((src&&src.e6)?src.e6:autoBandEN(src?src.p6:E));
+  var t7=(src&&src.t_e7)?src.e7:((src&&src.e7)?src.e7:autoBandEN(src?src.p7:E));
+  var t8=(src&&src.t_e8)?src.e8:((src&&src.e8)?src.e8:autoBandEN(src?src.p8:E));
+  var t9=(src&&src.t_e9)?src.e9:((src&&src.e9)?src.e9:autoBandEN(src?src.p9:E));
   // モデル名：手入力の英語名 → 自動英語化 → 元の文字列
-  var mEN=(src&&src.modelEN)?src.modelEN:autoModelEN(model);
+  var mEN=(src&&src.t_e5)?src.e5:((src&&src.e5)?src.e5:((src&&src.modelEN)?src.modelEN:autoModelEN(model)));
   var el=[];
   el.push({id:`brand_jp`, type:`band`, text:bEN||`BRAND`, x:66, y:56, fontSize:40, lhOverride:48, bg:TC, color:`#000000`, fontFamily:AR});
   // MADE IN 〜 はブランド帯の真下・中央
   var cEN=COUNTRY_EN[country]||(country?country.replace(`製`,E):E);
   if(cEN) el.push({id:`country`, type:`text`, text:cEN, x:0, y:150, fontSize:30, color:`#1133cc`, align:`center`, centerOf:`brand_jp`, fontFamily:AR});
   if(era) el.push({id:`brand_en`, type:`text`, text:`VINTAGE `+era.replace(/～/g,`-`).toUpperCase().replace(/(\d{4})S/g,`$1s`), x:0, y:190, fontSize:28, color:`#1133cc`, align:`center`, centerOf:`brand_jp`, fontFamily:AR});
-  if(t6) el.push({id:`p6`, type:`band`, text:t6, x:66, y:240, fontSize:34, lhOverride:36, bg:`#111111`, color:`#ffffff`, fontFamily:AR});
+  if(t6) el.push({id:`p6`, type:`band`, text:t6, x:66, y:240, fontSize:35, lhOverride:37, bg:`#111111`, color:`#ffffff`, fontFamily:AR});
   var t6Lines=t6?t6.split(`\n`).length:1;
   var t7Lines=t7?t7.split(`\n`).length:1;
-  if(t8) el.push({id:`p8`, type:`text`, text:t8, x:0, y:240+t6Lines*36+10+40, fontSize:34, color:`#ee1111`, align:`center`, centerOf:`p6`, fallbackX:160, fontFamily:AR});
-  if(t9) el.push({id:`p9`, type:`text`, text:t9, x:0, y:305, fontSize:34, color:`#ee1111`, align:`center`, centerOf:`p7`, fallbackX:450, fontFamily:AR});
-  if(t7) el.push({id:`p7`, type:`band`, text:t7, x:394, y:323, fontSize:34, lhOverride:36, rightEdge:530, bg:`#111111`, color:`#ffffff`, fontFamily:AR});
+  if(t8) el.push({id:`p8`, type:`text`, text:t8, x:0, y:240+t6Lines*37+10+40, fontSize:35, color:`#ee1111`, align:`center`, centerOf:`p6`, fallbackX:160, fontFamily:AR});
+  if(t9) el.push({id:`p9`, type:`text`, text:t9, x:0, y:314, fontSize:35, color:`#ee1111`, align:`center`, centerOf:`p7`, fallbackX:450, fontFamily:AR});
+  if(t7) el.push({id:`p7`, type:`band`, text:t7, x:394, y:323, fontSize:35, lhOverride:37, rightEdge:530, bg:`#111111`, color:`#ffffff`, fontFamily:AR});
   var mLines=mEN?mEN.split(`\n`).length:1;
-  var mBaseY=465-(mLines-1)*Math.round(38*1.2);
-  if(mEN) el.push({id:`model`, type:`text`, text:mEN, x:530, y:mBaseY, fontSize:38, color:`#1133cc`, align:`right`, fontFamily:AR});
+  var mBaseY=465-(mLines-1)*46;
+  if(mEN) el.push({id:`model`, type:`text`, text:mEN, x:530, y:mBaseY, fontSize:39, color:`#1133cc`, align:`right`, fontFamily:AR});
   el.push({id:`p2`, type:`band`, text:p2t, x:215, y:482, fontSize:40, lhOverride:48, rightEdge:530, bg:TC, color:`#000000`, fontFamily:AR});
   return el;
 }
 
 function renderFull(canvas,baseImg,elems){
-  var W=600,H=600,dpr=window.devicePixelRatio||1;
+  var W=600,H=600,dpr=Math.min(window.devicePixelRatio||1,2);
   canvas.width=W*dpr;canvas.height=H*dpr;
   var ctx=canvas.getContext(`2d`);
   ctx.setTransform(1,0,0,1,0,0);
@@ -1231,7 +1361,7 @@ function makeItem(){
     imgB64:null, imgEl:null,
     elems:buildElements(b.jp,b.en,PEN_TYPES[0],COUNTRIES[0],E,E,E,E,E,E,DEF_TURQ),
     selIds:[],
-    makeEbayImg:false, e6:E, e7:E, e8:E, e9:E,
+    makeEbayImg:false, e5:E, e6:E, e7:E, e8:E, e9:E,
     elemsEN:buildElementsEN(b.en,PEN_TYPES[0],COUNTRIES[0],E,E,E,null,DEF_TURQ),
     selIdsEN:[],
     hid:{}, hidEN:{}, lastT:{}, lastTEN:{},
@@ -1363,7 +1493,10 @@ h+=`<div class=\u0022ebayHead\u0022 id=\u0022`+pre+`_ebayTog\u0022><span class=\
 h+=`<span class=\u0022ebayTitle\u0022>🌐 eBay用の英語画像も一緒に作る</span></div>`;
 h+=`<div class=\u0022ebaySub\u0022>日本語画像とは別に、英語表記の画像をもう1枚生成します</div>`;
 h+=`<div id=\u0022`+pre+`_ebayPanel\u0022 style=\u0022display:none\u0022>`;
-h+=`<div class=\u0022mEN\u0022 id=\u0022`+pre+`_mEN\u0022></div>`;
+h+=`<div class=\u0022enRow\u0022 id=\u0022`+pre+`_e5Row\u0022>`;
+h+=`<div class=\u0022enLbl\u0022>⑤ モデル名（英語画像用）</div>`;
+h+=`<textarea id=\u0022`+pre+`_e5\u0022 placeholder=\u0022英語を直接入力\u0022></textarea>`;
+h+=`<div class=\u0022mENwarn\u0022 id=\u0022`+pre+`_e5Warn\u0022 style=\u0022display:none\u0022></div></div>`;
 h+=`<div class=\u0022ebaySub2\u0022>日本語から自動で英訳して下に入れてあります。そのまま直せます（改行もできます）</div>`;
 var EN=[[`⑥`,`左・黒帯`,`e6`],[`⑦`,`右・黒帯`,`e7`],[`⑧`,`左・赤文字`,`e8`],[`⑨`,`右・赤文字`,`e9`]];
 for(var q=0;q<EN.length;q+=1){
@@ -1499,10 +1632,11 @@ bind(`p6`,function(el){it.p6=el.value;});
 bind(`p7`,function(el){it.p7=el.value;});
 bind(`p8`,function(el){it.p8=el.value;});
 bind(`p9`,function(el){it.p9=el.value;});
-bind(`e6`,function(el){it.e6=el.value;});
-bind(`e7`,function(el){it.e7=el.value;});
-bind(`e8`,function(el){it.e8=el.value;});
-bind(`e9`,function(el){it.e9=el.value;});
+bind(`e5`,function(el){it.e5=el.value;it.t_e5=true;});
+bind(`e6`,function(el){it.e6=el.value;it.t_e6=true;});
+bind(`e7`,function(el){it.e7=el.value;it.t_e7=true;});
+bind(`e8`,function(el){it.e8=el.value;it.t_e8=true;});
+bind(`e9`,function(el){it.e9=el.value;it.t_e9=true;});
 bind(`p2c`,function(el){it.p2L=el.value;});
 bind(`turq`,function(el){it.turq=el.value;},`change`);
 
@@ -1646,11 +1780,20 @@ return fresh.map(function(f){
 var old=null;
 for(var i=0;i<prev.length;i+=1){if(prev[i].id===f.id){old=prev[i];break;}}
 if(!old)return f;
-var kept={x:old.x,y:old.y,fontSize:old.fontSize};
+var kept={};
+if(old.moved){
+kept.x=old.x;kept.y=old.y;kept.moved=true;
+if(old.rightEdge!==undefined)kept.rightEdge=old.rightEdge;
+}
+if(old.sized){
+kept.fontSize=old.fontSize;kept.sized=true;
+if(old.lhOverride!==undefined)kept.lhOverride=old.lhOverride;
+}
+if(old.colored){
+kept.colored=true;
 if(old.bg!==undefined)kept.bg=old.bg;
 if(old.color!==undefined)kept.color=old.color;
-if(old.rightEdge!==undefined)kept.rightEdge=old.rightEdge;
-if(old.lhOverride!==undefined)kept.lhOverride=old.lhOverride;
+}
 return Object.assign({},f,kept);
 });
 }
@@ -1727,15 +1870,19 @@ $(pre+`_ebayBox`).className=`ebayBox`+(it.makeEbayImg?` on`:E);
 $(pre+`_ebayPanel`).style.display=(it.makeEbayImg?`block`:`none`);
 $(pre+`_enPv`).style.display=(it.makeEbayImg?`block`:`none`);
 
-var mEN=it.modelEN?it.modelEN:autoModelEN(it.model);
-var bad=hasJapanese(mEN);
-if(it.model){
-$(pre+`_mEN`).style.display=`block`;
-$(pre+`_mEN`).className=`mEN`+(bad?` bad`:E);
-$(pre+`_mEN`).innerHTML=`<div class=\u0022mENcap\u0022>⑤ モデル名（英語画像用）</div><div class=\u0022mENval\u0022>`+esc(mEN||`未入力`)+`</div>`
-+(bad?`<div class=\u0022mENwarn\u0022>日本語が残っています。「モデル名（英語・任意）」に英語を入れてください</div>`:E);
+var auto5=it.modelEN?it.modelEN:autoModelEN(it.model);
+if(!it.t_e5){
+if(it.e5!==auto5){it.e5=auto5;$(pre+`_e5`).value=auto5;}
+}
+$(pre+`_e5`).placeholder=auto5||`英語を直接入力`;
+$(pre+`_e5Row`).style.display=(it.model||it.e5?`block`:`none`);
+var lo=it.t_e5?E:leftoverOf(it.model);
+var bad=hasJapanese(it.e5)||!!lo;
+if(bad&&it.model){
+$(pre+`_e5Warn`).style.display=`block`;
+$(pre+`_e5Warn`).textContent=`英訳できない語があります`+(lo?`（`+lo+`）`:E)+`。上の欄に英語を入れてください`;
 }else{
-$(pre+`_mEN`).style.display=`none`;
+$(pre+`_e5Warn`).style.display=`none`;
 }
 
 var enKeys=[[`e6`,`p6`],[`e7`,`p7`],[`e8`,`p8`],[`e9`,`p9`]];
@@ -1748,11 +1895,9 @@ $(pre+`_`+ek+`Row`).style.display=(show?`block`:`none`);
 if(show){
 anyEn=true;
 var auto=autoBandEN(jp);
-var prevAuto=it[`a_`+ek]||E;
-if(!it[ek]||it[ek]===prevAuto){
+if(!it[`t_`+ek]){
 if(it[ek]!==auto){it[ek]=auto;$(pre+`_`+ek).value=auto;}
 }
-it[`a_`+ek]=auto;
 $(pre+`_`+ek).placeholder=auto||`英語を直接入力`;
 }
 }
@@ -1919,6 +2064,7 @@ applySel(elems,sel,function(e){
 e.x=(e.x||0)+parseInt(d[0],10);
 e.y=(e.y||0)+parseInt(d[1],10);
 if(e.rightEdge!=null)e.rightEdge=e.rightEdge+parseInt(d[0],10);
+e.moved=true;
 });
 refresh(n);return;
 }
@@ -1933,13 +2079,14 @@ applySel(elems,sel,function(e){
 if(e.centerOf&&bands[e.centerOf])return;
 e.fontSize=Math.max(8,Math.min(120,(e.fontSize||26)+dd));
 if(e.type===`band`&&e.lhOverride!=null){e.lhOverride=Math.max(8,Math.min(200,e.lhOverride+dd));}
+e.sized=true;
 });
 refresh(n);return;
 }
 var tc=ev.target.closest(`[data-tc]`);
-if(tc){applySel(elems,sel,function(e){e.color=tc.getAttribute(`data-tc`);});refresh(n);return;}
+if(tc){applySel(elems,sel,function(e){e.color=tc.getAttribute(`data-tc`);e.colored=true;});refresh(n);return;}
 var bc=ev.target.closest(`[data-bc]`);
-if(bc){applySel(elems,sel,function(e){e.bg=bc.getAttribute(`data-bc`);});refresh(n);return;}
+if(bc){applySel(elems,sel,function(e){e.bg=bc.getAttribute(`data-bc`);e.colored=true;});refresh(n);return;}
 });
 
 $(pre+`_`+which+`_del`).addEventListener(`click`,function(){
@@ -1955,7 +2102,7 @@ tcIn.type=`color`;tcIn.className=`picker`;
 $(pre+`_`+which+`_tc`).appendChild(tcIn);
 tcIn.addEventListener(`input`,function(){
 var sel=(which===`jp`?it.selIds:it.selIdsEN);
-applySel((which===`jp`?it.elems:it.elemsEN),sel,function(e){e.color=tcIn.value;});
+applySel((which===`jp`?it.elems:it.elemsEN),sel,function(e){e.color=tcIn.value;e.colored=true;});
 refresh(n);
 });
 var bcIn=document.createElement(`input`);
@@ -1963,7 +2110,7 @@ bcIn.type=`color`;bcIn.className=`picker`;
 $(pre+`_`+which+`_bc`).appendChild(bcIn);
 bcIn.addEventListener(`input`,function(){
 var sel=(which===`jp`?it.selIds:it.selIdsEN);
-applySel((which===`jp`?it.elems:it.elemsEN),sel,function(e){e.bg=bcIn.value;});
+applySel((which===`jp`?it.elems:it.elemsEN),sel,function(e){e.bg=bcIn.value;e.colored=true;});
 refresh(n);
 });
 
@@ -2007,6 +2154,18 @@ $(pre+`_`+which+`_bandWrap`).style.display=(first&&first.type===`band`?`block`:`
 }
 
 function genOne(n){
+try{
+genOneInner(n);
+}catch(e){
+if(window.penShowError){
+window.penShowError(`生成に失敗しました`,
+(e&&e.message?e.message:e)+`\n\n`+(e&&e.stack?e.stack:E));
+}
+toast(`⚠ 生成に失敗しました。下の赤い画面を確認してください`);
+}
+}
+
+function genOneInner(n){
 var it=items[n];
 var cv=$(`i`+n+`_hidden`);
 var elsJP=it.elems.map(function(e){return Object.assign({},e);});
@@ -2061,6 +2220,17 @@ box.innerHTML=`<div class=\u0022resTitle\u0022>── 生成結果 ──</div><
 }
 
 function copyImage(n,which){
+try{
+copyImageInner(n,which);
+}catch(e){
+if(window.penShowError){
+window.penShowError(`画像のコピーに失敗しました`,
+(e&&e.message?e.message:e)+`\n\n`+(e&&e.stack?e.stack:E));
+}
+}
+}
+
+function copyImageInner(n,which){
 var it=items[n];
 var els=(which===`en`?it.imgElemsEN:it.imgElems);
 if(!els){toast(`⚠ もう一度生成してください`);return;}
