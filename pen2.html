@@ -3,13 +3,13 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="出品ツール">
 <title>5品まとめ出品ツール</title>
 <style>
-html,body{margin:0;padding:0;background:#fff;color:#333;
+html,body{margin:0;padding:0;background:#fff;color:#333;touch-action:manipulation;
   font-family:'Hiragino Kaku Gothic ProN',sans-serif;-webkit-text-size-adjust:100%;}
 *{box-sizing:border-box;}
 button,input,select,textarea{font-family:inherit;}
@@ -114,27 +114,27 @@ border-radius:50%;background:#666;color:#fff;font-size:12px;font-weight:bold;fle
 canvas.pv{width:100%;border-radius:6px;border:2px solid #c8a84b;display:block;touch-action:none;}
 canvas.pv.en{border-color:#00bcd4;}
 
-.ctrl{background:#eef2ff;border:1px solid #aabbdd;border-radius:6px;padding:8px 10px;margin-top:6px;}
-.ctrlTop{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.ctrl{background:#eef2ff;border:1px solid #aabbdd;border-radius:6px;padding:5px 8px;margin-top:4px;}
+.ctrlTop{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;}
 .ctrlLbl{font-size:11px;color:#335;font-weight:bold;}
-.del{padding:3px 10px;border:1px solid #e55;border-radius:4px;background:#fff0f0;color:#c33;
-font-size:11px;cursor:pointer;display:none;}
-.ctrlBody{display:none;gap:8px;margin-bottom:6px;}
+.del{padding:2px 10px;border:1px solid #e55;border-radius:4px;background:#fff0f0;color:#c33;
+font-size:11px;line-height:1.3;cursor:pointer;display:none;}
+.ctrlBody{display:none;gap:6px;margin-bottom:3px;}
 .mvWrap{flex:1;}
 .pad{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-bottom:3px;}
-.pad button{border:1px solid #aac;border-radius:4px;background:#fff;color:#334;cursor:pointer;
+.pad button{touch-action:manipulation;border:1px solid #aac;border-radius:4px;background:#fff;color:#334;cursor:pointer;
 font-size:20px;padding:5px 0;}
 .pad.sm button{font-size:11px;padding:3px 0;}
-.fs{display:flex;flex-direction:column;gap:3px;min-width:56px;}
-.fs button{border:1px solid #aac;border-radius:4px;background:#fff;color:#334;cursor:pointer;
-font-size:12px;padding:4px 0;}
-.cap2{font-size:9px;color:#668;text-align:center;}
-.fsNow{text-align:center;font-size:11px;font-weight:bold;color:#335;}
-.colWrap{border-top:1px solid #ccd;padding-top:6px;display:none;}
-.swatch{display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap;}
-.swatch button{flex:1;min-width:34px;padding:5px 0;border:1px solid #aac;border-radius:4px;
-font-size:11px;cursor:pointer;}
-.picker{width:36px;height:32px;padding:2px;border:1px solid #aac;border-radius:4px;flex:none;}
+.fs{display:flex;flex-direction:column;gap:2px;min-width:56px;}
+.fs button{touch-action:manipulation;border:1px solid #aac;border-radius:4px;background:#fff;color:#334;cursor:pointer;
+font-size:12px;line-height:1.1;padding:3px 0;}
+.cap2{font-size:9px;color:#668;text-align:center;line-height:1;margin-bottom:1px;}
+.fsNow{text-align:center;font-size:11px;font-weight:bold;color:#335;line-height:1.2;}
+.colWrap{border-top:1px solid #ccd;padding-top:3px;display:none;}
+.swatch{display:flex;gap:3px;margin-bottom:2px;flex-wrap:wrap;}
+.swatch button{touch-action:manipulation;flex:1;min-width:30px;padding:1px 0;border:1px solid #aac;border-radius:3px;
+font-size:10px;line-height:1.3;cursor:pointer;}
+.picker{width:30px;height:20px;padding:1px;border:1px solid #aac;border-radius:3px;flex:none;}
 
 .copyFrom{margin-bottom:12px;padding:12px;background:linear-gradient(135deg,#0a1a2a,#0a2a1a);
 border-radius:8px;border:1px solid #336;}
@@ -193,7 +193,7 @@ pointer-events:none;z-index:100;white-space:nowrap;}
 
 <div class="head">
   <div class="mark">✒️✒️✒️</div>
-  <div class="lead">MERCARI / EBAY LISTING TOOL v19</div>
+  <div class="lead">MERCARI / EBAY LISTING TOOL v24</div>
   <h1>5品まとめ出品ツール</h1>
 </div>
 
@@ -228,7 +228,7 @@ pointer-events:none;z-index:100;white-space:nowrap;}
   }
   window.penShowError = show;
   window.onerror = function (msg, src, line, col, e) {
-    show(`エラーが発生しました v19`, msg + `\n\n行: ` + line + ` 文字: ` + col);
+    show(`エラーが発生しました v24`, msg + `\n\n行: ` + line + ` 文字: ` + col);
     return false;
   };
   setTimeout(function () {
@@ -659,6 +659,36 @@ var DIC_MODELS = [
   { jp: `スイス製`, en: `Switzerland` },
   { jp: `アメリカ製`, en: `USA` },
   { jp: `イギリス製`, en: `UK` },
+  { jp: `多機能ペン`, en: `Multi Pen` },
+  { jp: `シャープペンシル`, en: `Mechanical Pencil` },
+  { jp: `シャープペン`, en: `Mechanical Pencil` },
+  { jp: `シャーペン`, en: `Mechanical Pencil` },
+  { jp: `ローラーボールペン`, en: `Rollerball Pen` },
+  { jp: `ローラーボール`, en: `Rollerball Pen` },
+  { jp: `ボールペン`, en: `Ballpoint Pen` },
+  { jp: `万年筆`, en: `Fountain Pen` },
+  { jp: `高級筆記具`, en: `Luxury Pen` },
+  { jp: `高級ボールペン`, en: `Ballpoint Pen` },
+  { jp: `高級万年筆`, en: `Fountain Pen` },
+  { jp: `高級ローラーボール`, en: `Rollerball Pen` },
+  { jp: `高級シャープペンシル`, en: `Mechanical Pencil` },
+  { jp: `高級シャープペン`, en: `Mechanical Pencil` },
+  { jp: `高級多機能ペン`, en: `Multi Pen` },
+  { jp: `高級鉛筆`, en: `Pencil` },
+  { jp: `高級`, en: `Luxury` },
+  { jp: `純銀ボールペン`, en: `Ballpoint Pen` },
+  { jp: `純銀万年筆`, en: `Fountain Pen` },
+  { jp: `純銀ローラーボール`, en: `Rollerball Pen` },
+  { jp: `純銀シャープペンシル`, en: `Mechanical Pencil` },
+  { jp: `純銀シャープペン`, en: `Mechanical Pencil` },
+  { jp: `純銀ペンシル`, en: `Sterling Silver Pencil` },
+  { jp: `デスクペン`, en: `Desk Pen` },
+  { jp: `つけペン`, en: `Dip Pen` },
+  { jp: `筆記具`, en: `Writing Instrument` },
+  { jp: `文房具`, en: `Stationery` },
+  { jp: `鉛筆`, en: `Pencil` },
+  { jp: `ペンシル`, en: `Pencil` },
+  { jp: `ペン`, en: `Pen` },
   { jp: `ファイヤー`, en: `Fire` },
   { jp: `ファイアー`, en: `Fire` },
   { jp: `ファイア`, en: `Fire` },
@@ -1074,10 +1104,11 @@ var P2_EN = {
 [`高級シャープペンシル`]:`MECHANICAL PENCIL`,
 [`高級シャープペン`]:`MECHANICAL PENCIL`,
 [`高級多機能ペン`]:`MULTI PEN`,
-[`純銀ボールペン`]:`STERLING SILVER PEN`,
-[`純銀万年筆`]:`STERLING SILVER FP`,
-[`純銀ローラーボール`]:`STERLING SILVER RB`,
-[`純銀シャープペン`]:`STERLING SILVER PENCIL`
+[`純銀ボールペン`]:`BALLPOINT PEN`,
+[`純銀万年筆`]:`FOUNTAIN PEN`,
+[`純銀ローラーボール`]:`ROLLERBALL PEN`,
+[`純銀シャープペン`]:`MECHANICAL PENCIL`,
+[`純銀シャープペンシル`]:`MECHANICAL PENCIL`
 };
 
 /* 画像に載せる英語は、すべて共通辞書の dicTranslate() を通す。
@@ -1277,7 +1308,16 @@ function buildElementsEN(bEN,penType,country,model,p2label,era,src,turq){
   var TC=turq||DEF_TURQ;
   var AR=`Arial,sans-serif`;
   var typeEN=PEN_TYPE_EN[penType]||`PEN`;
-  var p2t=P2_EN[p2label]||typeEN;
+  var p2t;
+  if (P2_EN[p2label]) {
+    p2t = P2_EN[p2label];
+  } else if (p2label) {
+    var flat2 = p2label.split(`\n`).join(` `);
+    var res2 = dicTranslate(flat2);
+    p2t = (res2.en && !res2.leftover) ? tidyEN(res2.en) : flat2;
+  } else {
+    p2t = typeEN;
+  }
   var t6=(src&&src.t_e6)?src.e6:((src&&src.e6)?src.e6:autoBandEN(src?src.p6:E));
   var t7=(src&&src.t_e7)?src.e7:((src&&src.e7)?src.e7:autoBandEN(src?src.p7:E));
   var t8=(src&&src.t_e8)?src.e8:((src&&src.e8)?src.e8:autoBandEN(src?src.p8:E));
