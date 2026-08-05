@@ -56,7 +56,7 @@ button { font-family: inherit; cursor: pointer; }
 <body>
 <div class="hd">
   <div class="icon">🇯🇵 → 🌐</div>
-  <div class="sub">EBAY TEXT CONVERTER v22</div>
+  <div class="sub">EBAY TEXT CONVERTER v25</div>
   <h1>日本語出品 → eBay英語</h1>
 </div>
 
@@ -1275,9 +1275,11 @@ function convertListing(jpTitle, jpBody, tested, condKey) {
   var tails = [];
   function pushTail(t2) {
     if (!t2) return;
-    if (title.toLowerCase().indexOf(t2.toLowerCase()) >= 0) return;
     for (var ti = 0; ti < tails.length; ti++) if (tails[ti].toLowerCase() === t2.toLowerCase()) return;
     tails.push(t2);
+  }
+  for (var hk = 0; hk < hooks.length; hk++) {
+    if (hooks[hk] !== `なし`) pushTail(hooks[hk]);
   }
   for (var pi = 0; pi < parts.length; pi++) pushTail(parts[pi]);
   pushTail(cond.grade);
@@ -1366,11 +1368,33 @@ function updateLen() {
   $(`over`).style.display = n > 80 ? `block` : `none`;
 }
 
-function rebuildTitle() {
-  var base = buildTitle(ST.hook === `なし` ? E : ST.hook, ST.parts);
+function currentBase(list) {
+  var arr = list || ST.tailOn;
+  var t = $(`et`).value;
+  for (var i = arr.length - 1; i >= 0; i -= 1) {
+    var suffix = ` ` + arr[i];
+    if (t.length >= suffix.length && t.slice(t.length - suffix.length) === suffix) {
+      t = t.slice(0, t.length - suffix.length);
+    }
+  }
+  return t;
+}
+
+function stripHook(t) {
+  var idx = t.indexOf(`◆`);
+  if (idx >= 0 && idx <= 24) return t.slice(idx + 1);
+  return t;
+}
+
+function rebuildTitle(newHook, prevList) {
+  var base = currentBase(prevList);
+  if (newHook !== undefined) {
+    base = stripHook(base);
+    if (newHook && newHook !== `なし`) base = newHook + `◆` + base;
+    ST.hook = newHook;
+  }
   var add = ST.tailOn.join(` `);
-  var t = add ? (base + ` ` + add) : base;
-  $(`et`).value = t;
+  $(`et`).value = (add ? (base + ` ` + add) : base).replace(/\s+/g, ` `).trim();
   updateLen();
 }
 
@@ -1384,9 +1408,10 @@ function renderTails() {
       b.className = `chip` + (on ? ` on` : E);
       b.textContent = (on ? `✓ ` : `+ `) + t;
       b.onclick = function () {
+        var prev = ST.tailOn.slice();
         var i2 = ST.tailOn.indexOf(t);
         if (i2 >= 0) ST.tailOn.splice(i2, 1); else ST.tailOn.push(t);
-        rebuildTitle();
+        rebuildTitle(undefined, prev);
         renderTails();
       };
       box.appendChild(b);
@@ -1417,8 +1442,7 @@ function renderHooks() {
       b.className = `chip` + (h === ST.hook ? ` on` : E);
       b.textContent = h === `なし` ? `なし` : h + `◆`;
       b.onclick = function () {
-        ST.hook = h;
-        rebuildTitle();
+        rebuildTitle(h);
         renderHooks();
       };
       box.appendChild(b);
