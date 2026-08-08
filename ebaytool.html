@@ -49,6 +49,12 @@ button { font-family: inherit; cursor: pointer; }
 .pair .jp { font-size: 10px; color: #78909c; line-height: 1.35; }
 .note { padding: 12px 14px; background: #fff8e1; border: 1px solid #ffca28; border-radius: 8px; font-size: 12px; color: #5d4037; line-height: 1.7; }
 .overmsg { font-size: 11px; color: #c62828; margin-top: 6px; font-weight: bold; display: none; }
+.lenbar { display: flex; justify-content: space-between; align-items: center; margin-top: 8px;
+  padding: 8px 12px; border-radius: 6px; background: #eef4fb; border: 1px solid #c9dcf0;
+  font-size: 17px; font-weight: bold; font-family: ui-monospace, monospace; color: #0d47a1; }
+.lenbar .lenmsg { font-size: 12px; font-weight: bold; font-family: inherit; }
+.lenbar.warn { background: #fff8e1; border-color: #ffca28; color: #b26a00; }
+.lenbar.over { background: #ffebee; border-color: #ef5350; color: #c62828; }
 .hide { display: none; }
 #toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #37474f; color: #fff; padding: 10px 22px; border-radius: 20px; font-size: 13px; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 100; white-space: nowrap; }
 </style>
@@ -56,7 +62,7 @@ button { font-family: inherit; cursor: pointer; }
 <body>
 <div class="hd">
   <div class="icon">🇯🇵 → 🌐</div>
-  <div class="sub">EBAY TEXT CONVERTER v25</div>
+  <div class="sub">EBAY TEXT CONVERTER v30</div>
   <h1>日本語出品 → eBay英語</h1>
 </div>
 
@@ -91,6 +97,7 @@ button { font-family: inherit; cursor: pointer; }
     <div class="lab" style="margin-top:10px">末尾に追加できる語（タップで出し入れ）</div>
     <div class="chips" id="tails"></div>
     <textarea id="et" rows="3"></textarea>
+    <div class="lenbar" id="lenbar"><span id="len2">0 / 80</span><span class="lenmsg" id="lenmsg"></span></div>
     <div class="overmsg" id="over">⚠ 80文字を超えています</div>
     <button id="copyT" class="copy">📋 タイトルをコピー</button>
   </div>
@@ -398,8 +405,13 @@ var DIC_MODELS = [
   { jp: `18K金張り`, en: `18K Gold Filled` },
   { jp: `14K金張り`, en: `14K Gold Filled` },
   { jp: `12K金張り`, en: `12K Gold Filled` },
+  { jp: `20K金張`, en: `20K Gold Filled` },
+  { jp: `18K金張`, en: `18K Gold Filled` },
+  { jp: `14K金張`, en: `14K Gold Filled` },
   { jp: `金張り`, en: `Gold Filled` },
+  { jp: `金張`, en: `Gold Filled` },
   { jp: `銀張り`, en: `Silver Filled` },
+  { jp: `銀張`, en: `Silver Filled` },
   { jp: `張り`, en: `Filled` },
   { jp: `スターリングシルバー製`, en: `Sterling Silver` },
   { jp: `シルバー925製`, en: `Sterling Silver` },
@@ -850,6 +862,7 @@ var DIC_MATERIALS = [
   { jp: `スターリングシルバー`, en: `Sterling Silver 925`, asset: `silver` },
   { jp: `純銀`, en: `Sterling Silver 925`, asset: `silver` },
   { jp: `銀張り`, en: `Silver Filled`, asset: `silver` },
+  { jp: `銀張`, en: `Silver Filled`, asset: `silver` },
   { jp: `シルバーフィルド`, en: `Silver Filled`, asset: `silver` },
   { jp: `20K金張り`, en: `20K Gold Filled (Rolled Gold)`, short: `20K Gold Filled`, asset: `gold` },
   { jp: `18K金張り`, en: `18K Gold Filled (Rolled Gold)`, short: `18K Gold Filled`, asset: `gold` },
@@ -857,6 +870,7 @@ var DIC_MATERIALS = [
   { jp: `12K金張り`, en: `12K Gold Filled (Rolled Gold)`, short: `12K Gold Filled`, asset: `gold` },
   { jp: `10K金張り`, en: `10K Gold Filled (Rolled Gold)`, short: `10K Gold Filled`, asset: `gold` },
   { jp: `金張り`, en: `Gold Filled (Rolled Gold)`, short: `Gold Filled`, asset: `gold` },
+  { jp: `金張`, en: `Gold Filled (Rolled Gold)`, short: `Gold Filled`, asset: `gold` },
   { jp: `ゴールドフィルド`, en: `Gold Filled (Rolled Gold)`, short: `Gold Filled`, asset: `gold` },
   { jp: `ロールドゴールド`, en: `Rolled Gold`, asset: `gold` },
   { jp: `18K金メッキ`, en: `18K Gold Plated`, asset: E },
@@ -954,6 +968,8 @@ var MANUAL_CONDS = [
     txt: `Unused stock. Never used, but stored for a long period.` },
   { key: `nearmint`, label: `未使用に近い`, grade: `Near Mint`,
     txt: `Near mint. Almost no signs of use for its age.` },
+  { key: `mint`, label: `極美品`, grade: `Mint`,
+    txt: `Mint condition. No noticeable signs of use.` },
   { key: `excellent`, label: `美品`, grade: `Excellent`,
     txt: `Excellent condition. Very light signs of use, no significant flaws found.` },
   { key: `noflaw`, label: `目立った傷や汚れなし`, grade: `Very Good`,
@@ -963,6 +979,13 @@ var MANUAL_CONDS = [
   { key: `flaw`, label: `傷や汚れあり`, grade: `Fair`,
     txt: `Visible scratches and stains are present. Sold as a used vintage item.` }
 ];
+
+function noMark(x) {
+  return String(x == null ? E : x)
+    .replace(/[\u25C6\u25C7\u25A0\u25A1\u2605\u2606\u2666\u3010\u3011\uFF3B\uFF3D\[\]]/g, ` `)
+    .replace(/\s+/g, ` `)
+    .trim();
+}
 
 function findOne(t, list) { for (var i = 0; i < list.length; i++) if (t.indexOf(list[i].jp) >= 0) return list[i]; return null; }
 function findAll(t, list) { var o = []; for (var i = 0; i < list.length; i++) if (t.indexOf(list[i].jp) >= 0) o.push(list[i]); return o; }
@@ -1005,24 +1028,26 @@ function withoutStampSentences(t) {
   return keep.join(`。`);
 }
 
-var RARE_WORDS = [`短い期間`, `短期間`, `わずかな期間`, `希少`, `貴重`, `レアな`, `生産数が少な`, `入手困難`, `幻の`];
+var RARE_WORDS = [`短い期間`, `短期間`, `わずかな期間`, `希少`, `貴重`, `レア`, `激レア`,
+  `生産数が少な`, `入手困難`, `幻の`, `廃盤`, `絶版`, `生産終了`];
 function hasRarity(t) {
   for (var i = 0; i < RARE_WORDS.length; i++) if (t.indexOf(RARE_WORDS[i]) >= 0) return true;
   return false;
 }
 
-function buildTitle(hook, parts) {
-  var head = hook ? hook + `◆` : E;
+function buildTitle(hook, parts, mgmt) {
+  var head = hook ? `[` + hook + `] ` : E;
   var p = [];
   for (var i = 0; i < parts.length; i++) {
     if (!parts[i]) continue;
     if (hook && parts[i].toLowerCase() === hook.toLowerCase()) continue;
     p.push(parts[i]);
   }
-  var t = (head + p.join(` `)).replace(/\s+/g, ` `).trim();
+  var tail = mgmt ? ` ` + mgmt : E;
+  var t = (head + p.join(` `) + tail).replace(/\s+/g, ` `).trim();
   while (t.length > 80 && p.length > 2) {
     p.splice(p.length - 1, 1);
-    t = (head + p.join(` `)).replace(/\s+/g, ` `).trim();
+    t = (head + p.join(` `) + tail).replace(/\s+/g, ` `).trim();
   }
   if (t.length > 80) t = t.slice(0, 80).trim();
   return t;
@@ -1064,7 +1089,7 @@ function convertListing(jpTitle, jpBody, tested, condKey) {
       }
     }
 
-    var tr = translateModel(core);
+    var tr = translateModel(noMark(core));
     var covered = !tr.romanized && !tr.leftover;
     var hit = findOne(core, list) || findOne(inside, list) || findOne(fv, list);
 
@@ -1095,15 +1120,25 @@ function convertListing(jpTitle, jpBody, tested, condKey) {
   var specs = findAll(all, SPECS);
   var accs = findAll(all, ACCS);
 
-  var modelJp = pickField(jpBody, `モデル`);
+  var HEAD_WORDS = [`超希少`, `激レア`, `廃盤希少`, `希少廃盤`, `絶版希少`, `入手困難`,
+    `レア`, `希少`, `廃盤`, `絶版`, `貴重`, `美品`, `極美品`, `新品同様`, `未使用に近い`,
+    `未使用品`, `未使用`, `デッドストック`, `限定`, `生産終了`, `ヴィンテージ`, `ビンテージ`];
+  var modelJp = noMark(pickField(jpBody, `モデル`));
   if (!modelJp) {
     var t = jpTitle;
+    var headCut = t.search(/[\u25C6\u25C7\u2605\u2606]/);
+    if (headCut >= 0 && headCut <= 12) t = t.slice(headCut + 1);
     t = t.replace(/\d{4}s?◆?/g, E);
     BRANDS.forEach(function (b) { t = t.split(b.jp).join(` `); });
     PENTYPES.forEach(function (p) { t = t.split(`高級` + p.jp).join(` `).split(p.jp).join(` `); });
     COUNTRIES.forEach(function (c) { t = t.split(c.jp).join(` `); });
     modelJp = t.replace(/[（）()]/g, ` `).replace(/\s+/g, ` `).trim();
+    for (var hw = 0; hw < HEAD_WORDS.length; hw++) {
+      modelJp = modelJp.split(HEAD_WORDS[hw]).join(` `);
+    }
+    modelJp = modelJp.replace(/\s+/g, ` `).trim();
   }
+  modelJp = noMark(modelJp);
   var mt = translateModel(modelJp);
   var model = mt.en;
 
@@ -1153,16 +1188,21 @@ function convertListing(jpTitle, jpBody, tested, condKey) {
     for (var hi = 0; hi < hooks.length; hi++) if (hooks[hi].toLowerCase() === h.toLowerCase()) return;
     hooks.push(h);
   }
-  if (cond.grade === `New Old Stock`) pushHook(`UNUSED`);
+  var titleMint = /極美品|新品同様/.test(jpTitle);
+  var titleExc = /美品/.test(jpTitle) && !/極美品/.test(jpTitle);
+  var titleUnused = /未使用|デッドストック/.test(jpTitle);
+  if (cond.grade === `New Old Stock` || titleUnused) pushHook(`UNUSED`);
   if (rare || prod) pushHook(`RARE`);
   if (material && (material.asset === `gold` || material.asset === `silver`)) pushHook(materialShort);
   if (era) pushHook(era);
-  if (cond.grade === `Excellent`) pushHook(`MINT`);
+  if (titleMint) pushHook(`MINT`);
+  if (cond.grade === `Excellent` || titleExc) pushHook(`EXC+`);
+  if (cond.grade === `Near Mint`) pushHook(`NEAR MINT`);
   if (era) pushHook(`VINTAGE`);
   if (materialShort && materialShort !== `Metal`) pushHook(materialShort);
   pushHook(`なし`);
 
-  var title = buildTitle(hooks[0] === `なし` ? E : hooks[0], parts);
+  var title = buildTitle(hooks[0] === `なし` ? E : hooks[0], parts, mgmt);
 
   var L = [], PAIRS = [];
   function add(en, jp) {
@@ -1293,6 +1333,7 @@ function convertListing(jpTitle, jpBody, tested, condKey) {
 
   return {
     title: title,
+    mgmt: mgmt,
     titleParts: parts,
     hooks: hooks,
     tails: tails,
@@ -1323,7 +1364,7 @@ function convertListing(jpTitle, jpBody, tested, condKey) {
 
 function $(id) { return document.getElementById(id); }
 
-var ST = { tested: false, parts: [], hooks: [], hook: E, tails: [], tailOn: [], pairs: [], showPairs: false, open: false, cond: E };
+var ST = { tested: false, parts: [], hooks: [], hook: E, tails: [], tailOn: [], pairs: [], showPairs: false, open: false, cond: E, mgmt: E };
 var toastTimer = null;
 
 function esc(s) {
@@ -1366,11 +1407,33 @@ function updateLen() {
   $(`len`).textContent = n + ` / 80`;
   $(`len`).className = n > 80 ? `cnt over` : `cnt`;
   $(`over`).style.display = n > 80 ? `block` : `none`;
+  $(`len2`).textContent = n + ` / 80`;
+  var bar = $(`lenbar`);
+  var msg = $(`lenmsg`);
+  if (n > 80) {
+    bar.className = `lenbar over`;
+    msg.textContent = (n - 80) + `文字オーバー`;
+  } else if (n > 70) {
+    bar.className = `lenbar warn`;
+    msg.textContent = `あと` + (80 - n) + `文字`;
+  } else {
+    bar.className = `lenbar`;
+    msg.textContent = `あと` + (80 - n) + `文字`;
+  }
+}
+
+function stripMgmt(t) {
+  if (!ST.mgmt) return { body: t, mg: E };
+  var suf = ` ` + ST.mgmt;
+  if (t.length >= suf.length && t.slice(t.length - suf.length) === suf) {
+    return { body: t.slice(0, t.length - suf.length), mg: suf };
+  }
+  return { body: t, mg: E };
 }
 
 function currentBase(list) {
   var arr = list || ST.tailOn;
-  var t = $(`et`).value;
+  var t = stripMgmt($(`et`).value).body;
   for (var i = arr.length - 1; i >= 0; i -= 1) {
     var suffix = ` ` + arr[i];
     if (t.length >= suffix.length && t.slice(t.length - suffix.length) === suffix) {
@@ -1381,20 +1444,21 @@ function currentBase(list) {
 }
 
 function stripHook(t) {
-  var idx = t.indexOf(`◆`);
-  if (idx >= 0 && idx <= 24) return t.slice(idx + 1);
+  var m = t.match(/^\[[^\]]{1,24}\]\s*/);
+  if (m) return t.slice(m[0].length);
   return t;
 }
 
 function rebuildTitle(newHook, prevList) {
+  var mg = stripMgmt($(`et`).value).mg;
   var base = currentBase(prevList);
   if (newHook !== undefined) {
     base = stripHook(base);
-    if (newHook && newHook !== `なし`) base = newHook + `◆` + base;
+    if (newHook && newHook !== `なし`) base = `[` + newHook + `] ` + base;
     ST.hook = newHook;
   }
   var add = ST.tailOn.join(` `);
-  $(`et`).value = (add ? (base + ` ` + add) : base).replace(/\s+/g, ` `).trim();
+  $(`et`).value = ((add ? (base + ` ` + add) : base) + mg).replace(/\s+/g, ` `).trim();
   updateLen();
 }
 
@@ -1440,7 +1504,7 @@ function renderHooks() {
     (function (h) {
       var b = document.createElement(`button`);
       b.className = `chip` + (h === ST.hook ? ` on` : E);
-      b.textContent = h === `なし` ? `なし` : h + `◆`;
+      b.textContent = h === `なし` ? `なし` : `[` + h + `]`;
       b.onclick = function () {
         rebuildTitle(h);
         renderHooks();
@@ -1504,6 +1568,7 @@ function run() {
   ST.hook = ST.hooks.length ? ST.hooks[0] : E;
   ST.tails = r.tails || [];
   ST.tailOn = [];
+  ST.mgmt = r.mgmt || E;
   ST.pairs = r.pairs || [];
   ST.showPairs = false;
 
