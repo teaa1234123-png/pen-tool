@@ -193,7 +193,7 @@ pointer-events:none;z-index:100;white-space:nowrap;}
 
 <div class="head">
   <div class="mark">✒️✒️✒️</div>
-  <div class="lead">MERCARI / EBAY LISTING TOOL v24</div>
+  <div class="lead">MERCARI / EBAY LISTING TOOL v27</div>
   <h1>5品まとめ出品ツール</h1>
 </div>
 
@@ -228,7 +228,7 @@ pointer-events:none;z-index:100;white-space:nowrap;}
   }
   window.penShowError = show;
   window.onerror = function (msg, src, line, col, e) {
-    show(`エラーが発生しました v24`, msg + `\n\n行: ` + line + ` 文字: ` + col);
+    show(`エラーが発生しました v27`, msg + `\n\n行: ` + line + ` 文字: ` + col);
     return false;
   };
   setTimeout(function () {
@@ -523,8 +523,13 @@ var DIC_MODELS = [
   { jp: `18K金張り`, en: `18K Gold Filled` },
   { jp: `14K金張り`, en: `14K Gold Filled` },
   { jp: `12K金張り`, en: `12K Gold Filled` },
+  { jp: `20K金張`, en: `20K Gold Filled` },
+  { jp: `18K金張`, en: `18K Gold Filled` },
+  { jp: `14K金張`, en: `14K Gold Filled` },
   { jp: `金張り`, en: `Gold Filled` },
+  { jp: `金張`, en: `Gold Filled` },
   { jp: `銀張り`, en: `Silver Filled` },
+  { jp: `銀張`, en: `Silver Filled` },
   { jp: `張り`, en: `Filled` },
   { jp: `スターリングシルバー製`, en: `Sterling Silver` },
   { jp: `シルバー925製`, en: `Sterling Silver` },
@@ -975,6 +980,7 @@ var DIC_MATERIALS = [
   { jp: `スターリングシルバー`, en: `Sterling Silver 925`, asset: `silver` },
   { jp: `純銀`, en: `Sterling Silver 925`, asset: `silver` },
   { jp: `銀張り`, en: `Silver Filled`, asset: `silver` },
+  { jp: `銀張`, en: `Silver Filled`, asset: `silver` },
   { jp: `シルバーフィルド`, en: `Silver Filled`, asset: `silver` },
   { jp: `20K金張り`, en: `20K Gold Filled (Rolled Gold)`, short: `20K Gold Filled`, asset: `gold` },
   { jp: `18K金張り`, en: `18K Gold Filled (Rolled Gold)`, short: `18K Gold Filled`, asset: `gold` },
@@ -982,6 +988,7 @@ var DIC_MATERIALS = [
   { jp: `12K金張り`, en: `12K Gold Filled (Rolled Gold)`, short: `12K Gold Filled`, asset: `gold` },
   { jp: `10K金張り`, en: `10K Gold Filled (Rolled Gold)`, short: `10K Gold Filled`, asset: `gold` },
   { jp: `金張り`, en: `Gold Filled (Rolled Gold)`, short: `Gold Filled`, asset: `gold` },
+  { jp: `金張`, en: `Gold Filled (Rolled Gold)`, short: `Gold Filled`, asset: `gold` },
   { jp: `ゴールドフィルド`, en: `Gold Filled (Rolled Gold)`, short: `Gold Filled`, asset: `gold` },
   { jp: `ロールドゴールド`, en: `Rolled Gold`, asset: `gold` },
   { jp: `18K金メッキ`, en: `18K Gold Plated`, asset: E },
