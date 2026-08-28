@@ -193,7 +193,7 @@ pointer-events:none;z-index:100;white-space:nowrap;}
 
 <div class="head">
   <div class="mark">✒️✒️✒️</div>
-  <div class="lead">MERCARI / EBAY LISTING TOOL v27</div>
+  <div class="lead">MERCARI / EBAY LISTING TOOL v31</div>
   <h1>5品まとめ出品ツール</h1>
 </div>
 
@@ -228,7 +228,7 @@ pointer-events:none;z-index:100;white-space:nowrap;}
   }
   window.penShowError = show;
   window.onerror = function (msg, src, line, col, e) {
-    show(`エラーが発生しました v27`, msg + `\n\n行: ` + line + ` 文字: ` + col);
+    show(`エラーが発生しました v31`, msg + `\n\n行: ` + line + ` 文字: ` + col);
     return false;
   };
   setTimeout(function () {
@@ -672,6 +672,122 @@ var DIC_MODELS = [
   { jp: `ローラーボール`, en: `Rollerball Pen` },
   { jp: `ボールペン`, en: `Ballpoint Pen` },
   { jp: `万年筆`, en: `Fountain Pen` },
+  { jp: `モンブラン`, en: `MONTBLANC` },
+  { jp: `ペリカン`, en: `Pelikan` },
+  { jp: `パーカー`, en: `PARKER` },
+  { jp: `ティファニー`, en: `TIFFANY & Co.` },
+  { jp: `クロス`, en: `CROSS` },
+  { jp: `ラミー`, en: `LAMY` },
+  { jp: `パイロット`, en: `PILOT` },
+  { jp: `セーラー`, en: `SAILOR` },
+  { jp: `ウォーターマン`, en: `Waterman` },
+  { jp: `ビスコンティ`, en: `Visconti` },
+  { jp: `アウロラ`, en: `AURORA` },
+  { jp: `ダンヒル`, en: `DUNHILL` },
+  { jp: `カランダッシュ`, en: `Caran d\u0027Ache` },
+  { jp: `プラチナ万年筆`, en: `PLATINUM` },
+  { jp: `ファイルコピー`, en: `File Copy` },
+  { jp: `ファイル`, en: `File` },
+  { jp: `コピー`, en: `Copy` },
+  { jp: `オリジナルボックス`, en: `Original Box` },
+  { jp: `メタルボディ`, en: `Metal Body` },
+  { jp: `ノート`, en: `Note` },
+  { jp: `メモ`, en: `Memo` },
+  { jp: `ペーパー`, en: `Paper` },
+  { jp: `カード`, en: `Card` },
+  { jp: `タグ`, en: `Tag` },
+  { jp: `ラベル`, en: `Label` },
+  { jp: `シール`, en: `Sticker` },
+  { jp: `スタンプ`, en: `Stamp` },
+  { jp: `インクカートリッジ`, en: `Ink Cartridge` },
+  { jp: `ボトルインク`, en: `Bottle Ink` },
+  { jp: `ボトル`, en: `Bottle` },
+  { jp: `キャップレスト`, en: `Cap Rest` },
+  { jp: `スタンド`, en: `Stand` },
+  { jp: `ホルダー`, en: `Holder` },
+  { jp: `トレイ`, en: `Tray` },
+  { jp: `ブロッター`, en: `Blotter` },
+  { jp: `ルーペ`, en: `Loupe` },
+  { jp: `レターオープナー`, en: `Letter Opener` },
+  { jp: `レター`, en: `Letter` },
+  { jp: `オープナー`, en: `Opener` },
+  { jp: `キーホルダー`, en: `Key Holder` },
+  { jp: `キーリング`, en: `Key Ring` },
+  { jp: `カフス`, en: `Cufflinks` },
+  { jp: `マネークリップ`, en: `Money Clip` },
+  { jp: `マネー`, en: `Money` },
+  { jp: `ウォレット`, en: `Wallet` },
+  { jp: `バッグ`, en: `Bag` },
+  { jp: `ベルト`, en: `Belt` },
+  { jp: `ウォッチ`, en: `Watch` },
+  { jp: `ライター`, en: `Lighter` },
+  { jp: `グラス`, en: `Glasses` },
+  { jp: `フレーム`, en: `Frame` },
+  { jp: `ミラー`, en: `Mirror` },
+  { jp: `コンパス`, en: `Compass` },
+  { jp: `ルーラー`, en: `Ruler` },
+  { jp: `クリーナー`, en: `Cleaner` },
+  { jp: `クロス`, en: `Cloth` },
+  { jp: `オイル`, en: `Oil` },
+  { jp: `シリコン`, en: `Silicone` },
+  { jp: `ゴム`, en: `Rubber` },
+  { jp: `スプリング`, en: `Spring` },
+  { jp: `ネジ`, en: `Screw` },
+  { jp: `パイプ`, en: `Pipe` },
+  { jp: `チューブ`, en: `Tube` },
+  { jp: `タンク`, en: `Tank` },
+  { jp: `ピストン`, en: `Piston` },
+  { jp: `レバー`, en: `Lever` },
+  { jp: `ボタン`, en: `Button` },
+  { jp: `スイッチ`, en: `Switch` },
+  { jp: `パーツ`, en: `Parts` },
+  { jp: `ユニット`, en: `Unit` },
+  { jp: `システム`, en: `System` },
+  { jp: `メカニズム`, en: `Mechanism` },
+  { jp: `デュアル`, en: `Dual` },
+  { jp: `マルチ`, en: `Multi` },
+  { jp: `オート`, en: `Auto` },
+  { jp: `マニュアル`, en: `Manual` },
+  { jp: `ワイド`, en: `Wide` },
+  { jp: `ナロー`, en: `Narrow` },
+  { jp: `シン`, en: `Thin` },
+  { jp: `シック`, en: `Thick` },
+  { jp: `ハーフ`, en: `Half` },
+  { jp: `フル`, en: `Full` },
+  { jp: `ミドル`, en: `Middle` },
+  { jp: `センター`, en: `Center` },
+  { jp: `サイド`, en: `Side` },
+  { jp: `フロント`, en: `Front` },
+  { jp: `バック`, en: `Back` },
+  { jp: `アッパー`, en: `Upper` },
+  { jp: `ロウアー`, en: `Lower` },
+  { jp: `ベース`, en: `Base` },
+  { jp: `コア`, en: `Core` },
+  { jp: `エッジド`, en: `Edged` },
+  { jp: `カット`, en: `Cut` },
+  { jp: `カーブド`, en: `Curved` },
+  { jp: `テーパ`, en: `Taper` },
+  { jp: `ミニマム`, en: `Minimum` },
+  { jp: `マキシマム`, en: `Maximum` },
+  { jp: `プラス`, en: `Plus` },
+  { jp: `ネオ`, en: `Neo` },
+  { jp: `プロ`, en: `Pro` },
+  { jp: `ライト`, en: `Light` },
+  { jp: `ハイ`, en: `High` },
+  { jp: `ロー`, en: `Low` },
+  { jp: `ファイン`, en: `Fine` },
+  { jp: `シャープ`, en: `Sharp` },
+  { jp: `スムース`, en: `Smooth` },
+  { jp: `ソリッド`, en: `Solid` },
+  { jp: `クリア`, en: `Clear` },
+  { jp: `トランスペアレント`, en: `Transparent` },
+  { jp: `スケルトン`, en: `Skeleton` },
+  { jp: `デモンストレーター`, en: `Demonstrator` },
+  { jp: `当時定価`, en: `Retail Price` },
+  { jp: `新品定価`, en: `Retail Price` },
+  { jp: `定価`, en: `Retail Price` },
+  { jp: `税込`, en: `incl. Tax` },
+  { jp: `円`, en: `JPY` },
   { jp: `高級筆記具`, en: `Luxury Pen` },
   { jp: `高級ボールペン`, en: `Ballpoint Pen` },
   { jp: `高級万年筆`, en: `Fountain Pen` },
@@ -910,6 +1026,7 @@ function dicTranslate(jp) {
       if (!buf) return;
       if (/^[\u30A0-\u30FF\u30FC]+$/.test(buf)) {
         unres.push(buf);
+        parts.push(buf);
       } else {
         parts.push(buf);
       }
@@ -918,9 +1035,16 @@ function dicTranslate(jp) {
 
     while (rest.length > 0 && guard < 200) {
       guard += 1;
+      var num = /^[0-9][0-9,\.]*(?![0-9KkSs])/.test(rest) ? rest.match(/^[0-9][0-9,\.]*/) : null;
+      if (num && !/^[0-9][0-9,\.]*[A-Za-z]/.test(rest)) {
+        flushBuf();
+        parts.push(num[0]);
+        rest = rest.slice(num[0].length);
+        continue;
+      }
       var hit = null;
       for (var i = 0; i < DIC_MODELS_SORTED.length; i++) {
-        if (DIC_MODELS_SORTED[i].jp.length >= 2 && rest.indexOf(DIC_MODELS_SORTED[i].jp) === 0) {
+        if ((DIC_MODELS_SORTED[i].jp.length >= 2 || /^[円個本組点]$/.test(DIC_MODELS_SORTED[i].jp)) && rest.indexOf(DIC_MODELS_SORTED[i].jp) === 0) {
           hit = DIC_MODELS_SORTED[i]; break;
         }
       }
@@ -1030,7 +1154,7 @@ var DIC_COUNTRIES = [
   { jp: `スイス製`, en: `Switzerland`, band: `SWITZERLAND` },
   { jp: `イタリア製`, en: `Italy`, band: `ITALY` },
   { jp: `イギリス製`, en: `UK`, band: `UK` },
-  { jp: `アメリカ製`, en: `USA`, band: `USA` },
+  { jp: `アメリカ製`, en: `USA`, band: `United States` },
   { jp: `USA`, en: `USA`, band: `USA` }
 ];
 
@@ -1124,6 +1248,9 @@ function tidyEN(s) {
   return s.replace(/[、。・]/g, ` `)
           .replace(/[！]/g, `!`)
           .replace(/!{2,}/g, `!`)
+          .replace(/(\d) (\d{3})\b/g, `$1,$2`)
+          .replace(/(\d) (\d{3})\b/g, `$1,$2`)
+          .replace(/(\d)\s*JPY/g, `$1 JPY`)
           .replace(/\s+([!?.,])/g, `$1`)
           .replace(/[ \t]+/g, ` `)
           .replace(/ *\n */g, `\n`)
@@ -1295,7 +1422,7 @@ function buildElements(bJP,bEN,penType,country,model,p2label,p6,p7,p8,p9,turq){
   var el=[];
   el.push({id:`brand_jp`, type:`band`, text:bJP, x:66, y:56, fontSize:42, lhOverride:50, bg:TC, color:`#000000`, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
   var displayCountryImg=country===`アメリカ製`?`USA製`:country;
-  if(displayCountryImg) el.push({id:`country`, type:`text`, text:displayCountryImg, x:281, y:103, fontSize:36, color:`#ee1111`, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
+  if(displayCountryImg) el.push({id:`country`, type:`text`, text:displayCountryImg, x:14, y:103, fontSize:36, color:`#ee1111`, rightOf:`brand_jp`, fallbackX:281, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
   el.push({id:`brand_en`, type:`text`, text:bEN, x:0, y:150, fontSize:34, color:`#1133cc`, align:`center`, centerOf:`brand_jp`, fontFamily:`Arial,sans-serif`});
   if(p6) el.push({id:`p6`, type:`band`, text:p6, x:66, y:240, fontSize:36, lhOverride:36, bg:`#111111`, color:`#ffffff`, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
   var p6Lines=p6?p6.split(`\n`).length:1;
@@ -1304,13 +1431,29 @@ function buildElements(bJP,bEN,penType,country,model,p2label,p6,p7,p8,p9,turq){
   if(p9) el.push({id:`p9`, type:`text`, text:p9, x:0, y:313, fontSize:36, color:`#ee1111`, align:`center`, centerOf:`p7`, fallbackX:450, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
   if(p7) el.push({id:`p7`, type:`band`, text:p7, x:394, y:323, fontSize:36, lhOverride:36, rightEdge:530, bg:`#111111`, color:`#ffffff`, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
   var mLines=model?model.split(`\n`).length:1;
-  var mBaseY=465-(mLines-1)*46;
-  if(model) el.push({id:`model`, type:`text`, text:model, x:530, y:mBaseY, fontSize:38, color:`#1133cc`, align:`right`, fontFamily:`Arial,sans-serif`});
+  var mSizeJ=38;
+  var p7Bot=p7?(323+p7.split(`\n`).length*36+10):0;
+  var topJ=p7Bot+6, botJ=472;
+  while(mSizeJ>14 && (mLines-1)*(mSizeJ*1.2)+mSizeJ > botJ-topJ) mSizeJ-=1;
+  var mBaseY=botJ-(mLines-1)*(mSizeJ*1.2);
+  if(mBaseY-mSizeJ<topJ) mBaseY=topJ+mSizeJ;
+  if(model) el.push({id:`model`, type:`text`, text:model, x:530, y:mBaseY, fontSize:mSizeJ, color:`#1133cc`, align:`right`, fontFamily:`Arial,sans-serif`});
   el.push({id:`p2`, type:`band`, text:p2t, x:215, y:482, fontSize:43, lhOverride:50, rightEdge:530, bg:TC, color:`#000000`, fontFamily:`\u0027Hiragino Kaku Gothic ProN\u0027,sans-serif`});
   return el;
 }
 
 /* ── eBay用（英語）の要素を組み立てる ── */
+function brandEN(jp) {
+  if (!jp) return `BRAND`;
+  for (var i = 0; i < DIC_BRANDS.length; i += 1) {
+    if (DIC_BRANDS[i].jp === jp) return DIC_BRANDS[i].en;
+    for (var j = 0; j < DIC_BRANDS[i].alt.length; j += 1) {
+      if (DIC_BRANDS[i].alt[j] === jp) return DIC_BRANDS[i].en;
+    }
+  }
+  return jp;
+}
+
 function buildElementsEN(bEN,penType,country,model,p2label,era,src,turq){
   var TC=turq||DEF_TURQ;
   var AR=`Arial,sans-serif`;
@@ -1332,7 +1475,7 @@ function buildElementsEN(bEN,penType,country,model,p2label,era,src,turq){
   // モデル名：手入力の英語名 → 自動英語化 → 元の文字列
   var mEN=(src&&src.t_e5)?src.e5:((src&&src.e5)?src.e5:((src&&src.modelEN)?src.modelEN:autoModelEN(model)));
   var el=[];
-  el.push({id:`brand_jp`, type:`band`, text:bEN||`BRAND`, x:66, y:56, fontSize:40, lhOverride:48, bg:TC, color:`#000000`, fontFamily:AR});
+  el.push({id:`brand_jp`, type:`band`, text:bEN||(src&&src.bJP?brandEN(src.bJP):`BRAND`), x:66, y:56, fontSize:40, lhOverride:48, bg:TC, color:`#000000`, fontFamily:AR});
   // MADE IN 〜 はブランド帯の真下・中央
   var cEN=COUNTRY_EN[country]||(country?country.replace(`製`,E):E);
   if(cEN) el.push({id:`country`, type:`text`, text:cEN, x:0, y:150, fontSize:30, color:`#1133cc`, align:`center`, centerOf:`brand_jp`, fontFamily:AR});
@@ -1344,8 +1487,13 @@ function buildElementsEN(bEN,penType,country,model,p2label,era,src,turq){
   if(t9) el.push({id:`p9`, type:`text`, text:t9, x:0, y:314, fontSize:35, color:`#ee1111`, align:`center`, centerOf:`p7`, fallbackX:450, fontFamily:AR});
   if(t7) el.push({id:`p7`, type:`band`, text:t7, x:394, y:323, fontSize:35, lhOverride:37, rightEdge:530, bg:`#111111`, color:`#ffffff`, fontFamily:AR});
   var mLines=mEN?mEN.split(`\n`).length:1;
-  var mBaseY=465-(mLines-1)*46;
-  if(mEN) el.push({id:`model`, type:`text`, text:mEN, x:530, y:mBaseY, fontSize:39, color:`#1133cc`, align:`right`, fontFamily:AR});
+  var mSize=39;
+  var p7Bottom=t7?(323+t7.split(`\n`).length*37+10):0;
+  var top=p7Bottom+6, bottom=474;
+  while(mSize>14 && (mLines-1)*(mSize*1.2)+mSize > bottom-top) mSize-=1;
+  var mBaseY=bottom-(mLines-1)*(mSize*1.2);
+  if(mBaseY-mSize<top) mBaseY=top+mSize;
+  if(mEN) el.push({id:`model`, type:`text`, text:mEN, x:530, y:mBaseY, fontSize:mSize, color:`#1133cc`, align:`right`, fontFamily:AR});
   el.push({id:`p2`, type:`band`, text:p2t, x:215, y:482, fontSize:40, lhOverride:48, rightEdge:530, bg:TC, color:`#000000`, fontFamily:AR});
   return el;
 }
@@ -1364,9 +1512,17 @@ function renderFull(canvas,baseImg,elems){
   }
   var bboxMap={};
   elems.forEach(function(e){
-    if(e.centerOf) return;
+    if(e.centerOf||e.rightOf) return;
     var bb=drawElem(ctx,e);
     if(bb) bboxMap[e.id]=bb;
+  });
+  elems.forEach(function(e){
+    if(!e.rightOf) return;
+    var r2=bboxMap[e.rightOf];
+    var ee=r2?Object.assign({},e,{x:r2.x+r2.w+e.x})
+             :Object.assign({},e,{x:(e.fallbackX!=null?e.fallbackX:300)+e.x});
+    var b2=drawElem(ctx,ee);
+    if(b2) bboxMap[e.id]=b2;
   });
   elems.forEach(function(e){
     if(!e.centerOf) return;
@@ -1646,18 +1802,34 @@ el.addEventListener(evt||`input`,function(){fn(el);refresh(n);});
 $(pre+`_brand`).selectedIndex=0;
 $(pre+`_brand`).addEventListener(`change`,function(){
 var idx=$(pre+`_brand`).selectedIndex;
+var wasCustom=(it.brandIdx===LAST_BRAND);
 it.brandIdx=idx;
 if(idx!==LAST_BRAND){
 var b=BRAND_PRESETS[idx];
 it.bJP=b.jp;it.bEN=b.en;it.bName=b.name;
+}else if(!wasCustom){
+it.bJP=E;it.bEN=E;it.bName=E;
+$(pre+`_bJP`).value=E;$(pre+`_bEN`).value=E;$(pre+`_bName`).value=E;
 }
 refresh(n);
 });
-bind(`bJP`,function(el){it.bJP=el.value;});
+bind(`bJP`,function(el){
+it.bJP=el.value;
+var hit=null;
+for(var bi=0;bi<DIC_BRANDS.length;bi+=1){
+if(DIC_BRANDS[bi].jp===el.value)hit=DIC_BRANDS[bi];
+}
+if(hit){
+if(!it.bEN||it.bEN===it.autoEN){it.bEN=hit.en;it.autoEN=hit.en;$(pre+`_bEN`).value=hit.en;}
+if(!it.bName||it.bName===it.autoName){it.bName=hit.name;it.autoName=hit.name;$(pre+`_bName`).value=hit.name;}
+}else{
+if(!it.bName||it.bName===it.autoName){it.bName=el.value;it.autoName=el.value;$(pre+`_bName`).value=el.value;}
+}
+});
 bind(`bEN`,function(el){it.bEN=el.value;});
 bind(`bName`,function(el){it.bName=el.value;});
 
-bind(`model`,function(el){it.model=el.value;});
+bind(`model`,function(el){if(it.model!==el.value)it.t_e5=false;it.model=el.value;});
 bind(`modelEN`,function(el){it.modelEN=el.value;});
 bind(`penType`,function(el){it.penType=el.value;},`change`);
 bind(`era`,function(el){it.era=el.value;},`change`);
@@ -1675,10 +1847,10 @@ bind(`dNote`,function(el){it.dNote=el.value;});
 bind(`listPrice`,function(el){it.listPrice=el.value;});
 bind(`extra`,function(el){it.extra=el.value;});
 bind(`mgmt`,function(el){it.mgmt=el.value;});
-bind(`p6`,function(el){it.p6=el.value;});
-bind(`p7`,function(el){it.p7=el.value;});
-bind(`p8`,function(el){it.p8=el.value;});
-bind(`p9`,function(el){it.p9=el.value;});
+bind(`p6`,function(el){if(it.p6!==el.value)it.t_e6=false;it.p6=el.value;});
+bind(`p7`,function(el){if(it.p7!==el.value)it.t_e7=false;it.p7=el.value;});
+bind(`p8`,function(el){if(it.p8!==el.value)it.t_e8=false;it.p8=el.value;});
+bind(`p9`,function(el){if(it.p9!==el.value)it.t_e9=false;it.p9=el.value;});
 bind(`e5`,function(el){it.e5=el.value;it.t_e5=true;});
 bind(`e6`,function(el){it.e6=el.value;it.t_e6=true;});
 bind(`e7`,function(el){it.e7=el.value;it.t_e7=true;});
@@ -1806,7 +1978,7 @@ $(pre+`_modelEN`).value=it.modelEN;
 $(pre+`_penType`).value=it.penType;
 $(pre+`_era`).value=it.era;
 $(pre+`_country`).value=(COUNTRIES.indexOf(it.country)>=0?it.country:`その他（任意入力）`);
-$(pre+`_countryFree`).value=it.country;
+if($(pre+`_countryFree`).value!==it.country)$(pre+`_countryFree`).value=it.country;
 $(pre+`_material`).value=it.material;
 $(pre+`_color`).value=it.colorVal;
 $(pre+`_ink`).value=it.ink;
@@ -1817,8 +1989,8 @@ $(pre+`_listPrice`).value=it.listPrice;
 $(pre+`_extra`).value=it.extra;
 $(pre+`_mgmt`).value=it.mgmt;
 $(pre+`_turq`).value=it.turq;
-var f=[`p6`,`p7`,`p8`,`p9`,`e6`,`e7`,`e8`,`e9`];
-for(var i=0;i<f.length;i+=1){$(pre+`_`+f[i]).value=it[f[i]];}
+var f=[`p6`,`p7`,`p8`,`p9`,`e5`,`e6`,`e7`,`e8`,`e9`];
+for(var i=0;i<f.length;i+=1){$(pre+`_`+f[i]).value=it[f[i]]||E;}
 $(pre+`_p2c`).value=it.p2L;
 }
 
@@ -2022,9 +2194,18 @@ it.imgEl.naturalWidth*sc,it.imgEl.naturalHeight*sc);
 }
 var map={};
 for(var i=0;i<elems.length;i+=1){
-if(elems[i].centerOf)continue;
+if(elems[i].centerOf||elems[i].rightOf)continue;
 var bb=drawElem(ctx,elems[i]);
 if(bb)map[elems[i].id]=bb;
+}
+for(var r=0;r<elems.length;r+=1){
+var er=elems[r];
+if(!er.rightOf)continue;
+var rr=map[er.rightOf];
+var eer=rr?Object.assign({},er,{x:rr.x+rr.w+er.x})
+:Object.assign({},er,{x:(er.fallbackX!=null?er.fallbackX:300)+er.x});
+var br=drawElem(ctx,eer);
+if(br)map[er.id]=br;
 }
 for(var j=0;j<elems.length;j+=1){
 var e=elems[j];
