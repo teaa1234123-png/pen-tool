@@ -193,7 +193,7 @@ pointer-events:none;z-index:100;white-space:nowrap;}
 
 <div class="head">
   <div class="mark">✒️✒️✒️</div>
-  <div class="lead">MERCARI / EBAY LISTING TOOL v31</div>
+  <div class="lead">MERCARI / EBAY LISTING TOOL v32</div>
   <h1>5品まとめ出品ツール</h1>
 </div>
 
@@ -228,7 +228,7 @@ pointer-events:none;z-index:100;white-space:nowrap;}
   }
   window.penShowError = show;
   window.onerror = function (msg, src, line, col, e) {
-    show(`エラーが発生しました v31`, msg + `\n\n行: ` + line + ` 文字: ` + col);
+    show(`エラーが発生しました v32`, msg + `\n\n行: ` + line + ` 文字: ` + col);
     return false;
   };
   setTimeout(function () {
@@ -1443,6 +1443,17 @@ function buildElements(bJP,bEN,penType,country,model,p2label,p6,p7,p8,p9,turq){
 }
 
 /* ── eBay用（英語）の要素を組み立てる ── */
+function defaultP2EN(penType, p2label) {
+  var typeEN = PEN_TYPE_EN[penType] || `PEN`;
+  if (P2_EN[p2label]) return P2_EN[p2label];
+  if (p2label) {
+    var flat2 = p2label.split(`\n`).join(` `);
+    var res2 = dicTranslate(flat2);
+    return (res2.en && !res2.leftover) ? tidyEN(res2.en) : flat2;
+  }
+  return typeEN;
+}
+
 function brandEN(jp) {
   if (!jp) return `BRAND`;
   for (var i = 0; i < DIC_BRANDS.length; i += 1) {
@@ -1458,16 +1469,8 @@ function buildElementsEN(bEN,penType,country,model,p2label,era,src,turq){
   var TC=turq||DEF_TURQ;
   var AR=`Arial,sans-serif`;
   var typeEN=PEN_TYPE_EN[penType]||`PEN`;
-  var p2t;
-  if (P2_EN[p2label]) {
-    p2t = P2_EN[p2label];
-  } else if (p2label) {
-    var flat2 = p2label.split(`\n`).join(` `);
-    var res2 = dicTranslate(flat2);
-    p2t = (res2.en && !res2.leftover) ? tidyEN(res2.en) : flat2;
-  } else {
-    p2t = typeEN;
-  }
+  var p2t = (src && src.t_e2) ? src.e2
+          : ((src && src.e2) ? src.e2 : defaultP2EN(penType, p2label));
   var t6=(src&&src.t_e6)?src.e6:((src&&src.e6)?src.e6:autoBandEN(src?src.p6:E));
   var t7=(src&&src.t_e7)?src.e7:((src&&src.e7)?src.e7:autoBandEN(src?src.p7:E));
   var t8=(src&&src.t_e8)?src.e8:((src&&src.e8)?src.e8:autoBandEN(src?src.p8:E));
@@ -1696,6 +1699,9 @@ h+=`<div class=\u0022ebayHead\u0022 id=\u0022`+pre+`_ebayTog\u0022><span class=\
 h+=`<span class=\u0022ebayTitle\u0022>🌐 eBay用の英語画像も一緒に作る</span></div>`;
 h+=`<div class=\u0022ebaySub\u0022>日本語画像とは別に、英語表記の画像をもう1枚生成します</div>`;
 h+=`<div id=\u0022`+pre+`_ebayPanel\u0022 style=\u0022display:none\u0022>`;
+h+=`<div class=\u0022enRow\u0022 id=\u0022`+pre+`_e2Row\u0022>`;
+h+=`<div class=\u0022enLbl\u0022>② 右下の帯（英語画像用）</div>`;
+h+=`<textarea id=\u0022`+pre+`_e2\u0022 placeholder=\u0022英語を直接入力\u0022></textarea></div>`;
 h+=`<div class=\u0022enRow\u0022 id=\u0022`+pre+`_e5Row\u0022>`;
 h+=`<div class=\u0022enLbl\u0022>⑤ モデル名（英語画像用）</div>`;
 h+=`<textarea id=\u0022`+pre+`_e5\u0022 placeholder=\u0022英語を直接入力\u0022></textarea>`;
@@ -1851,12 +1857,13 @@ bind(`p6`,function(el){if(it.p6!==el.value)it.t_e6=false;it.p6=el.value;});
 bind(`p7`,function(el){if(it.p7!==el.value)it.t_e7=false;it.p7=el.value;});
 bind(`p8`,function(el){if(it.p8!==el.value)it.t_e8=false;it.p8=el.value;});
 bind(`p9`,function(el){if(it.p9!==el.value)it.t_e9=false;it.p9=el.value;});
+bind(`e2`,function(el){it.e2=el.value;it.t_e2=true;});
 bind(`e5`,function(el){it.e5=el.value;it.t_e5=true;});
 bind(`e6`,function(el){it.e6=el.value;it.t_e6=true;});
 bind(`e7`,function(el){it.e7=el.value;it.t_e7=true;});
 bind(`e8`,function(el){it.e8=el.value;it.t_e8=true;});
 bind(`e9`,function(el){it.e9=el.value;it.t_e9=true;});
-bind(`p2c`,function(el){it.p2L=el.value;});
+bind(`p2c`,function(el){if(it.p2L!==el.value)it.t_e2=false;it.p2L=el.value;});
 bind(`turq`,function(el){it.turq=el.value;},`change`);
 
 $(pre+`_turqR`).addEventListener(`click`,function(){
@@ -1989,7 +1996,7 @@ $(pre+`_listPrice`).value=it.listPrice;
 $(pre+`_extra`).value=it.extra;
 $(pre+`_mgmt`).value=it.mgmt;
 $(pre+`_turq`).value=it.turq;
-var f=[`p6`,`p7`,`p8`,`p9`,`e5`,`e6`,`e7`,`e8`,`e9`];
+var f=[`p6`,`p7`,`p8`,`p9`,`e2`,`e5`,`e6`,`e7`,`e8`,`e9`];
 for(var i=0;i<f.length;i+=1){$(pre+`_`+f[i]).value=it[f[i]]||E;}
 $(pre+`_p2c`).value=it.p2L;
 }
@@ -2088,6 +2095,13 @@ $(pre+`_ebayCb`).className=`cb`+(it.makeEbayImg?` on`:E);
 $(pre+`_ebayBox`).className=`ebayBox`+(it.makeEbayImg?` on`:E);
 $(pre+`_ebayPanel`).style.display=(it.makeEbayImg?`block`:`none`);
 $(pre+`_enPv`).style.display=(it.makeEbayImg?`block`:`none`);
+
+var auto2=defaultP2EN(it.penType,it.p2L);
+if(!it.t_e2){
+if(it.e2!==auto2){it.e2=auto2;$(pre+`_e2`).value=auto2;}
+}
+$(pre+`_e2`).placeholder=auto2||`英語を直接入力`;
+$(pre+`_e2Row`).style.display=`block`;
 
 var auto5=it.modelEN?it.modelEN:autoModelEN(it.model);
 if(!it.t_e5){
