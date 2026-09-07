@@ -62,7 +62,7 @@ button { font-family: inherit; cursor: pointer; }
 <body>
 <div class="hd">
   <div class="icon">🇯🇵 → 🌐</div>
-  <div class="sub">EBAY TEXT CONVERTER v30</div>
+  <div class="sub">EBAY TEXT CONVERTER v35</div>
   <h1>日本語出品 → eBay英語</h1>
 </div>
 
@@ -77,6 +77,8 @@ button { font-family: inherit; cursor: pointer; }
   <div class="chips" id="conds"></div>
 
   <div id="chk" class="chk"><span class="box" id="chkbox"></span><span>機構の動作を確認した<span class="small">（未確認ならOFF）</span></span></div>
+
+  <div id="chkink" class="chk"><span class="box" id="chkinkbox"></span><span>インクを入れての筆記確認なし<span class="small">（万年筆向け）</span></span></div>
 
 <button id="run" class="primary">🌐 eBay英語に変換する</button>
 
@@ -147,10 +149,59 @@ var DIC_BRANDS = [
   { jp: `アウロラ`, en: `AURORA`, name: `AURORA（アウロラ）`, country: `イタリア製`, alt: [`AURORA`] },
   { jp: `ダンヒル`, en: `DUNHILL`, name: `DUNHILL（ダンヒル）`, country: `イギリス製`, alt: [`DUNHILL`, `dunhill`] },
   { jp: `プラチナ`, en: `PLATINUM`, name: `PLATINUM（プラチナ万年筆）`, country: `日本製`, alt: [`PLATINUM`, `プラチナ万年筆`] },
-  { jp: `カランダッシュ`, en: `Caran d\u0027Ache`, name: `Caran d\u0027Ache（カランダッシュ）`, country: `スイス製`, alt: [`Caran d\u0027Ache`] }
+  { jp: `カランダッシュ`, en: `Caran d\u0027Ache`, name: `Caran d\u0027Ache（カランダッシュ）`, country: `スイス製`, alt: [`Caran d\u0027Ache`] },
+  { jp: `グッチ`, en: `GUCCI`, name: `GUCCI（グッチ）`, country: `イタリア製`, alt: [`GUCCI`, `Gucci`] },
+  { jp: `デュポン`, en: `S.T. Dupont`, name: `S.T. Dupont（エス・テー・デュポン）`, country: `フランス製`, alt: [`S.T.デュポン`, `S.T デュポン`, `STデュポン`, `S.T.Dupont`, `S.T. Dupont`, `ST Dupont`, `DUPONT`, `Dupont`, `エス・テー・デュポン`, `エステーデュポン`] },
+  { jp: `カルティエ`, en: `Cartier`, name: `Cartier（カルティエ）`, country: `フランス製`, alt: [`Cartier`, `CARTIER`] },
+  { jp: `シェーファー`, en: `SHEAFFER`, name: `SHEAFFER（シェーファー）`, country: `アメリカ製`, alt: [`SHEAFFER`, `Sheaffer`] },
+  { jp: `ファーバーカステル`, en: `Faber-Castell`, name: `Faber-Castell（ファーバーカステル）`, country: `ドイツ製`, alt: [`Faber-Castell`, `FABER-CASTELL`] },
+  { jp: `ロットリング`, en: `rOtring`, name: `rOtring（ロットリング）`, country: `ドイツ製`, alt: [`rOtring`, `ROTRING`] },
+  { jp: `オマス`, en: `OMAS`, name: `OMAS（オマス）`, country: `イタリア製`, alt: [`OMAS`] },
+  { jp: `デルタ`, en: `Delta`, name: `Delta（デルタ）`, country: `イタリア製`, alt: [`Delta`] },
+  { jp: `スタイプラ`, en: `Stipula`, name: `Stipula（スタイプラ）`, country: `イタリア製`, alt: [`Stipula`] },
+  { jp: `ペリカーノ`, en: `Pelikan`, name: `Pelikan（ペリカン）`, country: `ドイツ製`, alt: [] },
+  { jp: `エルメス`, en: `HERMES`, name: `HERMES（エルメス）`, country: `フランス製`, alt: [`HERMES`, `Hermes`] },
+  { jp: `ルイヴィトン`, en: `LOUIS VUITTON`, name: `LOUIS VUITTON（ルイヴィトン）`, country: `フランス製`, alt: [`LOUIS VUITTON`] },
+  { jp: `プラダ`, en: `PRADA`, name: `PRADA（プラダ）`, country: `イタリア製`, alt: [`PRADA`] },
+  { jp: `バーバリー`, en: `BURBERRY`, name: `BURBERRY（バーバリー）`, country: `イギリス製`, alt: [`BURBERRY`] },
+  { jp: `セリーヌ`, en: `CELINE`, name: `CELINE（セリーヌ）`, country: `フランス製`, alt: [`CELINE`] },
+  { jp: `ヴェルサーチ`, en: `VERSACE`, name: `VERSACE（ヴェルサーチ）`, country: `イタリア製`, alt: [`VERSACE`] },
+  { jp: `モンテグラッパ`, en: `Montegrappa`, name: `Montegrappa（モンテグラッパ）`, country: `イタリア製`, alt: [`Montegrappa`] },
+  { jp: `ペンテル`, en: `Pentel`, name: `Pentel（ぺんてる）`, country: `日本製`, alt: [`Pentel`, `ぺんてる`] },
+  { jp: `ゼブラ`, en: `ZEBRA`, name: `ZEBRA（ゼブラ）`, country: `日本製`, alt: [`ZEBRA`] },
+  { jp: `トンボ`, en: `Tombow`, name: `Tombow（トンボ）`, country: `日本製`, alt: [`Tombow`, `トンボ鉛筆`] },
+  { jp: `オート`, en: `OHTO`, name: `OHTO（オート）`, country: `日本製`, alt: [`OHTO`] }
 ];
 
 var DIC_MODELS = [
+  { jp: `シェリーライン`, en: `Sherry Line` },
+  { jp: `ギャッツビー`, en: `Gatsby` },
+  { jp: `モンパルナス`, en: `Montparnasse` },
+  { jp: `オランピオ`, en: `Olympio` },
+  { jp: `ヴァンドーム`, en: `Vendome` },
+  { jp: `フィデリオ`, en: `Fidelio` },
+  { jp: `ラインドゥ`, en: `Ligne D` },
+  { jp: `タルガ`, en: `Targa` },
+  { jp: `バランス`, en: `Balance` },
+  { jp: `サントス`, en: `Santos` },
+  { jp: `パシャ`, en: `Pasha` },
+  { jp: `ディアボロ`, en: `Diabolo` },
+  { jp: `トリニティ`, en: `Trinity` },
+  { jp: `伯爵コレクション`, en: `Graf von Faber-Castell` },
+  { jp: `エモーション`, en: `Emotion` },
+  { jp: `アンビション`, en: `Ambition` },
+  { jp: `カプリ`, en: `Capri` },
+  { jp: `ミラノ`, en: `Milano` },
+  { jp: `フィレンツェ`, en: `Firenze` },
+  { jp: `ヴェネチア`, en: `Venezia` },
+  { jp: `トスカーナ`, en: `Toscana` },
+  { jp: `カスタム74`, en: `Custom 74` },
+  { jp: `シルバーン`, en: `Silvern` },
+  { jp: `グランセ`, en: `Grance` },
+  { jp: `キャンパス`, en: `Campus` },
+  { jp: `デシモ`, en: `Decimo` },
+  { jp: `ジャスタス`, en: `Justus` },
+  { jp: `ライター`, en: `Lighter` },
   { jp: `ノブレス・オブリージュ`, en: `Noblesse Oblige` },
   { jp: `ノブレスオブリージュ`, en: `Noblesse Oblige` },
   { jp: `オブリージュ`, en: `Oblige` },
@@ -792,6 +843,7 @@ function dicTranslate(jp) {
       if (!buf) return;
       if (/^[\u30A0-\u30FF\u30FC]+$/.test(buf)) {
         unres.push(buf);
+        parts.push(buf);
       } else {
         parts.push(buf);
       }
@@ -916,12 +968,32 @@ var DIC_COUNTRIES = [
   { jp: `USA`, en: `USA`, band: `USA` }
 ];
 
+var NIBS = [
+  { jp: `超極細`, en: `Ultra Extra Fine (UEF)` },
+  { jp: `軟細字`, en: `Soft Fine (SF)` },
+  { jp: `軟中字`, en: `Soft Medium (SM)` },
+  { jp: `極細`, en: `Extra Fine (EF)` },
+  { jp: `中細`, en: `Medium Fine (MF)` },
+  { jp: `細字`, en: `Fine (F)` },
+  { jp: `中字`, en: `Medium (M)` },
+  { jp: `太字`, en: `Broad (B)` },
+  { jp: `極太`, en: `Double Broad (BB)` },
+  { jp: `ミュージック`, en: `Music (MS)` },
+  { jp: `ズーム`, en: `Zoom` },
+  { jp: `オブリーク`, en: `Oblique (OB)` },
+  { jp: `スタブ`, en: `Stub` }
+];
+
 var DIC_SPECS = [
   { jp: `ツイスト式`, en: `Twist mechanism` },
   { jp: `ノック式`, en: `Click mechanism` },
   { jp: `カートリッジ式`, en: `Cartridge filling` },
   { jp: `コンバーター式`, en: `Converter filling` },
-  { jp: `吸引式`, en: `Piston filling` }
+  { jp: `吸引式`, en: `Piston filling` },
+  { jp: `両用式`, en: `Cartridge or Converter filling` },
+  { jp: `キャップ式`, en: `Cap type` },
+  { jp: `回転式`, en: `Twist mechanism` },
+  { jp: `スライド式`, en: `Slide mechanism` }
 ];
 
 var DIC_ACCS = [
@@ -1053,7 +1125,7 @@ function buildTitle(hook, parts, mgmt) {
   return t;
 }
 
-function convertListing(jpTitle, jpBody, tested, condKey) {
+function convertListing(jpTitle, jpBody, tested, condKey, noInk) {
   var all = jpTitle + `\n` + jpBody;
 
   var bodyForBrand = jpBody.split(`プラチナメッキ`).join(E).split(`プラチナ仕上げ`).join(E).split(`プラチナコーティング`).join(E);
@@ -1068,6 +1140,19 @@ function convertListing(jpTitle, jpBody, tested, condKey) {
   if (!penType) {
     penType = findOne(jpBody.slice(0, 200), PENTYPES);
     penTypeSource = `本文冒頭`;
+  }
+  if (!penType) {
+    penType = findOne(jpBody, PENTYPES);
+    if (penType) penTypeSource = `本文全体`;
+  }
+  if (!penType) {
+    if (/ペン先|字幅|インク|カートリッジ|コンバーター|吸引式|ニブ/.test(all)) {
+      penType = findOne(`万年筆`, PENTYPES);
+      penTypeSource = `仕様から推測`;
+    } else if (/替芯|替え芯|リフィル|ツイスト式|ノック式/.test(all)) {
+      penType = findOne(`ボールペン`, PENTYPES);
+      penTypeSource = `仕様から推測`;
+    }
   }
   var penCandidates = findAll(jpTitle + `\n` + jpBody.slice(0, 200), PENTYPES);
   var penAmbiguous = penCandidates.length > 1;
@@ -1110,6 +1195,7 @@ function convertListing(jpTitle, jpBody, tested, condKey) {
 
   var country = findOne(all, COUNTRIES);
   var era = extractEra(all);
+  var eraApprox = /年代頃|年頃|年代ごろ|年代くらい/.test(all);
   var prod = extractProduction(all);
   var stamped = extractStampedYear(all);
   var single = prod ? null : extractSingleYear(withoutStampSentences(all));
@@ -1118,6 +1204,20 @@ function convertListing(jpTitle, jpBody, tested, condKey) {
   if (!era && single) era = single.slice(0, 3) + `0s`;
   if (!era && stamped) era = stamped.slice(0, 3) + `0s`;
   var specs = findAll(all, SPECS);
+  var nibField = pickField(jpBody, `ペン先`) || pickField(jpBody, `字幅`) || pickField(jpBody, `仕様`);
+  var nib = findOne(nibField, NIBS) || findOne(jpTitle, NIBS) || findOne(all, NIBS);
+  var nibApprox = false;
+  if (nib) {
+    var nibCtx = nibField || jpTitle || all;
+    var ni = nibCtx.indexOf(nib.jp);
+    if (ni >= 0) {
+      var afterNib = nibCtx.slice(ni + nib.jp.length, ni + nib.jp.length + 4);
+      if (/程度|くらい|ぐらい|相当/.test(afterNib)) nibApprox = true;
+    }
+  }
+  var refillAdapter = /リフィルアダプター|リフィルアダプタ/.test(all);
+  var refillNeeded = /替芯の交換|替え芯の交換|リフィル交換/.test(all);
+  var isFountain = /万年筆/.test(jpTitle) || /万年筆/.test(jpBody.slice(0, 200));
   var accs = findAll(all, ACCS);
 
   var HEAD_WORDS = [`超希少`, `激レア`, `廃盤希少`, `希少廃盤`, `絶版希少`, `入手困難`,
@@ -1129,7 +1229,15 @@ function convertListing(jpTitle, jpBody, tested, condKey) {
     var headCut = t.search(/[\u25C6\u25C7\u2605\u2606]/);
     if (headCut >= 0 && headCut <= 12) t = t.slice(headCut + 1);
     t = t.replace(/\d{4}s?◆?/g, E);
-    BRANDS.forEach(function (b) { t = t.split(b.jp).join(` `); });
+    var brandWords = [];
+    DIC_BRANDS.forEach(function (b) {
+      brandWords.push(b.jp);
+      brandWords.push(b.en);
+      for (var ai = 0; ai < b.alt.length; ai++) brandWords.push(b.alt[ai]);
+    });
+    BRANDS.forEach(function (b) { brandWords.push(b.jp); brandWords.push(b.en); });
+    brandWords.sort(function (a, b) { return b.length - a.length; });
+    brandWords.forEach(function (bw) { if (bw) t = t.split(bw).join(` `); });
     PENTYPES.forEach(function (p) { t = t.split(`高級` + p.jp).join(` `).split(p.jp).join(` `); });
     COUNTRIES.forEach(function (c) { t = t.split(c.jp).join(` `); });
     modelJp = t.replace(/[（）()]/g, ` `).replace(/\s+/g, ` `).trim();
@@ -1213,12 +1321,12 @@ function convertListing(jpTitle, jpBody, tested, condKey) {
   var bn = brand ? brand.en : E;
   var pt = penType ? penType.en : `Pen`;
 
-  add((bn + ` ` + model).trim() + ` — ` + pt,
+  add((bn + ` ` + model).trim() + ` \u2014 ` + pt,
     (brand ? brand.jp : E) + ` ` + modelJp + `、` + (penType ? penType.jp : E));
   add(E);
 
   if (era) {
-    add(`Vintage ` + era + ` model. Discontinued and no longer in production.`,
+    add(`Vintage model from ` + (eraApprox ? `around the ` : `the `) + era + `. Discontinued and no longer in production.`,
       era + `頃のヴィンテージモデル。現在は生産終了・廃盤。`);
     add(E);
   }
@@ -1266,8 +1374,11 @@ function convertListing(jpTitle, jpBody, tested, condKey) {
   add(`Condition: ` + cond.grade, `【状態】` + cond.grade);
   if (materialEn) add(`Material: ` + materialEn, `【素材】` + (matR.raw || (material ? material.jp : E)));
   if (colorEn) add(`Color: ` + colorEn, `【カラー】` + (colR.raw || E));
-  if (country) add(`Made in: ` + country.en + (era ? ` (` + era + `)` : E),
+  if (country) add(`Made in: ` + country.en + (era ? ` (` + (eraApprox ? `approx. ` : E) + era + `)` : E),
     `【製造】` + country.jp + (era ? `（` + era + `）` : E));
+  if (nib) add(`Nib Size: ` + (nibApprox ? `approx. ` : E) + nib.en,
+    `【ペン先】` + nib.jp + (nibApprox ? `程度` : E));
+  if (refillAdapter) add(`Accessory: Refill adapter`, `【付属】リフィルアダプター`);
   if (specs.length) add(`Mechanism: ` + specs.map(function (s) { return s.en; }).join(` / `),
     `【仕様】` + specs.map(function (s) { return s.jp; }).join(`・`));
   if (accs.length) add(`Included: ` + accs.map(function (a) { return a.en; }).join(`, `),
@@ -1284,21 +1395,71 @@ function convertListing(jpTitle, jpBody, tested, condKey) {
     if (specs[0].jp === `ツイスト式`) { mechName = `The twist mechanism`; mechJp = `ツイスト機構`; }
     else if (specs[0].jp === `ノック式`) { mechName = `The click mechanism`; mechJp = `ノック機構`; }
   }
-  var refillDepleted = jpBody.indexOf(`替芯の交換`) >= 0;
+  var refillDepleted = refillNeeded;
 
-  if (tested && isMech) {
+  if (tested) {
     add(mechName + ` has been tested and operates smoothly.`,
       mechJp + `の動作を確認済みです。（チェックをONにしたため）`);
     if (refillDepleted) add(`The refill is depleted, so please replace it before use.`,
       `ご使用の際には替芯の交換をお願いします。`);
-  } else if (refillDepleted) {
-    add(`The refill is depleted, so please replace it before use.`,
-      `ご使用の際には替芯の交換をお願いします。`);
+  } else {
+    if (refillDepleted) {
+      add(`The refill is depleted, so please replace it before use.`,
+        `ご使用の際には替芯の交換をお願いします。`);
+    }
     add(`The mechanism has not been fully tested. Please refer to the photos and ask if you have any questions.`,
       `機構の動作は未確認です。（チェックがOFFのため）`);
-  } else if (isMech) {
-    add(`This item has not been fully tested and is sold as-is. Please refer to the photos and ask if you have any questions.`,
-      `未確認のため現状渡しです。（チェックがOFFのため）`);
+  }
+  if (refillAdapter) {
+    add(`Comes with a refill adapter.`, `リフィルアダプター付き。`);
+    add(`Allows the use of current refills.`, `現行のリフィルが使用できます。`);
+  }
+  if (noInk) {
+    add(`Regarding the fountain pen currently listed, we have not filled it with ink to test its writing performance.`,
+      `現在出品中の万年筆につきましては、筆記確認のためのインク注入は行っておりません。`);
+  }
+  var PHRASES = [
+    { jp: `インクの補充が必要`, en: `The pen will need to be filled with ink before use.` },
+    { jp: `インクは付属しません`, en: `Ink is not included.` },
+    { jp: `試筆のみ`, en: `Only test-written, hardly used.` },
+    { jp: `書き味`, en: `The nib writes smoothly.` },
+    { jp: `インク出`, en: `Ink flow has been checked.` },
+    { jp: `クリップに緩み`, en: `The clip is slightly loose.` },
+    { jp: `キャップに緩み`, en: `The cap is slightly loose.` },
+    { jp: `真鍮が見えて`, en: `Brass shows through in some worn areas.` },
+    { jp: `メッキ剥がれ`, en: `There is some plating loss.` },
+    { jp: `メッキの剥がれ`, en: `There is some plating loss.` },
+    { jp: `変色`, en: `There is some discoloration.` },
+    { jp: `小傷`, en: `There are small scratches.` },
+    { jp: `擦れ`, en: `There are signs of rubbing.` },
+    { jp: `打痕`, en: `There is a small dent.` },
+    { jp: `刻印あり`, en: `There is an engraving on the body.` },
+    { jp: `名入れ`, en: `There is a personalized engraving.` },
+    { jp: `箱に傷み`, en: `The box shows signs of wear.` },
+    { jp: `箱はありません`, en: `The original box is not included.` },
+    { jp: `付属品はありません`, en: `No accessories are included.` },
+    { jp: `写真の物が全て`, en: `Everything included is shown in the photos.` },
+    { jp: `喫煙者はおりません`, en: `From a smoke-free home.` },
+    { jp: `ペットは飼っておりません`, en: `From a pet-free home.` },
+    { jp: `自宅保管`, en: `Stored in a private home.` },
+    { jp: `神経質な方`, en: `If you are particular about condition, please consider carefully before purchasing.` },
+    { jp: `すり替え防止`, en: `To prevent fraud, returns for buyer\u0027s reasons are not accepted.` },
+    { jp: `値下げ`, en: `Price negotiation is not available.` },
+    { jp: `即購入`, en: `You may purchase immediately without asking.` },
+    { jp: `送料無料`, en: `Free shipping.` },
+    { jp: `匿名配送`, en: `Shipped with tracking.` },
+    { jp: `丁寧に梱包`, en: `The item will be packed carefully.` },
+    { jp: `即日発送`, en: `Ships the same day.` },
+    { jp: `翌日発送`, en: `Ships the next day.` }
+  ];
+  var extraPhrases = [];
+  for (var ph = 0; ph < PHRASES.length; ph++) {
+    if (jpBody.indexOf(PHRASES[ph].jp) >= 0) {
+      extraPhrases.push(PHRASES[ph]);
+    }
+  }
+  for (var ep = 0; ep < extraPhrases.length; ep++) {
+    add(extraPhrases[ep].en, extraPhrases[ep].jp + `（本文より）`);
   }
   if (jpBody.indexOf(`多少の汚れ`) >= 0) {
     add(`The included accessories show stains or wear from age.`,
@@ -1364,7 +1525,7 @@ function convertListing(jpTitle, jpBody, tested, condKey) {
 
 function $(id) { return document.getElementById(id); }
 
-var ST = { tested: false, parts: [], hooks: [], hook: E, tails: [], tailOn: [], pairs: [], showPairs: false, open: false, cond: E, mgmt: E };
+var ST = { tested: false, noInk: false, parts: [], hooks: [], hook: E, tails: [], tailOn: [], pairs: [], showPairs: false, open: false, cond: E, mgmt: E };
 var toastTimer = null;
 
 function esc(s) {
@@ -1557,7 +1718,7 @@ function run() {
 
   var r;
   try {
-    r = convertListing(jt, jb, ST.tested, ST.cond);
+    r = convertListing(jt, jb, ST.tested, ST.cond, ST.noInk);
   } catch (e) {
     toast(`⚠ 変換でエラー: ` + (e && e.message ? e.message : e));
     return;
@@ -1623,6 +1784,12 @@ $(`chk`).onclick = function () {
   ST.tested = !ST.tested;
   $(`chk`).className = ST.tested ? `chk on` : `chk`;
   $(`chkbox`).textContent = ST.tested ? `✓` : E;
+};
+
+$(`chkink`).onclick = function () {
+  ST.noInk = !ST.noInk;
+  $(`chkink`).className = ST.noInk ? `chk on` : `chk`;
+  $(`chkinkbox`).textContent = ST.noInk ? `✓` : E;
 };
 
 $(`sechd`).onclick = function () {
