@@ -62,7 +62,7 @@ button { font-family: inherit; cursor: pointer; }
 <body>
 <div class="hd">
   <div class="icon">🇯🇵 → 🌐</div>
-  <div class="sub">EBAY TEXT CONVERTER v35</div>
+  <div class="sub">EBAY TEXT CONVERTER v38</div>
   <h1>日本語出品 → eBay英語</h1>
 </div>
 
@@ -151,7 +151,7 @@ var DIC_BRANDS = [
   { jp: `プラチナ`, en: `PLATINUM`, name: `PLATINUM（プラチナ万年筆）`, country: `日本製`, alt: [`PLATINUM`, `プラチナ万年筆`] },
   { jp: `カランダッシュ`, en: `Caran d\u0027Ache`, name: `Caran d\u0027Ache（カランダッシュ）`, country: `スイス製`, alt: [`Caran d\u0027Ache`] },
   { jp: `グッチ`, en: `GUCCI`, name: `GUCCI（グッチ）`, country: `イタリア製`, alt: [`GUCCI`, `Gucci`] },
-  { jp: `デュポン`, en: `S.T. Dupont`, name: `S.T. Dupont（エス・テー・デュポン）`, country: `フランス製`, alt: [`S.T.デュポン`, `S.T デュポン`, `STデュポン`, `S.T.Dupont`, `S.T. Dupont`, `ST Dupont`, `DUPONT`, `Dupont`, `エス・テー・デュポン`, `エステーデュポン`] },
+  { jp: `S.T.デュポン`, en: `S.T. Dupont`, name: `S.T. Dupont（S.T.デュポン）`, country: `フランス製`, alt: [`デュポン`, `S.T デュポン`, `STデュポン`, `S.T.Dupont`, `S.T. Dupont`, `ST Dupont`, `DUPONT`, `Dupont`, `エス・テー・デュポン`, `エステーデュポン`] },
   { jp: `カルティエ`, en: `Cartier`, name: `Cartier（カルティエ）`, country: `フランス製`, alt: [`Cartier`, `CARTIER`] },
   { jp: `シェーファー`, en: `SHEAFFER`, name: `SHEAFFER（シェーファー）`, country: `アメリカ製`, alt: [`SHEAFFER`, `Sheaffer`] },
   { jp: `ファーバーカステル`, en: `Faber-Castell`, name: `Faber-Castell（ファーバーカステル）`, country: `ドイツ製`, alt: [`Faber-Castell`, `FABER-CASTELL`] },
@@ -174,6 +174,32 @@ var DIC_BRANDS = [
 ];
 
 var DIC_MODELS = [
+  { jp: `メタル`, en: `Metal` },
+  { jp: `回転式`, en: `Twist Type` },
+  { jp: `スライド式`, en: `Slide Type` },
+  { jp: `黒色`, en: `Black` },
+  { jp: `白色`, en: `White` },
+  { jp: `赤色`, en: `Red` },
+  { jp: `青色`, en: `Blue` },
+  { jp: `緑色`, en: `Green` },
+  { jp: `紫色`, en: `Purple` },
+  { jp: `茶色`, en: `Brown` },
+  { jp: `灰色`, en: `Grey` },
+  { jp: `桃色`, en: `Pink` },
+  { jp: `黄色`, en: `Yellow` },
+  { jp: `紺色`, en: `Navy` },
+  { jp: `紺`, en: `Navy` },
+  { jp: `黒`, en: `Black` },
+  { jp: `白`, en: `White` },
+  { jp: `赤`, en: `Red` },
+  { jp: `青`, en: `Blue` },
+  { jp: `緑`, en: `Green` },
+  { jp: `紫`, en: `Purple` },
+  { jp: `茶`, en: `Brown` },
+  { jp: `灰`, en: `Grey` },
+  { jp: `桃`, en: `Pink` },
+  { jp: `金`, en: `Gold` },
+  { jp: `銀`, en: `Silver` },
   { jp: `シェリーライン`, en: `Sherry Line` },
   { jp: `ギャッツビー`, en: `Gatsby` },
   { jp: `モンパルナス`, en: `Montparnasse` },
@@ -368,7 +394,7 @@ var DIC_MODELS = [
   { jp: `細字`, en: `Fine (F)` },
   { jp: `中字`, en: `Medium (M)` },
   { jp: `太字`, en: `Broad (B)` },
-  { jp: `極太`, en: `Extra Broad (BB)` },
+  { jp: `極太`, en: `Double Broad (BB)` },
 
   { jp: `未使用に近い`, en: `Near Mint` },
   { jp: `ほぼ未使用`, en: `Near Mint` },
@@ -585,11 +611,11 @@ var DIC_MODELS = [
   { jp: `メーカー`, en: `Maker` },
   { jp: `ツイスト式`, en: `Twist Type` },
   { jp: `ノック式`, en: `Click Type` },
-  { jp: `キャップ式`, en: `Cap Type` },
+  { jp: `キャップ式`, en: `Cap type` },
   { jp: `カートリッジ式`, en: `Cartridge` },
   { jp: `コンバーター式`, en: `Converter` },
   { jp: `吸引式`, en: `Piston Filler` },
-  { jp: `両用式`, en: `Cartridge or Converter` },
+  { jp: `両用式`, en: `Cartridge or Converter filling` },
   { jp: `ドイツ製`, en: `Germany` },
   { jp: `日本製`, en: `Japan` },
   { jp: `フランス製`, en: `France` },
@@ -776,7 +802,134 @@ var DIC_MODELS = [
   { jp: `イタリア`, en: `Italy` },
   { jp: `アメリカ`, en: `USA` },
   { jp: `スイス`, en: `Switzerland` },
-  { jp: `イギリス`, en: `UK` }
+  { jp: `イギリス`, en: `UK` },
+  { jp: `モンブラン`, en: `MONTBLANC` },
+  { jp: `ペリカン`, en: `Pelikan` },
+  { jp: `パーカー`, en: `PARKER` },
+  { jp: `ティファニー`, en: `TIFFANY & Co.` },
+  { jp: `クロス`, en: `CROSS` },
+  { jp: `ラミー`, en: `LAMY` },
+  { jp: `パイロット`, en: `PILOT` },
+  { jp: `セーラー`, en: `SAILOR` },
+  { jp: `ウォーターマン`, en: `Waterman` },
+  { jp: `ビスコンティ`, en: `Visconti` },
+  { jp: `アウロラ`, en: `AURORA` },
+  { jp: `ダンヒル`, en: `DUNHILL` },
+  { jp: `カランダッシュ`, en: `Caran d\u0027Ache` },
+  { jp: `プラチナ万年筆`, en: `PLATINUM` },
+  { jp: `ファイルコピー`, en: `File Copy` },
+  { jp: `ファイル`, en: `File` },
+  { jp: `コピー`, en: `Copy` },
+  { jp: `オリジナルボックス`, en: `Original Box` },
+  { jp: `メタルボディ`, en: `Metal Body` },
+  { jp: `ノート`, en: `Note` },
+  { jp: `メモ`, en: `Memo` },
+  { jp: `ペーパー`, en: `Paper` },
+  { jp: `カード`, en: `Card` },
+  { jp: `タグ`, en: `Tag` },
+  { jp: `ラベル`, en: `Label` },
+  { jp: `シール`, en: `Sticker` },
+  { jp: `スタンプ`, en: `Stamp` },
+  { jp: `インクカートリッジ`, en: `Ink Cartridge` },
+  { jp: `ボトルインク`, en: `Bottle Ink` },
+  { jp: `ボトル`, en: `Bottle` },
+  { jp: `キャップレスト`, en: `Cap Rest` },
+  { jp: `スタンド`, en: `Stand` },
+  { jp: `ホルダー`, en: `Holder` },
+  { jp: `トレイ`, en: `Tray` },
+  { jp: `ブロッター`, en: `Blotter` },
+  { jp: `ルーペ`, en: `Loupe` },
+  { jp: `レターオープナー`, en: `Letter Opener` },
+  { jp: `レター`, en: `Letter` },
+  { jp: `オープナー`, en: `Opener` },
+  { jp: `キーホルダー`, en: `Key Holder` },
+  { jp: `キーリング`, en: `Key Ring` },
+  { jp: `カフス`, en: `Cufflinks` },
+  { jp: `マネークリップ`, en: `Money Clip` },
+  { jp: `マネー`, en: `Money` },
+  { jp: `ウォレット`, en: `Wallet` },
+  { jp: `バッグ`, en: `Bag` },
+  { jp: `ベルト`, en: `Belt` },
+  { jp: `ウォッチ`, en: `Watch` },
+  { jp: `グラス`, en: `Glasses` },
+  { jp: `フレーム`, en: `Frame` },
+  { jp: `コンパス`, en: `Compass` },
+  { jp: `ルーラー`, en: `Ruler` },
+  { jp: `クリーナー`, en: `Cleaner` },
+  
+  { jp: `オイル`, en: `Oil` },
+  { jp: `シリコン`, en: `Silicone` },
+  { jp: `ゴム`, en: `Rubber` },
+  { jp: `スプリング`, en: `Spring` },
+  { jp: `ネジ`, en: `Screw` },
+  { jp: `パイプ`, en: `Pipe` },
+  { jp: `チューブ`, en: `Tube` },
+  { jp: `タンク`, en: `Tank` },
+  { jp: `ピストン`, en: `Piston` },
+  { jp: `レバー`, en: `Lever` },
+  { jp: `ボタン`, en: `Button` },
+  { jp: `スイッチ`, en: `Switch` },
+  { jp: `ユニット`, en: `Unit` },
+  { jp: `システム`, en: `System` },
+  { jp: `メカニズム`, en: `Mechanism` },
+  { jp: `デュアル`, en: `Dual` },
+  { jp: `マルチ`, en: `Multi` },
+  
+  { jp: `マニュアル`, en: `Manual` },
+  { jp: `ワイド`, en: `Wide` },
+  { jp: `ナロー`, en: `Narrow` },
+  { jp: `シン`, en: `Thin` },
+  { jp: `シック`, en: `Thick` },
+  { jp: `ハーフ`, en: `Half` },
+  { jp: `フル`, en: `Full` },
+  { jp: `ミドル`, en: `Middle` },
+  { jp: `センター`, en: `Center` },
+  { jp: `サイド`, en: `Side` },
+  { jp: `フロント`, en: `Front` },
+  { jp: `バック`, en: `Back` },
+  { jp: `アッパー`, en: `Upper` },
+  { jp: `ロウアー`, en: `Lower` },
+  { jp: `ベース`, en: `Base` },
+  { jp: `コア`, en: `Core` },
+  { jp: `エッジド`, en: `Edged` },
+  { jp: `カット`, en: `Cut` },
+  { jp: `カーブド`, en: `Curved` },
+  { jp: `テーパ`, en: `Taper` },
+  { jp: `ミニマム`, en: `Minimum` },
+  { jp: `マキシマム`, en: `Maximum` },
+  { jp: `プラス`, en: `Plus` },
+  { jp: `ネオ`, en: `Neo` },
+  { jp: `プロ`, en: `Pro` },
+  { jp: `ライト`, en: `Light` },
+  { jp: `ハイ`, en: `High` },
+  { jp: `ロー`, en: `Low` },
+  { jp: `ファイン`, en: `Fine` },
+  { jp: `シャープ`, en: `Sharp` },
+  { jp: `スムース`, en: `Smooth` },
+  { jp: `ソリッド`, en: `Solid` },
+  { jp: `クリア`, en: `Clear` },
+  { jp: `トランスペアレント`, en: `Transparent` },
+  { jp: `スケルトン`, en: `Skeleton` },
+  { jp: `デモンストレーター`, en: `Demonstrator` },
+  { jp: `グッチ`, en: `GUCCI` },
+  { jp: `デュポン`, en: `S.T. Dupont` },
+  { jp: `カルティエ`, en: `Cartier` },
+  { jp: `シェーファー`, en: `SHEAFFER` },
+  { jp: `ファーバーカステル`, en: `Faber-Castell` },
+  { jp: `ロットリング`, en: `rOtring` },
+  { jp: `オマス`, en: `OMAS` },
+  { jp: `デルタ`, en: `Delta` },
+  { jp: `スタイプラ`, en: `Stipula` },
+  { jp: `エルメス`, en: `HERMES` },
+  { jp: `ルイヴィトン`, en: `LOUIS VUITTON` },
+  { jp: `プラダ`, en: `PRADA` },
+  { jp: `バーバリー`, en: `BURBERRY` },
+  { jp: `セリーヌ`, en: `CELINE` },
+  { jp: `ヴェルサーチ`, en: `VERSACE` },
+  { jp: `モンテグラッパ`, en: `Montegrappa` },
+  { jp: `ペンテル`, en: `Pentel` },
+  { jp: `ゼブラ`, en: `ZEBRA` },
+  { jp: `トンボ`, en: `Tombow` }
 ];
 
 var DIC_KANA = {
@@ -825,6 +978,7 @@ var DIC_MODELS_SORTED = DIC_MODELS.slice().sort(function (a, b) { return b.jp.le
 
 function dicTranslate(jp) {
   if (!jp) return { en: E, romanized: E, leftover: E };
+  if (/定価|税込|税抜/.test(jp)) return { en: E, romanized: E, leftover: E };
 
   jp = jp.replace(/[\uFF21-\uFF3A\uFF41-\uFF5A\uFF10-\uFF19]/g, function (c) {
     return String.fromCharCode(c.charCodeAt(0) - 0xFEE0);
@@ -843,7 +997,6 @@ function dicTranslate(jp) {
       if (!buf) return;
       if (/^[\u30A0-\u30FF\u30FC]+$/.test(buf)) {
         unres.push(buf);
-        parts.push(buf);
       } else {
         parts.push(buf);
       }
@@ -852,9 +1005,16 @@ function dicTranslate(jp) {
 
     while (rest.length > 0 && guard < 200) {
       guard += 1;
+      var num = /^[0-9][0-9,\.]*(?![0-9KkSs])/.test(rest) ? rest.match(/^[0-9][0-9,\.]*/) : null;
+      if (num && !/^[0-9][0-9,\.]*[A-Za-z]/.test(rest)) {
+        flushBuf();
+        parts.push(num[0]);
+        rest = rest.slice(num[0].length);
+        continue;
+      }
       var hit = null;
       for (var i = 0; i < DIC_MODELS_SORTED.length; i++) {
-        if (DIC_MODELS_SORTED[i].jp.length >= 2 && rest.indexOf(DIC_MODELS_SORTED[i].jp) === 0) {
+        if ((DIC_MODELS_SORTED[i].jp.length >= 2 || /^[個本組点黒白赤青緑金銀紫桃茶灰紺]$/.test(DIC_MODELS_SORTED[i].jp)) && rest.indexOf(DIC_MODELS_SORTED[i].jp) === 0) {
           hit = DIC_MODELS_SORTED[i]; break;
         }
       }
@@ -886,15 +1046,15 @@ function dicTranslate(jp) {
     var d = decompose(w);
     var okParts = [];
     for (var z = 0; z < d.parts.length; z++) {
-      if (/[\u3041-\u3096\u4E00-\u9FFF]/.test(d.parts[z])) leftover.push(d.parts[z]);
-      else okParts.push(d.parts[z]);
+      if (/[\u3040-\u30FF\u4E00-\u9FFF]/.test(d.parts[z])) { leftover.push(d.parts[z]); continue; }
+      okParts.push(d.parts[z]);
     }
     for (var u = 0; u < d.unres.length; u++) leftover.push(d.unres[u]);
     if (okParts.length) out.push(okParts.join(` `));
   }
 
   return {
-    en: out.join(` `).replace(/\s+/g, ` `).trim(),
+    en: out.join(` `).replace(/\s+/g, ` `).replace(/(\d) (\d{3})\b/g, `$1,$2`).replace(/(\d) (\d{3})\b/g, `$1,$2`).trim(),
     romanized: romanized.join(`、`),
     leftover: leftover.join(` `)
   };
@@ -1368,8 +1528,6 @@ function convertListing(jpTitle, jpBody, tested, condKey, noInk) {
   add(`== SPECIFICATIONS ==`, `【仕様】`);
   if (bn) add(`Brand: ` + bn, `【ブランド】` + brand.jp);
   if (model) add(`Model: ` + model, `【モデル】` + modelJp);
-  if (priceField) add(`Original retail price: JPY ` + priceField.replace(/[^\d,]/g, E),
-    `【定価】` + priceField + `円`);
   add(`Type: ` + pt, `【タイプ】` + (penType ? penType.jp : E));
   add(`Condition: ` + cond.grade, `【状態】` + cond.grade);
   if (materialEn) add(`Material: ` + materialEn, `【素材】` + (matR.raw || (material ? material.jp : E)));
