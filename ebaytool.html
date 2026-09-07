@@ -62,7 +62,7 @@ button { font-family: inherit; cursor: pointer; }
 <body>
 <div class="hd">
   <div class="icon">🇯🇵 → 🌐</div>
-  <div class="sub">EBAY TEXT CONVERTER v38</div>
+  <div class="sub">EBAY TEXT CONVERTER v39</div>
   <h1>日本語出品 → eBay英語</h1>
 </div>
 
@@ -1376,7 +1376,22 @@ function convertListing(jpTitle, jpBody, tested, condKey, noInk) {
     }
   }
   var refillAdapter = /リフィルアダプター|リフィルアダプタ/.test(all);
-  var refillNeeded = /替芯の交換|替え芯の交換|リフィル交換/.test(all);
+  var refillNeeded = (function () {
+    var kw = /(替芯|替え芯|かえしん|リフィル|レフィル|インク|インキ|芯)/;
+    var act = /(交換|お取り替え|取り替え|取替|入れ替え|入替|買い替え|買替|新しく|ご用意|用意|準備|購入|お求め|補充|補給|差し替え|差替)/;
+    var done = /(交換済|交換ずみ|新品に交換|交換してあり|新しい替芯|新品替芯|新品リフィル|替芯付|リフィル付|替芯が付属|リフィルが付属|リフィルが使用でき|リフィルが使えま|インクは付属|インクが付属|満タン)/;
+    var lines = all.split(/[\n。]/);
+    for (var li = 0; li < lines.length; li++) {
+      var t = lines[li].replace(/\s+/g, E);
+      if (!t) continue;
+      if (done.test(t)) continue;
+      if (kw.test(t) && act.test(t)) return true;
+      if (/(インク切れ|インキ切れ|書けません|書けない|出ません|出ない|かすれ|カスレ|掠れ|使い切|使いきり|残量なし|残量が少な|からっぽ)/.test(t)
+          && kw.test(t)) return true;
+      if (/(替芯|替え芯|リフィル|レフィル)(は)?(別途|別売|付属しません|付属せず|ありません|なし)/.test(t)) return true;
+    }
+    return false;
+  })();
   var isFountain = /万年筆/.test(jpTitle) || /万年筆/.test(jpBody.slice(0, 200));
   var accs = findAll(all, ACCS);
 
