@@ -44,6 +44,7 @@ button { font-family: inherit; cursor: pointer; }
 .pairs { margin-top: 8px; border: 1px solid #cfd8dc; border-radius: 6px; overflow: hidden; }
 .pair { padding: 5px 8px; border-top: 1px solid #f0f0f0; }
 .pair.head { background: #eceff1; }
+.pair.free { background: #f3e5f5; }
 .pair .en { font-size: 11px; color: #1a237e; line-height: 1.35; }
 .pair.head .en { font-weight: bold; }
 .pair .jp { font-size: 10px; color: #78909c; line-height: 1.35; }
@@ -53,8 +54,16 @@ button { font-family: inherit; cursor: pointer; }
   padding: 8px 12px; border-radius: 6px; background: #eef4fb; border: 1px solid #c9dcf0;
   font-size: 17px; font-weight: bold; font-family: ui-monospace, monospace; color: #0d47a1; }
 .lenbar .lenmsg { font-size: 12px; font-weight: bold; font-family: inherit; }
-.lenbar.warn { background: #fff8e1; border-color: #ffca28; color: #b26a00; }
-.lenbar.over { background: #ffebee; border-color: #ef5350; color: #c62828; }
+.lenbar.lwarn { background: #fff8e1; border-color: #ffca28; color: #b26a00; }
+.lenbar.lover { background: #ffebee; border-color: #ef5350; color: #c62828; }
+.card.mt { border-color: #7b1fa2; }
+.card.mt .cardhd { background: #7b1fa2; }
+.mtbtn { width: 100%; padding: 14px; border: none; border-radius: 8px; background: #7b1fa2; color: #fff; font-size: 15px; font-weight: bold; margin-top: 10px; }
+.mtsub { width: 100%; padding: 11px; border: 1px solid #ce93d8; border-radius: 8px; background: #fff; color: #7b1fa2; font-size: 12px; font-weight: bold; margin-top: 8px; }
+.mtstat { margin-top: 10px; padding: 9px 12px; border-radius: 6px; background: #f3e5f5; color: #4a148c; font-size: 12px; line-height: 1.7; }
+.mtstat.ng { background: #ffebee; color: #c62828; }
+.mtstat.ok { background: #e8f5e9; color: #2e7d32; }
+.mthint { font-size: 11px; color: #888; line-height: 1.6; margin-bottom: 6px; }
 .hide { display: none; }
 #toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #37474f; color: #fff; padding: 10px 22px; border-radius: 20px; font-size: 13px; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 100; white-space: nowrap; }
 </style>
@@ -62,7 +71,7 @@ button { font-family: inherit; cursor: pointer; }
 <body>
 <div class="hd">
   <div class="icon">🇯🇵 → 🌐</div>
-  <div class="sub">EBAY TEXT CONVERTER v39</div>
+  <div class="sub">EBAY TEXT CONVERTER v59</div>
   <h1>日本語出品 → eBay英語</h1>
 </div>
 
@@ -79,6 +88,8 @@ button { font-family: inherit; cursor: pointer; }
   <div id="chk" class="chk"><span class="box" id="chkbox"></span><span>機構の動作を確認した<span class="small">（未確認ならOFF）</span></span></div>
 
   <div id="chkink" class="chk"><span class="box" id="chkinkbox"></span><span>インクを入れての筆記確認なし<span class="small">（万年筆向け）</span></span></div>
+
+  <div id="chkmt" class="chk on"><span class="box" id="chkmtbox">✓</span><span>自由文を自動で英訳する<span class="small">（ネット接続が必要）</span></span></div>
 
 <button id="run" class="primary">🌐 eBay英語に変換する</button>
 
@@ -105,6 +116,22 @@ button { font-family: inherit; cursor: pointer; }
   </div>
 </div>
 
+<div class="card mt">
+  <div class="cardhd"><span>FREE TEXT（自由文の自動翻訳）</span><span class="cnt" id="mtcnt">0文</span></div>
+  <div class="cardbody">
+    <div class="mthint">辞書で訳せなかった説明文の文章です。訳したくない行は消し、足りない文は書き足してから再翻訳できます（1行＝1文）。</div>
+    <textarea id="jfree" rows="6" placeholder="自動翻訳する日本語の文章（1行に1文）"></textarea>
+    <div id="mtstat" class="mtstat hide"></div>
+    <button id="mtrun" class="mtbtn">🤖 自動翻訳して説明文に入れる</button>
+    <button id="mtmanual" class="mtsub">自動翻訳が失敗したとき：Google翻訳で手動で訳す</button>
+    <div id="mtmanbox" class="hide">
+      <div class="mthint" style="margin-top:10px">上の日本語をコピーしてGoogle翻訳を開きました。翻訳結果をコピーして、下に貼り付けてください。</div>
+      <textarea id="mtpaste" rows="5" placeholder="英訳をここに貼り付け"></textarea>
+      <button id="mtpastego" class="mtsub">貼り付けた英文を説明文に入れる</button>
+    </div>
+  </div>
+</div>
+
 <div class="card">
   <div class="cardhd"><span>DESCRIPTION</span></div>
   <div class="cardbody">
@@ -116,7 +143,7 @@ button { font-family: inherit; cursor: pointer; }
   </div>
 </div>
 
-<div class="note"><strong>出品前チェック</strong><br>・CONDITION が実物より良く書かれていないか<br>・カタカナやローマ字が残っていないか<br>・傷の箇所が写真で確認できるか</div>
+<div class="note"><strong>出品前チェック</strong><br>・CONDITION が実物より良く書かれていないか<br>・カタカナやローマ字が残っていないか<br>・傷の箇所が写真で確認できるか<br>・自動翻訳の文の意味が日本語とずれていないか（対訳表で確認）</div>
 ```
 
   </div>
@@ -380,6 +407,12 @@ var DIC_MODELS = [
   { jp: `初期型`, en: `Early Model` },
   { jp: `前期型`, en: `Early Model` },
   { jp: `後期型`, en: `Late Model` },
+  { jp: `後期モデル`, en: `Late Model` },
+  { jp: `前期モデル`, en: `Early Model` },
+  { jp: `中期型`, en: `Mid Model` },
+  { jp: `中期モデル`, en: `Mid Model` },
+  { jp: `最終型`, en: `Final Model` },
+  { jp: `最終モデル`, en: `Final Model` },
   { jp: `限定`, en: `Limited Edition` },
   { jp: `記念`, en: `Commemorative` },
   { jp: `復刻`, en: `Reissue` },
@@ -1212,6 +1245,90 @@ var MANUAL_CONDS = [
     txt: `Visible scratches and stains are present. Sold as a used vintage item.` }
 ];
 
+/* 本文から定型文として拾う語句（自由文の抽出でも「訳済み」として使う） */
+var PHRASES = [
+  { jp: `インクの補充が必要`, en: `The pen will need to be filled with ink before use.` },
+  { jp: `インクは付属しません`, en: `Ink is not included.` },
+  { jp: `試筆のみ`, en: `Only test-written, hardly used.` },
+  { jp: `書き味`, en: `The nib writes smoothly.` },
+  { jp: `インク出`, en: `Ink flow has been checked.` },
+  { jp: `クリップに緩み`, en: `The clip is slightly loose.` },
+  { jp: `キャップに緩み`, en: `The cap is slightly loose.` },
+  { jp: `真鍮が見えて`, en: `Brass shows through in some worn areas.` },
+  { jp: `メッキ剥がれ`, en: `There is some plating loss.` },
+  { jp: `メッキの剥がれ`, en: `There is some plating loss.` },
+  { jp: `変色`, en: `There is some discoloration.` },
+  { jp: `小傷`, en: `There are small scratches.` },
+  { jp: `擦れ`, en: `There are signs of rubbing.` },
+  { jp: `打痕`, en: `There is a small dent.` },
+  { jp: `刻印あり`, en: `There is an engraving on the body.` },
+  { jp: `名入れ`, en: `There is a personalized engraving.` },
+  { jp: `箱に傷み`, en: `The box shows signs of wear.` },
+  { jp: `箱はありません`, en: `The original box is not included.` },
+  { jp: `付属品はありません`, en: `No accessories are included.` },
+  { jp: `写真の物が全て`, en: `Everything included is shown in the photos.` },
+  { jp: `喫煙者はおりません`, en: `From a smoke-free home.` },
+  { jp: `ペットは飼っておりません`, en: `From a pet-free home.` },
+  { jp: `自宅保管`, en: `Stored in a private home.` },
+  { jp: `神経質な方`, en: `If you are particular about condition, please consider carefully before purchasing.` },
+  { jp: `丁寧に梱包`, en: `The item will be packed carefully.` }
+];
+
+/* 語の直後に否定が続くか（例：小傷なし、インク出ません、書き味未確認） */
+var NEG_AFTER = /^[^\u3002\n\uFF01\uFF1F]{0,6}?(ない|無い|なし|無し|ナシ|ません|ず[\u3001\u3002\s]|ずに|禁止|不可|未確認|未チェック|ご遠慮|NG)/;
+var INK_TEST_PHRASES = /^(書き味|インク出)$/;
+function hasPhrase(text, jp, noInk) {
+  if (noInk && INK_TEST_PHRASES.test(jp)) return false;
+  var from = 0;
+  while (true) {
+    var k = text.indexOf(jp, from);
+    if (k < 0) return false;
+    var after = text.slice(k + jp.length, k + jp.length + 12);
+    var before = text.slice(Math.max(0, k - 1), k);
+    if (!NEG_AFTER.test(after) && before !== `未`) return true;
+    from = k + jp.length;
+  }
+}
+
+/* 本文下の「検索用ワードの羅列」を取り除く（翻訳にも英訳にも使わない） */
+var KW_HEAD = /^[\s\u3000\u3010\[\uFF3B\uFF08(\u25A0\u25A1\u25C6\u25C7\u2605\u2606\u25BC\u25BD\u25CF\u2022\u30FB#\uFF03\u203B\uFF0A*]*(検索用ワード|検索用キーワード|検索キーワード|検索ワード|検索タグ|検索用|検索|関連キーワード|関連ワード|関連検索|キーワード|ハッシュタグ|タグ)([\s\u3000\u3011\]\uFF3D\uFF09)\uFF1A:\u25A0\u25C6]|$)/;
+var PROMO_HEAD = /^(他にも|ほかにも|その他にも|その他|他の商品|おまとめ|まとめ買い|まとめ割|複数購入|プロフィール)/;
+function looksKeywordLine(t) {
+  if (/^[#\uFF03]/.test(t)) return true;
+  if (/[\u3002\uFF01\uFF1F!?]/.test(t)) return false;
+  if (/(です|ます|ません|でした|ました|ください|下さい)/.test(t)) return false;
+  var toks = t.split(/[\s\u3000\u3001,\uFF0C\/\uFF0F]+/).filter(function (x) { return x; });
+  return toks.length >= 4;
+}
+function stripKeywords(body) {
+  var lines = String(body || E).split(/\r?\n/);
+  var removed = [];
+  for (var i = 0; i < lines.length; i += 1) {
+    var lt = lines[i].trim();
+    if (KW_HEAD.test(lt) || PROMO_HEAD.test(lt)) {
+      removed = lines.slice(i);
+      lines = lines.slice(0, i);
+      break;
+    }
+  }
+  for (var j = lines.length - 1; j >= 0; j -= 1) {
+    var t = lines[j].replace(/^[\s\u3000]+|[\s\u3000]+$/g, E);
+    if (!t) continue;
+    if (/^\d{8}$/.test(t)) continue;
+    if (looksKeywordLine(t)) { removed.unshift(lines[j]); lines.splice(j, 1); continue; }
+    break;
+  }
+  var kept = [];
+  for (var h = 0; h < lines.length; h += 1) {
+    if (/^[\s\u3000]*[#\uFF03]/.test(lines[h])) removed.push(lines[h]);
+    else kept.push(lines[h]);
+  }
+  return {
+    body: kept.join(`\n`),
+    removed: removed.filter(function (x) { return x.replace(/[\s\u3000]/g, E); })
+  };
+}
+
 function noMark(x) {
   return String(x == null ? E : x)
     .replace(/[\u25C6\u25C7\u25A0\u25A1\u2605\u2606\u2666\u3010\u3011\uFF3B\uFF3D\[\]]/g, ` `)
@@ -1221,7 +1338,11 @@ function noMark(x) {
 
 function findOne(t, list) { for (var i = 0; i < list.length; i++) if (t.indexOf(list[i].jp) >= 0) return list[i]; return null; }
 function findAll(t, list) { var o = []; for (var i = 0; i < list.length; i++) if (t.indexOf(list[i].jp) >= 0) o.push(list[i]); return o; }
-function pickField(t, label) { var m = t.match(new RegExp(`【` + label + `】([^\n]*)`)); return m ? m[1].trim() : E; }
+function pickField(t, label) {
+  var m = t.match(new RegExp(`【` + label + `】([^\n]*)`));
+  if (!m) m = t.match(new RegExp(`(?:^|\n)[\\s\u3000\u25C6\u25C7\u25A0\u25A1\u30FB\u2022]*` + label + `[\\s\u3000]*[:\uFF1A]([^\n]*)`));
+  return m ? m[1].trim() : E;
+}
 function extractEra(t) {
   var m = t.match(/(\d{4})年代/); if (m) return m[1].replace(/(\d{3})\d/, `$1`) + `0s`;
   var m2 = t.match(/(\d{4})s/); if (m2) return m2[1] + `s`;
@@ -1267,6 +1388,147 @@ function hasRarity(t) {
   return false;
 }
 
+/* ===== 自由文の抽出 =====
+   辞書・定型文で処理済みの文と、メルカリ特有の取引文を除いた残りを返す */
+var FREE_SKIP_FIELDS = /^(ブランド|メーカー|モデル|モデル名|商品名|品名|タイプ|種類|素材|材質|カラー|色|定価|参考定価|ペン先|字幅|仕様|サイズ|重さ|重量|製造|製造国|原産国|生産国|製造年|年代|管理番号|付属品|付属|状態|商品の状態|コンディション)$/;
+var FREE_KEEP_FIELDS = /^(状態|商品の状態|コンディション)$/;
+var FREE_MERCARI_COND = /^(新品、未使用|新品未使用|未使用に近い|目立った傷や汚れなし|やや傷や汚れあり|傷や汚れあり|全体的に状態が悪い)$/;
+var FREE_NOISE = /多数出品|出品しております|おまとめ|まとめ割|まとめ買い|是非ご覧|ぜひご覧|定価|税込|税抜|メルカリ|ラクマ|ヤフオク|PayPay|コメント|フォロー|プロフ|購入申請|値引|値下|専用|即購入|らくらく|ゆうゆう|ゆうパケット|ネコポス|宅急便|クリックポスト|匿名|送料|梱包|発送|お取引|取引|評価|返品|返金|ノークレーム|ノーリターン|ご覧いただき|閲覧|検索用|ハッシュタグ|#|＃/;
+
+/* 行末がこれなら文の途中（次の行へ続く） */
+function notesEn(v) {
+  var t = noMark(String(v || E));
+  if (!t) return E;
+  var tr = translateModel(t);
+  return (tr.en && !tr.leftover && !tr.romanized) ? tr.en : E;
+}
+/* 商品名・種類・色の単語だけでできた文（タイトル行と重なる） */
+function isNameOnly(s) {
+  var t = s.replace(/[\u3001\u3002\u30FB\uFF08\uFF09()\s\u3000,]/g, ` `).replace(/の/g, ` `).trim();
+  if (!t) return true;
+  var tr = translateModel(t);
+  return !!tr.en && !tr.leftover && !tr.romanized;
+}
+/* 希少・廃盤だけを言う文（定型の英文と重なる） */
+var RARE_FILLER = /(\d{4}年代|\d{4}年|年代|頃|ごろ|製造|生産|ヴィンテージ|ビンテージ|現在は|現在でも|現在では|現在|完全に|完全|廃盤|絶版|生産終了|製造終了|となっている|となった|になっている|になった|出回ることの少ない|出回ることが少ない|あまり出回らない|出回らない|入手困難|手に入りにくい|希少|貴重|激レア|レア|幻の|大変|とても|非常に|人気のある|人気|逸品|一品|名品|モデル|品|です|でした|ございます|[\u3001\u3002\u30FB\s\u3000なのでもはとがを])/g;
+function isRareOnly(s) {
+  if (!hasRarity(s) && !/出回|ヴィンテージ|ビンテージ|年代/.test(s)) return false;
+  return s.replace(RARE_FILLER, E).length < 3;
+}
+/* 素材（金張り・銀張りなど）だけを言う文 */
+var MAT_FILLER = /(\d{1,2}[KkＫ]|[KkＫ]\d{1,2}|金張り|銀張り|金張|銀張|ゴールドフィルド|ロールドゴールド|スターリングシルバー|シルバー925|純銀|金無垢|高級|上位|ライン|モデル|シリーズ|仕様|使用|製|品|です|でした|[\u3001\u3002\u30FB\s\u3000（）()なのでをはがした])/g;
+function isMaterialOnly(s) {
+  if (!/金張|銀張|ゴールドフィルド|ロールドゴールド|スターリング|シルバー925|純銀|金無垢/.test(s)) return false;
+  return s.replace(MAT_FILLER, E).length < 2;
+}
+/* 状態の説明文（CONDITION 欄で英文にするので自由文には入れない） */
+function isCondSentence(s) {
+  for (var i = 0; i < CONDITIONS.length; i++) {
+    for (var j = 0; j < CONDITIONS[i].jp.length; j++) if (s.indexOf(CONDITIONS[i].jp[j]) >= 0) return true;
+  }
+  return /^(目立った(キズ|傷)|(キズ|傷)や汚れ|使用感の(少|ほとんど))/.test(s);
+}
+var CONT_END = /([\u3001,\uFF0C]|[\u3041-\u3093])$/;
+var SENT_END = /(です|ます|ました|でした|ません|ください|下さい|ございます)$/;
+function extractFreeText(jpBody, asset, adapter, noInk, refillMsg, accUnknown) {
+  var out = [];
+  var seen = {};
+  var units = [];
+  var paras = [];
+  var para = 0;
+  var buf = E;
+  var conds = [];
+  function flush() { if (buf) { units.push(buf); paras.push(para); conds.push(inCond); } buf = E; }
+  var lines = String(jpBody || E).split(/\r?\n/);
+  var inCond = false;
+  for (var li = 0; li < lines.length; li++) {
+    var line = lines[li].replace(/^[\s\u3000]+|[\s\u3000]+$/g, E);
+    if (!line) { flush(); inCond = false; para += 1; continue; }
+    var fm = line.match(/^[\u3010\[\uFF3B]?([^\u3011\]\uFF3D\uFF1A:]{1,10})(?:[\u3011\]\uFF3D]\s*[\uFF1A:]?|[\uFF1A:])\s*(.*)$/);
+    if (fm) {
+      flush();
+      para += 1;
+      var label = fm[1].replace(/[\s\u3000\u25C6\u25C7\u25A0\u25A1\u2605\u2606]/g, E);
+      inCond = /状態|コンディション/.test(label);
+      if (inCond) { if (fm[2]) { buf = fm[2]; flush(); } continue; }
+      if (/^(付属品|付属)$/.test(label)) continue;
+      if (FREE_SKIP_FIELDS.test(label) && !FREE_KEEP_FIELDS.test(label)) continue;
+      if (label === `備考` && notesEn(fm[2])) continue;
+      if (fm[2]) { units.push(fm[2]); paras.push(para); conds.push(false); }
+      continue;
+    }
+    if (!buf && units.length && /^[\uFF08(].*[\uFF09)]$/.test(line)) { units[units.length - 1] += line; continue; }
+    if (/^[\u25C6\u25C7\u25A0\u25A1\u2605\u2606\u2666\u30FB\u2022\u203B\uFF0A*\u25CF\u25CB\uFF0D\-]/.test(line)) flush();
+    if (buf && /[A-Za-z0-9]$/.test(buf) && /^[A-Za-z0-9]/.test(line)) buf += ` `;
+    buf += line;
+    if (SENT_END.test(line) || !CONT_END.test(line)) flush();
+  }
+  flush();
+  var outP = [];
+  for (var ui = 0; ui < units.length; ui++) {
+    var sents = units[ui].split(/[\u3002\uFF01\uFF1F!?]/);
+    for (var si = 0; si < sents.length; si++) {
+      var s = sents[si]
+        .replace(/^[\s\u3000\u25C6\u25C7\u25A0\u25A1\u2605\u2606\u2666\u30FB\u2022\u203B\uFF0A*\u2192\u25B6\u25B7\u25CF\u25CB\uFF0D\-]+/, E)
+        .replace(/[\s\u3000\u3001]+$/, E);
+      if (s.length < 4) continue;
+      if (!/[\u3040-\u30FF\u4E00-\u9FFF]/.test(s)) continue;
+      if (FREE_MERCARI_COND.test(s)) continue;
+      if (FREE_NOISE.test(s)) continue;
+      if (isCondSentence(s)) continue;
+      if (conds[ui] && !/(ケース|箱|ボックス|付属|説明書|ギャランティ|保証書|ポーチ|袋|冊子|コンバーター|カートリッジ|傷|キズ|擦れ|スレ|凹み|へこみ|打痕|汚れ|変色|劣化|緩み|ゆるみ|剥がれ|はがれ|欠け|割れ|曲がり|ヒビ|サビ|錆|くすみ|曇り|ガタ|焼け|ヤケ)/.test(s)) continue;
+      if (refillMsg && /(替芯|替え芯|リフィル|レフィル)/.test(s) && /(交換|補充|ご用意|用意|お取り替え|お求め|購入|インク切れ|インキ切れ|付属しません|別売|別途)/.test(s)) continue;
+      if (refillMsg && /(インク|インキ)/.test(s) && /(補充|ご用意|入れてご使用|入れてお使い|入れてから)/.test(s) && !/筆記確認|試し書き|試筆/.test(s)) continue;
+      if (isNameOnly(s) || isRareOnly(s)) continue;
+      if (asset && /(金|銀|プラチナ)(の)?(価格|相場)/.test(s) && /資産/.test(s)) continue;
+      if (asset && isMaterialOnly(s)) continue;
+      if (noInk && /(インク|インキ)/.test(s) && /(入れ|注入|充填|補充|筆記|試し書き|試筆|書き味)/.test(s)) continue;
+      if (asset && /資産/.test(s) && /(金|銀|ゴールド|シルバー|プラチナ)/.test(s)) continue;
+      if (/[0-9\uFF10-\uFF19\u5343\u4E07\u767E\u5341\u6570]\s*円|[\u00A5\uFFE5]\s*[0-9\uFF10-\uFF19]/.test(s)) continue;
+      if (adapter && /(リフィル|レフィル|替芯|替え芯)/.test(s) && /(使用|使え|対応|使用可)/.test(s) && !/アダプター|アダプタ/.test(s)) continue;
+      if (/^(という|といった|と言う|との|ということ|とされ)/.test(s) && out.length) {
+        out[out.length - 1] += s;
+        continue;
+      }
+      if (seen[s]) continue;
+      seen[s] = true;
+      out.push(s);
+      outP.push(paras[ui]);
+    }
+  }
+  if (accUnknown && accUnknown.length) { out.push(`付属品：` + accUnknown.join(`、`)); outP.push(-1); }
+  /* 原文の段落の切れ目に空行を入れる */
+  var res = [];
+  for (var oi = 0; oi < out.length; oi++) {
+    if (res.length && outP[oi] !== outP[oi - 1]) res.push(E);
+    res.push(out[oi]);
+  }
+  return res;
+}
+
+var FREE_DAMAGE = /小傷|擦れ|変色|打痕|メッキ|緩み|真鍮|箱に傷み/;
+
+function isCoveredSentence(s, asset) {
+  var i, j;
+  for (i = 0; i < PHRASES.length; i++) {
+    if (!hasPhrase(s, PHRASES[i].jp, false)) continue;
+    /* 傷・汚れ系は場所などの詳しい説明が付いていれば、その文も訳す */
+    if (FREE_DAMAGE.test(PHRASES[i].jp) && s.length > PHRASES[i].jp.length + 6) continue;
+    return true;
+  }
+  for (i = 0; i < CONDITIONS.length; i++) {
+    for (j = 0; j < CONDITIONS[i].jp.length; j++) if (s.indexOf(CONDITIONS[i].jp[j]) >= 0) return true;
+  }
+  if (asset && /(金価格|銀価格|金相場|銀相場)/.test(s) && /資産/.test(s)) return true;
+  if (s.length <= 30 && /\d{4}/.test(s) && /年代|製造|生産/.test(s) && !/刻印/.test(s)) return true;
+  if (/動作/.test(s) && /確認/.test(s)) return true;
+  if (/(替芯|替え芯|リフィル|レフィル|インク)/.test(s) && /(交換|用意|購入|別途|別売|付属しません|切れ|補充|注入)/.test(s)) return true;
+  if (/(写真|画像)/.test(s) && /(確認|ご覧|参照|判断)/.test(s)) return true;
+  if (/(リフィルアダプター|リフィルアダプタ)/.test(s)) return true;
+  if (/^(よろしくお願い|宜しくお願い|ご質問|質問)/.test(s)) return true;
+  return false;
+}
+
 function buildTitle(hook, parts, mgmt) {
   var head = hook ? `[` + hook + `] ` : E;
   var p = [];
@@ -1285,7 +1547,74 @@ function buildTitle(hook, parts, mgmt) {
   return t;
 }
 
+function normalizeKarat(t) {
+  return String(t || E)
+    .replace(/(^|[^0-9.])([0-9]{1,2})金張/g, `$1$2K金張`)
+    .replace(/ペン先\s*([0-9]{1,2})\s*金/g, `ペン先$1K`)
+    .replace(/(^|[^0-9A-Za-z])[KＫ]\s*([0-9]{1,2})(?![0-9])/g, `$1$2K`)
+    .replace(/(^|[^0-9.])([0-9]{1,2})金(?![張具色属])/g, `$1$2K`);
+}
+var NIB_CODES = [
+  [`UEF`, `Ultra Extra Fine (UEF)`], [`EF`, `Extra Fine (EF)`], [`XF`, `Extra Fine (EF)`], [`MF`, `Medium Fine (MF)`],
+  [`SF`, `Soft Fine (SF)`], [`SM`, `Soft Medium (SM)`], [`BB`, `Double Broad (BB)`], [`OB`, `Oblique Broad (OB)`],
+  [`F`, `Fine (F)`], [`M`, `Medium (M)`], [`B`, `Broad (B)`]
+];
+function nibTokenEn(tok) {
+  tok = String(tok || E).trim().toUpperCase();
+  for (var i = 0; i < NIB_CODES.length; i += 1) if (NIB_CODES[i][0] === tok) return NIB_CODES[i][1];
+  for (var j = 0; j < NIBS.length; j += 1) if (NIBS[j].jp === tok) return NIBS[j].en;
+  return E;
+}
+var NIB_TOK = `(UEF|EF|XF|MF|SF|SM|BB|OB|F|M|B|超極細|極細|中細|細字|中字|太字|極太|軟細字|軟中字)`;
+function parseNib(text) {
+  var t = String(text || E).replace(/[\uFF21-\uFF3A]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); });
+  var approx = /程度|くらい|ぐらい|相当|位/.test(t);
+  var rg = t.match(new RegExp(NIB_TOK + `\\s*[\u301C\uFF5E~\uFF0D\u2015\u30FC\\-\u2010\u2013\u2014\u2192]\\s*` + NIB_TOK + `(?![A-Za-z])`));
+  if (rg) {
+    var a = nibTokenEn(rg[1]), b = nibTokenEn(rg[2]);
+    if (a && b) return { en: (approx ? `approx. ` : E) + a + ` to ` + b, jp: rg[0] + (approx ? `程度` : E) };
+  }
+  var one = t.match(new RegExp(`(?:^|[^A-Za-z])` + NIB_TOK + `(?![A-Za-z])`));
+  if (one) {
+    var c = nibTokenEn(one[1]);
+    if (c) return { en: (approx ? `approx. ` : E) + c, jp: one[1] + (approx ? `程度` : E) };
+  }
+  return null;
+}
+
+/* 付属品の訳（共有辞書の外に置く） */
+var ACC_MAP = [
+  [`リフィルアダプター`, `refill adapter`], [`リフィルアダプタ`, `refill adapter`],
+  [`取扱説明書`, `instruction manual`], [`取り扱い説明書`, `instruction manual`], [`説明書`, `instruction manual`],
+  [`ギャランティーカード`, `guarantee card`], [`ギャランティカード`, `guarantee card`], [`ギャランティー`, `guarantee card`], [`ギャランティ`, `guarantee card`], [`保証書`, `guarantee card`], [`保証カード`, `guarantee card`],
+  [`純正ケース`, `original case`], [`レザーケース`, `leather case`], [`革ケース`, `leather case`], [`ペンケース`, `pen case`], [`ケース`, `case`],
+  [`化粧箱`, `presentation box`], [`外箱`, `outer box`], [`内箱`, `inner box`], [`純正箱`, `original box`], [`ボックス`, `box`], [`BOX`, `box`], [`箱`, `box`],
+  [`保存袋`, `storage pouch`], [`ポーチ`, `pouch`], [`袋`, `pouch`],
+  [`替え芯`, `refill`], [`替芯`, `refill`], [`リフィル`, `refill`], [`レフィル`, `refill`],
+  [`コンバーター`, `converter`], [`インクカートリッジ`, `ink cartridge`], [`カートリッジ`, `ink cartridge`], [`ボトルインク`, `bottled ink`],
+  [`冊子`, `booklet`], [`カタログ`, `catalog`], [`クリーニングクロス`, `cleaning cloth`]
+];
+function accItems(field) {
+  var parts = String(field || E).split(/[\u3001,\uFF0C\u30FB\/\uFF0F\s\u3000]+/).filter(function (x) { return x; });
+  var en = [], unknown = [];
+  for (var i = 0; i < parts.length; i += 1) {
+    var p = parts[i].replace(/[\uFF08(][^\uFF09)]*[\uFF09)]/g, E);
+    if (/^(なし|無し|ありません|本体のみ)$/.test(p)) continue;
+    var hit = E;
+    for (var j = 0; j < ACC_MAP.length; j += 1) if (p.indexOf(ACC_MAP[j][0]) >= 0) { hit = ACC_MAP[j][1]; break; }
+    var cnt = p.match(/([0-9]+)\s*(本|個|点|枚)/);
+    if (hit) { if (en.indexOf(hit) < 0) en.push(cnt ? cnt[1] + ` ` + hit + (cnt[1] !== `1` ? `s` : E) : hit); }
+    else if (!/^(カード|付き|付|あり|有り|など|等|類|一式|純正|新品|中古)$/.test(p)) unknown.push(parts[i]);
+  }
+  return { en: en, unknown: unknown };
+}
+
 function convertListing(jpTitle, jpBody, tested, condKey, noInk) {
+  var rawBody = jpBody;
+  jpTitle = normalizeKarat(jpTitle);
+  jpBody = normalizeKarat(jpBody);
+  var kw = stripKeywords(jpBody);
+  jpBody = kw.body;
   var all = jpTitle + `\n` + jpBody;
 
   var bodyForBrand = jpBody.split(`プラチナメッキ`).join(E).split(`プラチナ仕上げ`).join(E).split(`プラチナコーティング`).join(E);
@@ -1324,6 +1653,20 @@ function convertListing(jpTitle, jpBody, tested, condKey, noInk) {
       return h2 ? { en: h2.en, short: h2.short || h2.en, raw: E, obj: h2 } : { en: E, short: E, raw: E, obj: null };
     }
 
+    if (label === `素材` && /[\u3001,\uFF0C\uFF0F\/]/.test(fv)) {
+      var segs = fv.split(/\s*[\u3001,\uFF0C\uFF0F\/]\s*/).filter(function (x) { return x; });
+      var ens = [], best = null;
+      for (var sgi = 0; sgi < segs.length; sgi += 1) {
+        var sg = noMark(segs[sgi]);
+        var ex = null;
+        for (var e2 = 0; e2 < list.length; e2++) if (list[e2].jp === sg) { ex = list[e2]; break; }
+        var se = ex ? ex.en : translateModel(sg).en;
+        if (!ex) ex = findOne(sg, list);
+        if (se) ens.push(se);
+        if (ex && ex.asset && !best) best = ex;
+      }
+      if (ens.length) return { en: ens.join(` / `), short: best ? (best.short || best.en) : ens[0], raw: fv, obj: best };
+    }
     var outside = fv.replace(/[\uff08(][^\uff09)]*[\uff09)]/g, E).trim();
     var inside = (fv.match(/[\uff08(]([^\uff09)]*)[\uff09)]/) || [])[1] || E;
     var core = outside || fv;
@@ -1364,7 +1707,14 @@ function convertListing(jpTitle, jpBody, tested, condKey, noInk) {
   if (!era && single) era = single.slice(0, 3) + `0s`;
   if (!era && stamped) era = stamped.slice(0, 3) + `0s`;
   var specs = findAll(all, SPECS);
+  if (/カートリッジ[\s\u3000]*[\u30FB\/\uFF0F\u3001,&\uFF06と]?[\s\u3000]*(\u30FB|\/|\uFF0F)?[\s\u3000]*コンバーター|コンバーター[\s\u3000]*[\u30FB\/\uFF0F\u3001,&\uFF06]?[\s\u3000]*カートリッジ|両用/.test(all)) {
+    var both = null;
+    for (var sp = 0; sp < SPECS.length; sp += 1) if (SPECS[sp].jp === `両用式`) both = SPECS[sp];
+    specs = specs.filter(function (x) { return x.en !== `Converter filling` && x.en !== `Cartridge filling` && x.jp !== `両用式`; });
+    if (both) specs.push({ jp: `カートリッジ・コンバーター両用式`, en: both.en });
+  }
   var nibField = pickField(jpBody, `ペン先`) || pickField(jpBody, `字幅`) || pickField(jpBody, `仕様`);
+  var nibP = parseNib(nibField);
   var nib = findOne(nibField, NIBS) || findOne(jpTitle, NIBS) || findOne(all, NIBS);
   var nibApprox = false;
   if (nib) {
@@ -1385,15 +1735,20 @@ function convertListing(jpTitle, jpBody, tested, condKey, noInk) {
       var t = lines[li].replace(/\s+/g, E);
       if (!t) continue;
       if (done.test(t)) continue;
-      if (kw.test(t) && act.test(t)) return true;
+      if (kw.test(t) && act.test(t)) return /(替芯|替え芯|かえしん|リフィル|レフィル|芯)/.test(t) ? `refill` : `ink`;
       if (/(インク切れ|インキ切れ|書けません|書けない|出ません|出ない|かすれ|カスレ|掠れ|使い切|使いきり|残量なし|残量が少な|からっぽ)/.test(t)
-          && kw.test(t)) return true;
-      if (/(替芯|替え芯|リフィル|レフィル)(は)?(別途|別売|付属しません|付属せず|ありません|なし)/.test(t)) return true;
+          && kw.test(t)) return /(替芯|替え芯|リフィル|レフィル|芯)/.test(t) ? `refill` : `ink`;
+      if (/(替芯|替え芯|リフィル|レフィル)(は)?(別途|別売|付属しません|付属せず|ありません|なし)/.test(t)) return `refill`;
     }
-    return false;
+    return E;
   })();
   var isFountain = /万年筆/.test(jpTitle) || /万年筆/.test(jpBody.slice(0, 200));
   var accs = findAll(all, ACCS);
+  var accField = pickField(jpBody, `付属品`) || pickField(jpBody, `付属`);
+  var accR = accField ? accItems(accField) : null;
+  if (accR && accR.en.length) {
+    accs = accR.en.filter(function (x) { return !(refillAdapter && x === `refill adapter`); }).map(function (x) { return { jp: x, en: x }; });
+  }
 
   var HEAD_WORDS = [`超希少`, `激レア`, `廃盤希少`, `希少廃盤`, `絶版希少`, `入手困難`,
     `レア`, `希少`, `廃盤`, `絶版`, `貴重`, `美品`, `極美品`, `新品同様`, `未使用に近い`,
@@ -1403,7 +1758,7 @@ function convertListing(jpTitle, jpBody, tested, condKey, noInk) {
     var t = jpTitle;
     var headCut = t.search(/[\u25C6\u25C7\u2605\u2606]/);
     if (headCut >= 0 && headCut <= 12) t = t.slice(headCut + 1);
-    t = t.replace(/\d{4}s?◆?/g, E);
+    t = t.replace(/\d{4}(s|年代頃|年代)◆?/g, E);
     var brandWords = [];
     DIC_BRANDS.forEach(function (b) {
       brandWords.push(b.jp);
@@ -1423,10 +1778,13 @@ function convertListing(jpTitle, jpBody, tested, condKey, noInk) {
   }
   modelJp = noMark(modelJp);
   var mt = translateModel(modelJp);
-  var model = mt.en;
+  var model = (mt.en || E)
+    .replace(/\b(\d{1,2}K\s)?(Gold|Silver|Platinum|Rhodium|Palladium)\s(Plated|Filled)\b/g, ` `)
+    .replace(/\bRolled Gold\b|\bSterling Silver\b|\b(\d{1,2}K\s)?Gold Nib\b/g, ` `)
+    .replace(/\s+/g, ` `).trim();
 
   var priceField = pickField(jpBody, `定価`);
-  var mgmtMatch = jpBody.match(/\b(\d{8})\b/);
+  var mgmtMatch = rawBody.match(/\b(\d{8})\b/);
   var mgmt = mgmtMatch ? mgmtMatch[1] : E;
 
   var cond = null, condSrc = E;
@@ -1457,6 +1815,8 @@ function convertListing(jpTitle, jpBody, tested, condKey, noInk) {
   if (model) parts.push(model);
   var materialShort = matR.short || materialEn;
   if (materialShort && materialShort.indexOf(`Sterling Silver`) === 0) materialShort = `Sterling Silver`;
+  var fillM = (materialShort || E).match(/(\d{1,2}K\s)?(Silver|Gold) Filled|Rolled Gold/);
+  if (fillM) materialShort = fillM[0];
   var modelLow = (model || E).toLowerCase();
   if (materialShort && materialShort !== `Metal` && modelLow.indexOf(materialShort.toLowerCase()) < 0) parts.push(materialShort);
   if (penType) parts.push(penType.en);
@@ -1530,12 +1890,17 @@ function convertListing(jpTitle, jpBody, tested, condKey, noInk) {
       `刻印より、` + stamped + `年に製造されたものだと推察されます。`);
     add(E);
   }
+  var assetMat = materialEn;
+  var segs = String(materialEn || E).split(/\s*[\/\uFF0F\u30FB\u00D7,\u3001]\s*/);
+  for (var sg = 0; sg < segs.length; sg += 1) {
+    if (/Silver|Gold|Sterling|Platinum/i.test(segs[sg])) { assetMat = segs[sg]; break; }
+  }
   if (material && material.asset === `gold`) {
-    add(materialEn + `. With rising gold prices, this piece also holds value as an asset.`,
+    add(assetMat + `. With rising gold prices, this piece also holds value as an asset.`,
       materialEn + `。金価格の高騰により、資産としての価値もあります。`);
     add(E);
   } else if (material && material.asset === `silver`) {
-    add(materialEn + `. With rising silver prices, this piece also holds value as an asset.`,
+    add(assetMat + `. With rising silver prices, this piece also holds value as an asset.`,
       materialEn + `。銀価格の高騰により、資産としての価値もあります。`);
     add(E);
   }
@@ -1549,13 +1914,16 @@ function convertListing(jpTitle, jpBody, tested, condKey, noInk) {
   if (colorEn) add(`Color: ` + colorEn, `【カラー】` + (colR.raw || E));
   if (country) add(`Made in: ` + country.en + (era ? ` (` + (eraApprox ? `approx. ` : E) + era + `)` : E),
     `【製造】` + country.jp + (era ? `（` + era + `）` : E));
-  if (nib) add(`Nib Size: ` + (nibApprox ? `approx. ` : E) + nib.en,
+  if (nibP) add(`Nib Size: ` + nibP.en, `【ペン先】` + nibP.jp);
+  else if (nib) add(`Nib Size: ` + (nibApprox ? `approx. ` : E) + nib.en,
     `【ペン先】` + nib.jp + (nibApprox ? `程度` : E));
   if (refillAdapter) add(`Accessory: Refill adapter`, `【付属】リフィルアダプター`);
+  var notesJp = pickField(jpBody, `備考`);
+  var notesE = notesEn(notesJp);
+  if (notesE) add(`Notes: ` + notesE, `【備考】` + notesJp);
   if (specs.length) add(`Mechanism: ` + specs.map(function (s) { return s.en; }).join(` / `),
     `【仕様】` + specs.map(function (s) { return s.jp; }).join(`・`));
-  if (accs.length) add(`Included: ` + accs.map(function (a) { return a.en; }).join(`, `),
-    `【付属品】` + accs.map(function (a) { return a.jp; }).join(`、`));
+  if (accs.length) add(`Included: ` + accs.map(function (a) { return a.en; }).join(`, `), `【付属品】` + (accField || accs.map(function (a) { return a.jp; }).join(`、`)));
   add(E);
 
   add(`== CONDITION: ` + cond.grade + ` ==`, `【状態】` + cond.grade);
@@ -1569,16 +1937,16 @@ function convertListing(jpTitle, jpBody, tested, condKey, noInk) {
     else if (specs[0].jp === `ノック式`) { mechName = `The click mechanism`; mechJp = `ノック機構`; }
   }
   var refillDepleted = refillNeeded;
+  var refillEn = (refillNeeded === `ink` || (isFountain && refillNeeded !== `refill`)) ? `The pen will need to be filled with ink before use.` : `The refill is depleted, so please replace it before use.`;
+  var refillJp = (refillNeeded === `ink` || (isFountain && refillNeeded !== `refill`)) ? `ご使用の際にはインクを入れてください。` : `ご使用の際には替芯の交換をお願いします。`;
 
   if (tested) {
     add(mechName + ` has been tested and operates smoothly.`,
       mechJp + `の動作を確認済みです。（チェックをONにしたため）`);
-    if (refillDepleted) add(`The refill is depleted, so please replace it before use.`,
-      `ご使用の際には替芯の交換をお願いします。`);
+    if (refillDepleted) add(refillEn, refillJp);
   } else {
     if (refillDepleted) {
-      add(`The refill is depleted, so please replace it before use.`,
-        `ご使用の際には替芯の交換をお願いします。`);
+      add(refillEn, refillJp);
     }
     add(`The mechanism has not been fully tested. Please refer to the photos and ask if you have any questions.`,
       `機構の動作は未確認です。（チェックがOFFのため）`);
@@ -1591,43 +1959,9 @@ function convertListing(jpTitle, jpBody, tested, condKey, noInk) {
     add(`Regarding the fountain pen currently listed, we have not filled it with ink to test its writing performance.`,
       `現在出品中の万年筆につきましては、筆記確認のためのインク注入は行っておりません。`);
   }
-  var PHRASES = [
-    { jp: `インクの補充が必要`, en: `The pen will need to be filled with ink before use.` },
-    { jp: `インクは付属しません`, en: `Ink is not included.` },
-    { jp: `試筆のみ`, en: `Only test-written, hardly used.` },
-    { jp: `書き味`, en: `The nib writes smoothly.` },
-    { jp: `インク出`, en: `Ink flow has been checked.` },
-    { jp: `クリップに緩み`, en: `The clip is slightly loose.` },
-    { jp: `キャップに緩み`, en: `The cap is slightly loose.` },
-    { jp: `真鍮が見えて`, en: `Brass shows through in some worn areas.` },
-    { jp: `メッキ剥がれ`, en: `There is some plating loss.` },
-    { jp: `メッキの剥がれ`, en: `There is some plating loss.` },
-    { jp: `変色`, en: `There is some discoloration.` },
-    { jp: `小傷`, en: `There are small scratches.` },
-    { jp: `擦れ`, en: `There are signs of rubbing.` },
-    { jp: `打痕`, en: `There is a small dent.` },
-    { jp: `刻印あり`, en: `There is an engraving on the body.` },
-    { jp: `名入れ`, en: `There is a personalized engraving.` },
-    { jp: `箱に傷み`, en: `The box shows signs of wear.` },
-    { jp: `箱はありません`, en: `The original box is not included.` },
-    { jp: `付属品はありません`, en: `No accessories are included.` },
-    { jp: `写真の物が全て`, en: `Everything included is shown in the photos.` },
-    { jp: `喫煙者はおりません`, en: `From a smoke-free home.` },
-    { jp: `ペットは飼っておりません`, en: `From a pet-free home.` },
-    { jp: `自宅保管`, en: `Stored in a private home.` },
-    { jp: `神経質な方`, en: `If you are particular about condition, please consider carefully before purchasing.` },
-    { jp: `すり替え防止`, en: `To prevent fraud, returns for buyer\u0027s reasons are not accepted.` },
-    { jp: `値下げ`, en: `Price negotiation is not available.` },
-    { jp: `即購入`, en: `You may purchase immediately without asking.` },
-    { jp: `送料無料`, en: `Free shipping.` },
-    { jp: `匿名配送`, en: `Shipped with tracking.` },
-    { jp: `丁寧に梱包`, en: `The item will be packed carefully.` },
-    { jp: `即日発送`, en: `Ships the same day.` },
-    { jp: `翌日発送`, en: `Ships the next day.` }
-  ];
   var extraPhrases = [];
   for (var ph = 0; ph < PHRASES.length; ph++) {
-    if (jpBody.indexOf(PHRASES[ph].jp) >= 0) {
+    if (hasPhrase(jpBody, PHRASES[ph].jp, noInk) && L.indexOf(PHRASES[ph].en) < 0) {
       extraPhrases.push(PHRASES[ph]);
     }
   }
@@ -1639,7 +1973,7 @@ function convertListing(jpTitle, jpBody, tested, condKey, noInk) {
       `付属品には多少の汚れ等があります。`);
   }
   add(E);
-  add(`This is a pre-owned vintage item and is sold as-is. Please review all photos carefully, as they are part of the description. If you have any concerns about the condition, please ask before purchasing.`,
+  add(ASIS_TEXT,
     `中古のヴィンテージ品のため現状渡しです。写真も説明の一部ですのでご確認ください。状態にご不安があればご購入前にお尋ねください。（クレーム対策の定型文）`);
   add(E);
   add(`Feel free to ask any questions. Thank you for looking!`,
@@ -1665,14 +1999,24 @@ function convertListing(jpTitle, jpBody, tested, condKey, noInk) {
   if (specs.length) pushTail(specs[0].en.replace(` mechanism`, E));
   if (accs.length) pushTail(`with Box`);
 
+  var matFill = /Silver Filled/i.test(materialEn || E) ? `silver` : (/Gold Filled|Rolled Gold/i.test(materialEn || E) ? `gold` : E);
+  title = unifyFill(title, matFill);
+  L = L.map(function (x) { return unifyFill(x, matFill); });
+  for (var pf = 0; pf < PAIRS.length; pf += 1) PAIRS[pf].en = unifyFill(PAIRS[pf].en, matFill);
+  parts = parts.map(function (x) { return unifyFill(x, matFill); });
+  hooks = hooks.map(function (x) { return unifyFill(x, matFill); });
+  tails = tails.map(function (x) { return unifyFill(x, matFill); });
   return {
     title: title,
+    matFill: matFill,
     mgmt: mgmt,
     titleParts: parts,
     hooks: hooks,
     tails: tails,
     body: L.join(`\n`).replace(/\n{3,}/g, `\n\n`).trim(),
     pairs: PAIRS,
+    freeLines: extractFreeText(jpBody, material ? material.asset : E, refillAdapter, noInk, !!refillNeeded, accR ? accR.unknown : []),
+    kwRemoved: kw.removed,
     detected: {
       brand: brand ? brand.en : `(未検出)`,
       modelJp: modelJp || `(未検出)`,
@@ -1696,9 +2040,491 @@ function convertListing(jpTitle, jpBody, tested, condKey, noInk) {
   };
 }
 
+var ASIS_TEXT = `This is a pre-owned vintage item and is sold as-is. Please review all photos carefully, as they are part of the description. If you have any concerns about the condition, please ask before purchasing.`;
+
+/* ===== 自由文の自動翻訳 =====
+   1. Google翻訳（無料の公開窓口）を試す
+   2. ブラウザに止められたら MyMemory（無料の翻訳API）に切り替える
+   MyMemory は1日5,000字まで。下にメールアドレスを書くと1日50,000字まで増えます。 */
+var MM_EMAIL = E;
+
+var DET_HEAD = `== DETAILS ==`;
+
+function u8len(s) {
+  return encodeURIComponent(s).replace(/%[0-9A-F]{2}/gi, `x`).length;
+}
+
+function decodeEnt(s) {
+  return String(s)
+    .replace(/&#(\d+);/g, function (m, n) { return String.fromCharCode(Number(n)); })
+    .replace(/&quot;/g, `\u0022`)
+    .replace(/&#39;|&apos;/g, `\u0027`)
+    .replace(/&lt;/g, `<`)
+    .replace(/&gt;/g, `>`)
+    .replace(/&amp;/g, `&`);
+}
+
+function fetchJson(url, ms) {
+  return new Promise(function (resolve, reject) {
+    var finished = false;
+    var timer = setTimeout(function () {
+      if (finished) return;
+      finished = true;
+      reject(new Error(`timeout`));
+    }, ms);
+    fetch(url).then(function (res) {
+      if (!res.ok) {
+        var er = new Error(`HTTP ` + res.status);
+        er.status = res.status;
+        throw er;
+      }
+      return res.json();
+    }).then(function (j) {
+      if (finished) return;
+      finished = true;
+      clearTimeout(timer);
+      resolve(j);
+    }, function (e) {
+      if (finished) return;
+      finished = true;
+      clearTimeout(timer);
+      reject(e);
+    });
+  });
+}
+
+function mtGoogle(text) {
+  var url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=ja&tl=en&dt=t&q=` + encodeURIComponent(text);
+  return fetchJson(url, 8000).then(function (j) {
+    var out = E;
+    if (j && j[0] && j[0].length) {
+      for (var i = 0; i < j[0].length; i += 1) {
+        if (j[0][i] && typeof j[0][i][0] === `string`) out += j[0][i][0];
+      }
+    }
+    if (!out) throw new Error(`empty`);
+    return out;
+  });
+}
+
+function mtMyMemory(text) {
+  var url = `https://api.mymemory.translated.net/get?langpair=ja%7Cen&q=` + encodeURIComponent(text)
+    + (MM_EMAIL ? `&de=` + encodeURIComponent(MM_EMAIL) : E);
+  return fetchJson(url, 10000).then(function (j) {
+    var st = j ? Number(j.responseStatus) : 0;
+    var tx = (j && j.responseData && j.responseData.translatedText) ? String(j.responseData.translatedText) : E;
+    if (st === 429 || /MYMEMORY WARNING/i.test(tx)) {
+      var eq = new Error(`quota`);
+      eq.quota = true;
+      throw eq;
+    }
+    if (st !== 200 || !tx) throw new Error(`MyMemory ` + st);
+    return decodeEnt(tx);
+  }, function (e) {
+    if (e && e.status === 429) e.quota = true;
+    throw e;
+  });
+}
+
+/* 長い文は「、」で区切って、1回あたり480バイト以内にする（MyMemoryの上限が500バイトのため） */
+function splitForLimit(s, maxB) {
+  if (u8len(s) <= maxB) return [s];
+  var bits = s.replace(/、/g, `、\u0001`).split(`\u0001`);
+  var out = [], cur = E;
+  for (var i = 0; i < bits.length; i += 1) {
+    var b = bits[i];
+    while (u8len(b) > maxB) {
+      if (cur) { out.push(cur); cur = E; }
+      out.push(b.slice(0, 150));
+      b = b.slice(150);
+    }
+    if (u8len(cur + b) > maxB) { if (cur) out.push(cur); cur = b; }
+    else cur += b;
+  }
+  if (cur) out.push(cur);
+  return out;
+}
+
+function cleanEn(s) {
+  var t = String(s || E).replace(/\s+/g, ` `).trim();
+  t = t.replace(/\bMont[\s\-]?Blanc\b/gi, `MONTBLANC`);
+  if (!t) return t;
+  t = t.charAt(0).toUpperCase() + t.slice(1);
+  if (!/[.!?)]$/.test(t)) t += `.`;
+  return t;
+}
+
+function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+/* 1つの文を訳す。Googleが使えなければ以後はMyMemoryだけを使う */
+function mtOne(text) {
+  function viaMM() {
+    return mtMyMemory(text).then(function (en) { return { en: en, engine: `MyMemory` }; });
+  }
+  if (ST.googleBad) return viaMM();
+  return mtGoogle(text).then(function (en) {
+    return { en: en, engine: `Google` };
+  }, function (e) {
+    ST.googleBad = true;
+    ST.errs.Google = errText(e);
+    return viaMM();
+  });
+}
+
+function mtPiece(text) {
+  var pieces = splitForLimit(text, 480);
+  var res = [];
+  var engine = E;
+  var p = Promise.resolve();
+  pieces.forEach(function (pc, idx) {
+    p = p.then(function () { return idx ? wait(150) : null; })
+      .then(function () { return mtOne(pc); })
+      .then(function (r) { res.push(r.en); engine = r.engine; });
+  });
+  return p.then(function () { return { en: res.join(` `), engine: engine }; });
+}
+
+/* 複数の文を順番に訳す（同時に投げると制限にかかりやすいため） */
+function mtLinesWeb(lines, job, onStep) {
+  var results = [];
+  var engines = {};
+  var quota = false;
+  var p = Promise.resolve();
+  lines.forEach(function (ln, idx) {
+    p = p.then(function () {
+      if (job !== ST.job || quota) return null;
+      if (onStep) onStep(idx + 1, lines.length);
+      return (idx ? wait(200) : Promise.resolve()).then(function () {
+        return mtPiece(ln);
+      }).then(function (r) {
+        var en = cleanEn(r.en);
+        if (!en || /[\u3040-\u30FF\u4E00-\u9FFF]/.test(en)) {
+          results.push({ jp: ln, en: null });
+        } else {
+          results.push({ jp: ln, en: en });
+          engines[r.engine] = true;
+        }
+      }, function (e) {
+        if (e && e.quota) quota = true;
+        ST.errs.MyMemory = e && e.quota ? `1日の上限` : errText(e);
+        results.push({ jp: ln, en: null });
+      });
+    });
+  });
+  return p.then(function () {
+    return { results: results, engines: Object.keys(engines), quota: quota };
+  });
+}
+
+function unifyFill(t, kind) {
+  if (!t || !kind) return t;
+  if (kind === `silver`) return String(t).replace(/Silver[\s\-]Plated/g, `Silver Filled`).replace(/silver[\s\-]plated/gi, `silver-filled`).replace(/silver[\s\-]plate\b/gi, `silver-filled`);
+  return String(t).replace(/Gold[\s\-]Plated/g, `Gold Filled`).replace(/gold[\s\-]plated/gi, `gold-filled`).replace(/gold[\s\-]plate\b/gi, `gold-filled`);
+}
+function fixMaterialEn(jp, en) {
+  if (!en) return en;
+  if (ST.matFill) return unifyFill(en, ST.matFill);
+  if (/銀張/.test(jp) && !/銀メッキ|シルバープレート/.test(jp)) en = en.replace(/silver[\s\-]plated/gi, `silver-filled`).replace(/silver[\s\-]plate\b/gi, `silver-filled`);
+  if (/金張/.test(jp) && !/金メッキ|ゴールドプレート/.test(jp)) en = en.replace(/gold[\s\-]plated/gi, `gold-filled`).replace(/gold[\s\-]plate\b/gi, `gold-filled`);
+  return en;
+}
+function errText(e) {
+  if (!e) return `不明`;
+  if (e.status) return `HTTP ` + e.status;
+  var m = String(e.message || e);
+  if (/Load failed|Failed to fetch|NetworkError|TypeError/i.test(m)) return `通信が遮断された`;
+  if (m === `timeout`) return `時間切れ`;
+  return m.slice(0, 160);
+}
+
+function postJson(url, payload, ms) {
+  return new Promise(function (resolve, reject) {
+    var finished = false;
+    var timer = setTimeout(function () {
+      if (finished) return;
+      finished = true;
+      reject(new Error(`timeout`));
+    }, ms);
+    var opt = { method: `POST`, headers: { [`Content-Type`]: `application/json` }, body: JSON.stringify(payload) };
+    fetch(url, opt).then(function (res) {
+      if (!res.ok) { var er = new Error(`HTTP ` + res.status); er.status = res.status; throw er; }
+      return res.json();
+    }).then(function (j) {
+      if (finished) return;
+      finished = true; clearTimeout(timer); resolve(j);
+    }, function (e) {
+      if (finished) return;
+      finished = true; clearTimeout(timer); reject(e);
+    });
+  });
+}
+
+/* Claude（Anthropic API）でまとめて訳す。Claudeアプリの画面内で開いたときに使える */
+var CLAUDE_MODEL = `claude-sonnet-4-6`;
+function mtClaudeBatch(lines, kind) {
+  var brands = DIC_BRANDS.map(function (b) { return b.en; }).join(`, `);
+  var task = kind === `word`
+    ? `Translate each Japanese word or short phrase below into English for an eBay listing title of a vintage pen. Use the official English spelling for brand and model names. Each answer must be at most 4 words, letters only, no trailing period.`
+    : `Translate each Japanese sentence below into natural, accurate English for an eBay listing description of a vintage writing instrument. Translate faithfully: do not add, exaggerate, or omit anything about condition. Use the official English spelling for brand and model names (for example: ` + brands + `; Noblesse Oblige, Meisterstuck, Souveran). Material terms: 銀張り = silver-filled (never silver-plated), 金張り = gold-filled (rolled gold, never gold-plated), 銀メッキ = silver-plated, 金メッキ = gold-plated, 純銀 or シルバー925 = sterling silver.`;
+  var prompt = task + `\nReturn ONLY a JSON array of ` + lines.length + ` strings, in the same order, with no other text.\n\n` + JSON.stringify(lines);
+  return claudeAsk(prompt).then(function (txt) {
+    var a = txt.indexOf(`[`), b = txt.lastIndexOf(`]`);
+    if (a < 0 || b <= a) throw new Error(`応答の形式が違う`);
+    var arr = JSON.parse(txt.slice(a, b + 1));
+    if (!arr || arr.length !== lines.length) throw new Error(`訳の数が合わない`);
+    for (var i = 0; i < arr.length; i += 1) if (typeof arr[i] !== `string`) throw new Error(`応答の形式が違う`);
+    return arr;
+  });
+}
+
+/* Claudeへの頼み方を順番に試し、通った方法を覚えておく */
+var CLAUDE_WAYS = [
+  { id: `sonnet-4-6`, run: function (prompt) { return claudeFetch(`claude-sonnet-4-6`, prompt); } }
+];
+function claudeFetch(model, prompt) {
+  return postJson(`https://api.anthropic.com/v1/messages`, {
+    model: model,
+    max_tokens: 1000,
+    messages: [{ role: `user`, content: prompt }]
+  }, 45000).then(function (data) {
+    if (data && data.error) throw new Error(String(data.error.message || data.error.type || `error`).slice(0, 40));
+    return (data && data.content ? data.content : []).map(function (c) { return c.type === `text` ? c.text : E; }).join(E);
+  });
+}
+function claudeAsk(prompt) {
+  if (ST.claudeWay) {
+    for (var k = 0; k < CLAUDE_WAYS.length; k += 1) if (CLAUDE_WAYS[k].id === ST.claudeWay) return CLAUDE_WAYS[k].run(prompt);
+  }
+  var tried = [];
+  var i = 0;
+  function next() {
+    if (i >= CLAUDE_WAYS.length) return Promise.reject(new Error(tried.join(` ／ `)));
+    var w = CLAUDE_WAYS[i];
+    i += 1;
+    return w.run(prompt).then(function (txt) {
+      if (!txt) throw new Error(`空の応答`);
+      ST.claudeWay = w.id;
+      return txt;
+    }, function (e) {
+      tried.push(w.id + `＝` + errText(e));
+      return next();
+    });
+  }
+  return next();
+}
+
+/* Claude → Google → MyMemory の順に試す */
+function mtLines(lines, job, onStep) {
+  var results = [];
+  var failAt = -1;
+  var p = Promise.resolve();
+  if (!ST.claudeBad) {
+    var size = 10;
+    for (var c = 0; c < lines.length; c += size) {
+      (function (start) {
+        p = p.then(function () {
+          if (failAt >= 0 || job !== ST.job) return null;
+          if (onStep) onStep(start, lines.length);
+          var chunk = lines.slice(start, start + size);
+          return mtClaudeBatch(chunk, `sent`).then(function (arr) {
+            for (var i = 0; i < chunk.length; i += 1) {
+              var en = fixMaterialEn(chunk[i], cleanEn(arr[i]));
+              results.push({ jp: chunk[i], en: (en && !/[\u3040-\u30FF\u4E00-\u9FFF]/.test(en)) ? en : null });
+            }
+          }, function (e) {
+            ST.claudeBad = true;
+            ST.errs.Claude = errText(e);
+            failAt = start;
+          });
+        });
+      })(c);
+    }
+  } else {
+    failAt = 0;
+  }
+  return p.then(function () {
+    if (job !== ST.job) return { results: results, engines: [], quota: false };
+    if (failAt < 0) return { results: results, engines: [`Claude`], quota: false };
+    return mtLinesWeb(lines.slice(failAt), job, onStep).then(function (r) {
+      return {
+        results: results.concat(r.results),
+        engines: (results.length ? [`Claude`] : []).concat(r.engines),
+        quota: r.quota
+      };
+    });
+  });
+}
+
+function removeDetails(body) {
+  if (ST.detBlock) {
+    var k0 = body.indexOf(ST.detBlock);
+    if (k0 >= 0) body = body.slice(0, k0) + body.slice(k0 + ST.detBlock.length);
+    ST.detBlock = E;
+  }
+  var s = body.indexOf(DET_HEAD);
+  if (s < 0) return body;
+  var e = body.indexOf(`\n\n`, s);
+  return e < 0 ? body.slice(0, s) : body.slice(0, s) + body.slice(e + 2);
+}
+/* 自由文欄の並び（空行＝段落の切れ目）どおりに英文を組み立てる */
+function detailsText(items) {
+  var raw = $(`jfree`).value.split(/\r?\n/).map(function (x) { return x.trim(); });
+  var map = {};
+  var matched = 0;
+  for (var i = 0; i < items.length; i += 1) if (items[i].jp) map[items[i].jp] = items[i].en;
+  var paras = [], cur = [];
+  for (var j = 0; j < raw.length; j += 1) {
+    if (!raw[j]) { if (cur.length) paras.push(cur); cur = []; continue; }
+    if (map[raw[j]] !== undefined) { cur.push(map[raw[j]]); matched += 1; }
+  }
+  if (cur.length) paras.push(cur);
+  if (!matched) return items.map(function (x) { return x.en; }).join(`\n\n`);
+  return paras.map(function (p) { return p.join(`\n`); }).join(`\n\n`);
+}
+
+/* 訳した文を説明文の「現状渡し」定型文の直前に DETAILS として入れる（入れ直すと前の分は置き換え） */
+function applyDetails(items) {
+  var body = removeDetails($(`eb`).value);
+  if (items.length) {
+    var block = detailsText(items) + `\n\n`;
+    ST.detBlock = block;
+    var k = body.indexOf(`== SPECIFICATIONS ==`);
+    if (k < 0) k = body.indexOf(ASIS_TEXT.slice(0, 30));
+    if (k >= 0) body = body.slice(0, k) + block + body.slice(k);
+    else body = body.replace(/\s+$/, E) + `\n\n` + block;
+  }
+  $(`eb`).value = body.replace(/\n{3,}/g, `\n\n`).trim();
+  if (ST.detBlock && $(`eb`).value.indexOf(ST.detBlock) < 0) ST.detBlock = ST.detBlock.replace(/\n+$/, E);
+
+  var keep = [];
+  for (var i = 0; i < ST.pairs.length; i += 1) if (!ST.pairs[i].free) keep.push(ST.pairs[i]);
+  var ins = [];
+  if (items.length) {
+    for (var j = 0; j < items.length; j += 1) ins.push({ en: items[j].en, jp: items[j].jp || `（手動で貼り付け）`, free: true });
+  }
+  var at = keep.length;
+  for (var q = 0; q < keep.length; q += 1) {
+    if (keep[q].en.indexOf(`== SPECIFICATIONS ==`) === 0 || keep[q].en.indexOf(ASIS_TEXT.slice(0, 30)) === 0) { at = q; break; }
+  }
+  ST.pairs = keep.slice(0, at).concat(ins, keep.slice(at));
+  renderPairs();
+}
+
+function setStat(msg, kind) {
+  var el = $(`mtstat`);
+  el.innerHTML = msg;
+  el.className = `mtstat` + (kind ? ` ` + kind : E);
+}
+
+function freeLinesNow() {
+  return $(`jfree`).value.split(/\r?\n/).map(function (s) { return s.trim(); }).filter(function (s) { return s; });
+}
+
+function updateFreeCount() {
+  $(`mtcnt`).textContent = freeLinesNow().length + `文`;
+}
+
+function mtRun() {
+  ST.claudeBad = false;
+  ST.googleBad = false;
+  ST.errs = {};
+  var lines = freeLinesNow();
+  updateFreeCount();
+  ST.job += 1;
+  var job = ST.job;
+  if (!lines.length) {
+    applyDetails([]);
+    setStat(`翻訳が必要な自由文はありません。`, `ok`);
+    return Promise.resolve();
+  }
+  var btn = $(`mtrun`);
+  btn.disabled = true;
+  btn.style.opacity = `0.5`;
+  setStat(`翻訳中… 0 / ` + lines.length);
+  return mtLines(lines, job, function (n, total) {
+    if (job === ST.job) setStat(`翻訳中… ` + n + ` / ` + total);
+  }).then(function (r) {
+    if (job !== ST.job) return;
+    btn.disabled = false;
+    btn.style.opacity = E;
+    var ok = r.results.filter(function (x) { return x.en; });
+    var ng = r.results.filter(function (x) { return !x.en; });
+    applyDetails(ok);
+    if (!ok.length) {
+      var why = Object.keys(ST.errs).map(function (k) { return k + `：` + ST.errs[k]; }).join(` ／ `);
+      setStat(`⚠ 自動翻訳できませんでした。<br><small>` + esc(why || `原因不明`) + `</small><br>下の「Google翻訳で手動で訳す」を使ってください。`, `ng`);
+      return;
+    }
+    var msg = `✓ ` + ok.length + `文を翻訳して説明文（SPECIFICATIONS の上）に入れました（` + r.engines.join(`・`) + `）`;
+    if (ng.length) {
+      msg += `<br>⚠ 訳せなかった文：` + ng.map(function (x) { return `「` + esc(x.jp) + `」`; }).join(E);
+      if (r.quota) msg += `<br>（MyMemoryの1日の上限に達しました）`;
+    }
+    setStat(msg, ng.length ? `ng` : `ok`);
+    toast(`✓ 自由文を翻訳しました`);
+  });
+}
+
+/* タイトルで英訳できなかった語を訳して、末尾候補のチップに足す */
+function mtLeftover(words, job) {
+  if (!words.length) return Promise.resolve();
+  var found = [];
+  var p = Promise.resolve();
+  var claudeDone = false;
+  if (!ST.claudeBad) {
+    p = mtClaudeBatch(words, `word`).then(function (arr) {
+      for (var i = 0; i < words.length; i += 1) {
+        var en = String(arr[i] || E).replace(/[.\u3002]+$/, E).trim();
+        if (en && /^[A-Za-z0-9 &\u0027.\-]+$/.test(en) && en.length <= 30) found.push({ jp: words[i], en: en });
+      }
+      claudeDone = true;
+    }, function () { ST.claudeBad = true; });
+  }
+  words.forEach(function (w, idx) {
+    p = p.then(function () {
+      if (job !== ST.job || claudeDone) return null;
+      return (idx ? wait(200) : Promise.resolve()).then(function () { return mtOne(w); }).then(function (r) {
+        var en = String(r.en || E).replace(/[.\u3002]+$/, E).trim();
+        if (en && /^[A-Za-z0-9 &\u0027.\-]+$/.test(en) && en.length <= 30) found.push({ jp: w, en: en });
+      }, function () {});
+    });
+  });
+  return p.then(function () {
+    if (job !== ST.job || !found.length) return;
+    for (var i = 0; i < found.length; i += 1) {
+      if (ST.tails.indexOf(found[i].en) < 0) ST.tails.push(found[i].en);
+    }
+    renderTails();
+    var box = $(`warn`);
+    box.innerHTML += `<div>💡 自動訳の候補：` + found.map(function (x) { return `「` + esc(x.jp) + `」→ <strong>` + esc(x.en) + `</strong>`; }).join(`、`) + `（タイトル末尾の候補に追加しました）</div>`;
+    box.className = `warn`;
+  });
+}
+
+function mtManualOpen() {
+  var txt = freeLinesNow().join(`\n`);
+  if (!txt) { toast(`⚠ 翻訳する文がありません`); return; }
+  var url = `https://translate.google.com/?sl=ja&tl=en&op=translate&text=` + encodeURIComponent(txt);
+  if (url.length > 1900) url = `https://translate.google.com/?sl=ja&tl=en&op=translate`;
+  copyText(txt, `日本語の自由文`);
+  window.open(url, `_blank`);
+  $(`mtmanbox`).className = E;
+}
+
+function mtManualApply() {
+  var en = $(`mtpaste`).value.split(/\r?\n/).map(function (s) { return s.trim(); }).filter(function (s) { return s; });
+  if (!en.length) { toast(`⚠ 英文を貼り付けてください`); return; }
+  var jp = freeLinesNow();
+  var same = jp.length === en.length;
+  var items = en.map(function (s, i) { return { en: cleanEn(s), jp: same ? jp[i] : E }; });
+  applyDetails(items);
+  setStat(`✓ 貼り付けた英文 ` + items.length + `行を説明文（SPECIFICATIONS の上）に入れました` + (same ? E : `（行数が日本語と違うため、対訳表の日本語は空欄です）`), `ok`);
+  toast(`✓ 説明文に入れました`);
+}
+
 function $(id) { return document.getElementById(id); }
 
-var ST = { tested: false, noInk: false, parts: [], hooks: [], hook: E, tails: [], tailOn: [], pairs: [], showPairs: false, open: false, cond: E, mgmt: E };
+var ST = { matFill: E, detBlock: E, claudeWay: E, tested: false, noInk: false, autoMt: true, googleBad: false, claudeBad: false, errs: {}, job: 0, parts: [], hooks: [], hook: E, tails: [], tailOn: [], pairs: [], showPairs: false, open: false, cond: E, mgmt: E };
 var toastTimer = null;
 
 function esc(s) {
@@ -1745,10 +2571,10 @@ function updateLen() {
   var bar = $(`lenbar`);
   var msg = $(`lenmsg`);
   if (n > 80) {
-    bar.className = `lenbar over`;
+    bar.className = `lenbar lover`;
     msg.textContent = (n - 80) + `文字オーバー`;
   } else if (n > 70) {
-    bar.className = `lenbar warn`;
+    bar.className = `lenbar lwarn`;
     msg.textContent = `あと` + (80 - n) + `文字`;
   } else {
     bar.className = `lenbar`;
@@ -1876,7 +2702,7 @@ function renderPairs() {
   for (var i = 0; i < ST.pairs.length; i++) {
     var p = ST.pairs[i];
     var isHead = p.en.indexOf(`==`) === 0;
-    html += `<div class=\u0022pair` + (isHead ? ` head` : E) + `\u0022>`;
+    html += `<div class=\u0022pair` + (isHead ? ` head` : E) + (p.free ? ` free` : E) + `\u0022>`;
     html += `<div class=\u0022en\u0022>` + esc(p.en) + `</div>`;
     html += `<div class=\u0022jp\u0022>` + esc(p.jp || `（定型文）`) + `</div>`;
     html += `</div>`;
@@ -1904,10 +2730,15 @@ function run() {
   ST.tailOn = [];
   ST.mgmt = r.mgmt || E;
   ST.pairs = r.pairs || [];
+  ST.matFill = r.matFill || E;
   ST.showPairs = false;
 
   $(`et`).value = r.title;
   $(`eb`).value = r.body;
+  $(`jfree`).value = (r.freeLines || []).join(`\n`);
+  $(`mtpaste`).value = E;
+  $(`mtmanbox`).className = `hide`;
+  updateFreeCount();
   $(`result`).className = E;
   $(`pairs`).className = `pairs hide`;
   $(`pairbtn`).textContent = `対訳表を見る（元の日本語との対応）`;
@@ -1925,30 +2756,46 @@ function run() {
   if (r.detected.leftover) {
     w += `<div>⚠ <strong>「` + esc(r.detected.leftover) + `」</strong>は英訳できませんでした。</div>`;
   }
+  if (r.kwRemoved && r.kwRemoved.length) {
+    w += `<div>🔍 検索用ワード ` + r.kwRemoved.length + `行は除外しました（翻訳・英訳には使いません）：<span style=\u0022color:#888\u0022>` + esc(r.kwRemoved.join(` `).slice(0, 60)) + `…</span></div>`;
+  }
   $(`warn`).innerHTML = w;
   $(`warn`).className = w ? `warn` : `warn hide`;
 
   toast(`✓ 変換しました`);
+
+  if (ST.autoMt) {
+    mtRun().then(function () {
+      var words = r.detected.leftover ? r.detected.leftover.split(` `).filter(function (x) { return x; }) : [];
+      return mtLeftover(words, ST.job);
+    });
+  } else {
+    ST.job += 1;
+    if ((r.freeLines || []).length) setStat(`自動翻訳はOFFです。訳すときは下のボタンを押してください。`);
+    else setStat(`翻訳が必要な自由文はありません。`, `ok`);
+  }
 }
 
 function openTranslate() {
   var txt = ($(`eb`).value || E).trim();
   if (!txt) { toast(`⚠ 説明文がありません`); return; }
   var url = `https://translate.google.com/?sl=en&tl=ja&op=translate&text=` + encodeURIComponent(txt);
-  if (url.length <= 1900) { window.open(url, `_blank`); return; }
+  if (txt.length <= 5000) { window.open(url, `_blank`); return; }
   copyText(txt, `説明文`);
-  setTimeout(function () {
-    window.open(`https://translate.google.com/?sl=en&tl=ja&op=translate`, `_blank`);
-  }, 600);
+  window.open(`https://translate.google.com/?sl=en&tl=ja&op=translate`, `_blank`);
+  toast(`5000文字を超えるのでコピーしました。翻訳欄に貼り付けてください`);
 }
 
 $(`run`).onclick = run;
 
 $(`clear`).onclick = function () {
+  ST.job += 1;
   $(`jt`).value = E;
   $(`jb`).value = E;
   $(`et`).value = E;
   $(`eb`).value = E;
+  $(`jfree`).value = E;
+  $(`mtpaste`).value = E;
   $(`result`).className = `hide`;
   $(`warn`).className = `warn hide`;
 };
@@ -1965,6 +2812,12 @@ $(`chkink`).onclick = function () {
   $(`chkinkbox`).textContent = ST.noInk ? `✓` : E;
 };
 
+$(`chkmt`).onclick = function () {
+  ST.autoMt = !ST.autoMt;
+  $(`chkmt`).className = ST.autoMt ? `chk on` : `chk`;
+  $(`chkmtbox`).textContent = ST.autoMt ? `✓` : E;
+};
+
 $(`sechd`).onclick = function () {
   ST.open = !ST.open;
   $(`det`).className = ST.open ? `secbody` : `secbody hide`;
@@ -1974,6 +2827,10 @@ $(`sechd`).onclick = function () {
 $(`copyT`).onclick = function () { copyText($(`et`).value, `タイトル`); };
 $(`copyB`).onclick = function () { copyText($(`eb`).value, `説明文`); };
 $(`gt`).onclick = openTranslate;
+$(`mtrun`).onclick = function () { mtRun(); };
+$(`mtmanual`).onclick = mtManualOpen;
+$(`mtpastego`).onclick = mtManualApply;
+$(`jfree`).oninput = updateFreeCount;
 
 $(`pairbtn`).onclick = function () {
   ST.showPairs = !ST.showPairs;
